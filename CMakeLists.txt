@@ -77,12 +77,12 @@ add_subdirectory(external/SDL EXCLUDE_FROM_ALL)
 # Requires Python at configure time to generate the loader source.
 # GLES3 is linked directly on mobile/web; no loader needed there.
 if(GLYPH_PLATFORM_DESKTOP)
-    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/glad/CMakeLists.txt")
+    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/glad/cmake/CMakeLists.txt")
         message(FATAL_ERROR
             "glad submodule not found at external/glad. "
             "Run: git submodule update --init --recursive")
     endif()
-    add_subdirectory(external/glad EXCLUDE_FROM_ALL)
+    add_subdirectory(external/glad/cmake EXCLUDE_FROM_ALL)
     glad_add_library(glad_gl STATIC REPRODUCIBLE API gl:core=3.3)
 endif()
 

@@ -5,14 +5,19 @@
 
 #include <SDL3/SDL.h>
 
-// glad must be included after the GL context is current; the actual
-// gladLoadGL() call happens inside create() after SDL_GL_MakeCurrent.
 #if defined(GLYPH_PLATFORM_DESKTOP)
 #  include <glad/gl.h>
+
+// glad needs a loader that returns GLADapiproc (a function pointer type, not void*).
+// SDL_GL_GetProcAddress returns SDL_FunctionPointer, which is the same underlying
+// type on all our desktop targets. reinterpret_cast between function pointer types
+// is explicitly blessed by the POSIX dlsym spec and works on all supported ABIs.
+static GLADapiproc glad_proc_loader(const char* name) {
+    return reinterpret_cast<GLADapiproc>(SDL_GL_GetProcAddress(name));
+}
 #endif
 
 #include <cstdio>
-#include <cstring>
 
 namespace glyph {
 
@@ -34,6 +39,7 @@ bool Window::create(const AppConfig& config) {
         return false;
     }
 
+    // SDL_GLContext is a struct pointer type; void* stores it without casting.
     gl_context_ = SDL_GL_CreateContext(window_);
     if (!gl_context_) {
         std::fprintf(stderr, "[glyph] SDL_GL_CreateContext failed: %s\n", SDL_GetError());
@@ -42,22 +48,13 @@ bool Window::create(const AppConfig& config) {
         return false;
     }
 
-    SDL_GL_MakeCurrent(window_, gl_context_);
+    SDL_GL_MakeCurrent(window_, static_cast<SDL_GLContext>(gl_context_));
 
 #if defined(GLYPH_PLATFORM_DESKTOP)
-    // Load all GL 3.3 Core function pointers via glad2.
-    // SDL_GL_GetProcAddress returns SDL_FunctionPointer (a function pointer type),
-    // but glad needs void* (a data pointer). They are the same size on all
-    // platforms we target; memcpy is the pedantically-correct conversion.
-    const int gl_version = gladLoadGL([](const char* name) -> void* {
-        SDL_FunctionPointer fn = SDL_GL_GetProcAddress(name);
-        void* ptr;
-        std::memcpy(&ptr, &fn, sizeof(ptr));
-        return ptr;
-    });
+    const int gl_version = gladLoadGL(glad_proc_loader);
     if (!gl_version) {
         std::fprintf(stderr, "[glyph] gladLoadGL failed — GL 3.3 Core not supported?\n");
-        SDL_GL_DestroyContext(gl_context_);
+        SDL_GL_DestroyContext(static_cast<SDL_GLContext>(gl_context_));
         SDL_DestroyWindow(window_);
         gl_context_ = nullptr;
         window_     = nullptr;
@@ -82,7 +79,7 @@ ivec2 Window::drawable_size() const {
 
 void Window::destroy() {
     if (gl_context_) {
-        SDL_GL_DestroyContext(gl_context_);
+        SDL_GL_DestroyContext(static_cast<SDL_GLContext>(gl_context_));
         gl_context_ = nullptr;
     }
     if (window_) {

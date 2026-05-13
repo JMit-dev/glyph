@@ -3,14 +3,13 @@
 // Game authors subclass Game, override the lifecycle hooks they care about,
 // and register their class with GLYPH_MAIN(). The engine owns main() and
 // drives the lifecycle.
-//
-// Phase 1: configure/start/update/shutdown only. Render hook and services
-// (scene, renderer, input, audio) are added in later phases per the spec.
 #pragma once
 
 #include <string>
 
 namespace glyph {
+
+class Renderer;
 
 struct AppConfig {
     std::string title      = "Glyph Game";
@@ -28,11 +27,14 @@ public:
     // Called once before window creation. Return the desired config.
     virtual AppConfig configure() { return {}; }
 
-    // Called once after the window is created and subsystems are initialized.
+    // Called once after the window, GL context, and subsystems are ready.
     virtual void on_start() {}
 
     // Called every frame. dt is delta time in seconds.
     virtual void on_update(float /*dt*/) {}
+
+    // Called every frame after on_update. Issue all draw calls here.
+    virtual void on_render(Renderer& /*r*/) {}
 
     // Called once before subsystems shut down.
     virtual void on_shutdown() {}

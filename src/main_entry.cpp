@@ -15,6 +15,7 @@
 #include "platform/window.h"
 
 #include <glyph/app.h>
+#include <glyph/renderer.h>
 
 #include <cstdio>
 #include <memory>
@@ -27,6 +28,7 @@ namespace glyph {
 struct AppState {
     std::unique_ptr<Game> game;
     Window                window;
+    Renderer              renderer;
     uint64_t              prev_ticks_ms = 0;
 };
 
@@ -38,7 +40,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
         return SDL_APP_FAILURE;
     }
 
-    auto state  = std::make_unique<glyph::AppState>();
+    auto state = std::make_unique<glyph::AppState>();
+
     state->game.reset(glyph_create_game());
     if (!state->game) {
         std::fprintf(stderr, "[glyph] glyph_create_game returned null\n");
@@ -47,6 +50,13 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
 
     const glyph::AppConfig config = state->game->configure();
     if (!state->window.create(config)) {
+        return SDL_APP_FAILURE;
+    }
+
+    // glad is loaded inside window.create(); renderer.init() can call GL freely.
+    const glyph::ivec2 drawable = state->window.drawable_size();
+    if (!state->renderer.init(drawable.x, drawable.y)) {
+        std::fprintf(stderr, "[glyph] Renderer::init failed\n");
         return SDL_APP_FAILURE;
     }
 
@@ -66,8 +76,10 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
 
     state->game->on_update(dt);
 
-    // Phase 1 has no renderer yet; just yield a frame so we don't hog CPU.
-    SDL_Delay(16);
+    state->renderer.begin_frame();
+    state->game->on_render(state->renderer);
+    state->renderer.end_frame();
+    state->window.swap_buffers();   // vsync paces the loop; no SDL_Delay needed
 
     return state->window.should_close() ? SDL_APP_SUCCESS : SDL_APP_CONTINUE;
 }
@@ -90,6 +102,7 @@ void SDL_AppQuit(void* appstate, SDL_AppResult /*result*/) {
     auto* state = static_cast<glyph::AppState*>(appstate);
     if (state) {
         state->game->on_shutdown();
+        state->renderer.shutdown();
         state->window.destroy();
         delete state;
     }

@@ -4,3 +4,4 @@
 #include <glyph/app.h>
 #include <glyph/math.h>
 #include <glyph/renderer.h>
+#include <glyph/texture.h>

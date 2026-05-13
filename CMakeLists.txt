@@ -73,11 +73,25 @@ set(SDL_TESTS OFF CACHE BOOL "" FORCE)
 set(SDL_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(external/SDL EXCLUDE_FROM_ALL)
 
+# glad2 — OpenGL 3.3 Core function loader (desktop only).
+# Requires Python at configure time to generate the loader source.
+# GLES3 is linked directly on mobile/web; no loader needed there.
+if(GLYPH_PLATFORM_DESKTOP)
+    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/glad/CMakeLists.txt")
+        message(FATAL_ERROR
+            "glad submodule not found at external/glad. "
+            "Run: git submodule update --init --recursive")
+    endif()
+    add_subdirectory(external/glad EXCLUDE_FROM_ALL)
+    glad_add_library(glad_gl STATIC REPRODUCIBLE API gl:core=3.3)
+endif()
+
 # ---------------------------------------------------------------------------
 # Engine library
 # ---------------------------------------------------------------------------
 add_library(glyph STATIC
     src/platform/window.cpp
+    src/renderer/renderer.cpp
 )
 
 target_include_directories(glyph
@@ -87,9 +101,17 @@ target_include_directories(glyph
         ${CMAKE_SOURCE_DIR}/src
 )
 
+target_compile_definitions(glyph PUBLIC
+    $<$<BOOL:${GLYPH_PLATFORM_DESKTOP}>:GLYPH_PLATFORM_DESKTOP>
+    $<$<BOOL:${GLYPH_PLATFORM_WEB}>:GLYPH_PLATFORM_WEB>
+    $<$<BOOL:${GLYPH_PLATFORM_ANDROID}>:GLYPH_PLATFORM_ANDROID>
+    $<$<BOOL:${GLYPH_PLATFORM_IOS}>:GLYPH_PLATFORM_IOS>
+)
+
 target_link_libraries(glyph
     PUBLIC
         SDL3::SDL3-static
+        $<$<BOOL:${GLYPH_PLATFORM_DESKTOP}>:glad_gl>
 )
 
 # ---------------------------------------------------------------------------

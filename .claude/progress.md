@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 3: Shader + textured quad**
+**Phase 4: Sprite batcher**
 
 Status: not started
 
@@ -14,7 +14,7 @@ Status: not started
 
 - [x] **1. CMake skeleton + SDL3 window** — `samples/01_hello_window` opens and closes cleanly → tag `v0.1.0`
 - [x] **2. GL context + clear color** — verified on desktop → tag `v0.2.0`
-- [ ] **3. Shader + textured quad** — hardcoded vertices, one texture → tag `v0.3.0`
+- [x] **3. Shader + textured quad** — hardcoded vertices, one texture → tag `v0.3.0`
 - [ ] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
 - [ ] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
 - [ ] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
@@ -45,3 +45,6 @@ SDL3 callback-based main pattern used instead of traditional while loop — work
 
 ### Phase 2
 glad2 loaded inside Window::create() after SDL_GL_MakeCurrent — keeps platform GL details confined to src/platform/. SDL_FunctionPointer → void* conversion done via memcpy (pedantically correct). Platform compile definitions (GLYPH_PLATFORM_DESKTOP etc.) propagated to all targets via target_compile_definitions PUBLIC. ivec2 defined as a plain struct for now; becomes a glm alias in phase 5.
+
+### Phase 3
+GLSL source strings carry no #version — platform header injected at compile time via glShaderSource two-source array (#version 330 core on desktop, #version 300 es on GLES). #ifdef GL_ES guards precision qualifiers. Renderer stores GL handles (unsigned int) directly as private members to avoid leaking internal types into the public header. Ortho matrix computed without glm; will be replaced when glm arrives in phase 5. LNK4098 warning from SDL/MSVC runtime mix is harmless — address if it causes runtime issues.

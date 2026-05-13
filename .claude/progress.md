@@ -6,13 +6,13 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 1: CMake skeleton + SDL3 window**
+**Phase 2: GL context + clear color**
 
 Status: not started
 
 ## Phase checklist
 
-- [ ] **1. CMake skeleton + SDL3 window** — `samples/01_hello_window` opens and closes cleanly → tag `v0.1.0`
+- [x] **1. CMake skeleton + SDL3 window** — `samples/01_hello_window` opens and closes cleanly → tag `v0.1.0`
 - [ ] **2. GL context + clear color** — verified on desktop → tag `v0.2.0`
 - [ ] **3. Shader + textured quad** — hardcoded vertices, one texture → tag `v0.3.0`
 - [ ] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
@@ -41,4 +41,4 @@ Status: not started
 (Add brief notes here as phases complete: what was tricky, what was deferred, decisions made.)
 
 ### Phase 1
-_pending_
+SDL3 callback-based main pattern used instead of traditional while loop — works identically across desktop, web, and mobile without restructuring at phase 19. SDL_Delay(16) in SDL_AppIterate is a placeholder; remove when vsync from the GL swap takes over in phase 2.

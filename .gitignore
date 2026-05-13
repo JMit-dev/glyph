@@ -1,0 +1,71 @@
+# Build outputs
+build/
+build-*/
+out/
+cmake-build-*/
+install/
+
+# CMake intermediates
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Submodule build dirs
+external/*/build/
+external/*/cmake-build-*/
+
+# Compiled object/library/binary
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.app
+*.wasm
+*.js.mem
+*.js.map
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.sln.docstates
+*.vcxproj.filters.user
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (CLion, etc.)
+.idea/
+
+# Xcode / iOS
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# Android / Gradle
+*.iml
+local.properties
+.gradle/
+
+# clangd / IDE cache
+.cache/
+.clangd/
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and crash dumps
+*.log
+core
+*.stackdump

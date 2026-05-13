@@ -1,0 +1,92 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: c++17
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+AccessModifierOffset: -4
+NamespaceIndentation: None
+
+# Line length
+ColumnLimit: 100
+
+# Braces (K&R-attached for everything)
+BreakBeforeBraces: Attach
+
+# Pointers and references (T* x, T& x)
+PointerAlignment: Left
+ReferenceAlignment: Left
+DerivePointerAlignment: false
+
+# Includes — ordering matches conventions.md
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  # 1. Internal headers in current dir, "double quotes"
+  - Regex: '^"[^/]+"$'
+    Priority: 1
+  # 2. Internal headers in subdirs, "double quotes"
+  - Regex: '^".*/.*"$'
+    Priority: 2
+  # 3. Public engine headers
+  - Regex: '^<glyph/'
+    Priority: 3
+  # 4. Third-party (SDL, glm, stb, sol, EnTT, etc.)
+  - Regex: '^<(SDL3|glm|stb|sol|entt|miniaudio|nlohmann)'
+    Priority: 4
+  # 5. C++ standard library (bare angle-bracket, no slashes)
+  - Regex: '^<[a-z_]+>$'
+    Priority: 5
+  # Catch-all
+  - Regex: '.*'
+    Priority: 6
+
+# Spacing
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpacesInAngles: false
+SpaceBeforeCpp11BracedList: false
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AlignOperands: Align
+AlignTrailingComments: true
+
+# Short blocks
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortLambdasOnASingleLine: All
+
+# Templates
+AlwaysBreakTemplateDeclarations: Yes
+
+# Constructor init lists
+BreakConstructorInitializers: BeforeColon
+PackConstructorInitializers: NextLine
+
+# Namespace comments
+FixNamespaceComments: true
+ShortNamespaceLines: 0
+
+# Empty lines
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+
+# Comments
+ReflowComments: true
+
+# Misc
+BinPackArguments: false
+BinPackParameters: false
+Cpp11BracedListStyle: true

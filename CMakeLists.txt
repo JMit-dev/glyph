@@ -92,6 +92,8 @@ endif()
 add_library(glyph STATIC
     src/platform/window.cpp
     src/renderer/renderer.cpp
+    src/renderer/shader.cpp
+    src/renderer/texture.cpp
 )
 
 target_include_directories(glyph

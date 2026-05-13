@@ -12,6 +12,9 @@ struct ivec2 {
     int x = 0, y = 0;
 };
 
+// Axis-aligned rectangle in float coordinates.
+struct Rect { float x, y, w, h; };
+
 // Linear-space RGBA color, components in [0, 1].
 struct Color {
     float r = 1.f, g = 1.f, b = 1.f, a = 1.f;

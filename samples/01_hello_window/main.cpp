@@ -19,8 +19,11 @@ public:
     }
 
     void on_update(float dt) override {
-        // Track elapsed seconds without doing anything fancy.
         elapsed_ += dt;
+    }
+
+    void on_render(glyph::Renderer& r) override {
+        r.clear(glyph::Color::rgba8(100, 149, 237));   // cornflower blue
     }
 
     void on_shutdown() override {

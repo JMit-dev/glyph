@@ -128,6 +128,30 @@ if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/json/single_include/nlohmann/json.hp
         "Run: git submodule update --init --recursive")
 endif()
 
+# Lua 5.4 — compiled from source; lua.c (interpreter) and luac.c (compiler)
+# are excluded so we build only the library.
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/lua/lua.h")
+    message(FATAL_ERROR
+        "Lua submodule not found at external/lua. "
+        "Run: git submodule update --init --recursive")
+endif()
+file(GLOB _LUA_SOURCES "${CMAKE_SOURCE_DIR}/external/lua/*.c")
+list(FILTER _LUA_SOURCES EXCLUDE REGEX "[/\\\\](lua|luac|onelua)\\.c$")
+add_library(lua54 STATIC ${_LUA_SOURCES})
+target_include_directories(lua54 PUBLIC "${CMAKE_SOURCE_DIR}/external/lua")
+if(MSVC)
+    target_compile_definitions(lua54 PRIVATE _CRT_SECURE_NO_WARNINGS)
+    # Suppress C4324 (padding) warnings from Lua internals
+    target_compile_options(lua54 PRIVATE /wd4324)
+endif()
+
+# sol2 — header-only C++ Lua binding layer.
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/sol2/include/sol/sol.hpp")
+    message(FATAL_ERROR
+        "sol2 submodule not found at external/sol2. "
+        "Run: git submodule update --init --recursive")
+endif()
+
 # ---------------------------------------------------------------------------
 # Engine library
 # ---------------------------------------------------------------------------
@@ -146,6 +170,8 @@ add_library(glyph STATIC
     src/scene/systems.cpp
     src/scene/sprite_sheet.cpp
     src/scene/tilemap.cpp
+    src/lua/lua_state.cpp
+    src/lua/lua_bindings.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -161,6 +187,7 @@ target_include_directories(glyph
         ${CMAKE_SOURCE_DIR}/external/stb
         ${CMAKE_SOURCE_DIR}/external/miniaudio
         ${CMAKE_SOURCE_DIR}/external/json/single_include
+        ${CMAKE_SOURCE_DIR}/external/sol2/include
 )
 
 target_compile_definitions(glyph PUBLIC
@@ -176,6 +203,8 @@ target_link_libraries(glyph
         glm::glm
         EnTT::EnTT
         $<$<BOOL:${GLYPH_PLATFORM_DESKTOP}>:glad_gl>
+    PRIVATE
+        lua54
 )
 
 # miniaudio platform audio backends.

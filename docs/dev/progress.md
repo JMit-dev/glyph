@@ -21,16 +21,16 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 13 | Tiled TMJ loader + tilemap renderer — `TilemapRef`, `samples/04_tilemap` | `v0.13.0` |
 | ✅ 14 | CollisionSystem — spatial hash broad-phase, AABB narrow-phase, `on_collision` callback | `v0.14.0` |
 | ✅ 15 | Font + text rendering — `Font::load()`, stb_truetype atlas, `Renderer::draw_text()` | `v0.15.0` |
+| ✅ 16 | Lua 5.4 + sol2 bindings — `LuaState`, core API, `glyph.*` table in Lua | `v0.16.0` |
 
 ## Current phase
 
-**Phase 16: Lua + sol2 bindings** — core API exposed.
+**Phase 17: Script component + ScriptSystem** — entity scripts work.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 16 | Lua + sol2 bindings | `v0.16.0` |
 | 17 | Script component + ScriptSystem | `v0.17.0` |
 | 18 | Hot reload | `v0.18.0` |
 | 19 | Emscripten web build | `v0.19.0` |

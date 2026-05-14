@@ -18,7 +18,9 @@
 #include <glyph/app.h>
 #include <glyph/audio.h>
 #include <glyph/input.h>
+#include <glyph/lua_state.h>
 #include <glyph/renderer.h>
+#include <glyph/resources.h>
 #include <glyph/scene.h>
 #include <glyph/time.h>
 
@@ -32,9 +34,11 @@ struct AppState {
     glyph::Window                window;
     glyph::Renderer              renderer;
     glyph::Scene                 scene;
+    glyph::Resources             resources;
     glyph::Audio                 audio;
     glyph::Input                 input;
     glyph::Time                  time;
+    glyph::LuaState              lua;
     uint64_t                     prev_ticks_ms = 0;
 };
 
@@ -61,13 +65,19 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
         return SDL_APP_FAILURE;
     }
 
-    // Audio init failure is non-fatal — game runs silently.
+    // Audio and Lua init failures are non-fatal — engine continues without them.
     state->audio.init();
 
-    state->game->engine_set_audio(&state->audio);
-    state->game->engine_set_input(&state->input);
-    state->game->engine_set_scene(&state->scene);
-    state->game->engine_set_time (&state->time);
+    // Lua init failure is also non-fatal — engine runs without scripting.
+    state->lua.init(state->scene, state->resources,
+                    state->audio, state->input, state->time);
+
+    state->game->engine_set_audio    (&state->audio);
+    state->game->engine_set_input    (&state->input);
+    state->game->engine_set_lua      (&state->lua);
+    state->game->engine_set_resources(&state->resources);
+    state->game->engine_set_scene    (&state->scene);
+    state->game->engine_set_time     (&state->time);
 
     state->game->on_start();
     state->prev_ticks_ms = SDL_GetTicks();
@@ -90,10 +100,12 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     }
 
     s->scene.run_systems(s->time.delta());
+    s->lua.on_update(s->time.delta());
     s->game->on_update(s->time.delta());
 
     s->renderer.begin_frame();
-    s->scene.render(s->renderer);   // built-in sprite rendering (phase 11)
+    s->scene.render(s->renderer);
+    s->lua.on_render(s->renderer);
     s->game->on_render(s->renderer);
     s->renderer.end_frame();
     s->window.swap_buffers();
@@ -142,6 +154,7 @@ void SDL_AppQuit(void* appstate, SDL_AppResult /*result*/) {
     auto* s = static_cast<AppState*>(appstate);
     if (s) {
         s->game->on_shutdown();
+        s->lua.shutdown();
         s->audio.shutdown();
         s->renderer.shutdown();
         s->window.destroy();

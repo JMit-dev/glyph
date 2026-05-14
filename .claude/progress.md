@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 16: Lua + sol2 bindings**
+**Phase 17: Script component + ScriptSystem**
 
 Status: not started
 
@@ -27,7 +27,7 @@ Status: not started
 - [x] **13. Tiled TMJ loader + tilemap renderer** — `samples/04_tilemap` → tag `v0.13.0`
 - [x] **14. CollisionSystem** — spatial hash + AABB → tag `v0.14.0`
 - [x] **15. Font + text rendering** — stb_truetype atlas → tag `v0.15.0`
-- [ ] **16. Lua + sol2 bindings** — core API exposed → tag `v0.16.0`
+- [x] **16. Lua + sol2 bindings** — core API exposed → tag `v0.16.0`
 - [ ] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
 - [ ] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
 - [ ] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 16
+Lua 5.4.7 and sol2 v3.3.0 added as submodules. Lua compiled as lua54 static library via file(GLOB) excluding lua.c, luac.c, and onelua.c (amalgamation that caused duplicate symbols). sol2 headers PRIVATE to glyph (sol.hpp not in any public header). LuaState uses PIMPL — LuaStateImpl is a namespace-level struct (not nested) to avoid MSVC's restriction on defining private nested classes externally. Script::self changed from (future sol::table) to std::any to keep components.h free of sol.hpp. Color binding uses sol::factories (Color is an aggregate; sol::constructors doesn't apply). Resources and LuaState added as engine services in AppState and Game. LuaState::on_update/on_render called in frame loop before C++ game callbacks. Bindings: vec2, Color, Transform, Velocity, Sprite, Entity, Scene, Input, Audio, Resources, Time, Key constants.
 
 ### Phase 15
 STB_TRUETYPE_IMPLEMENTATION added to stb_impl.cpp alongside STB_IMAGE_IMPLEMENTATION. Font::load() bakes ASCII 32–126 into a 1024×1024 single-channel bitmap via stbtt_BakeFontBitmap, converts to RGBA8 (white+alpha) for the sprite shader, extracts line_height from stbtt_GetFontVMetrics. bearing.y (stb yoff) is negative for above-baseline glyphs — pos.y + bearing.y gives correct Y-down glyph top. Resources::font(path, size_px) caches by "path@size" key. Renderer::draw_text() iterates UTF-8 chars, advances pen_x by advance. glEnable(GL_BLEND) + glBlendFunc added to Renderer::init() — required for font alpha and transparent sprites. resources.h includes font.h directly (forward-decl not viable due to shared_ptr<Font> member).

@@ -12,6 +12,7 @@
 #include <glyph/scene.h>    // for Entity type used in Transform::parent
 #include <glyph/texture.h>
 
+#include <any>
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -72,8 +73,8 @@ struct Camera2D {
 };
 
 struct Script {
-    std::string lua_module;        // module name under scripts/entities/
-    // sol::table self — added in phase 16 when sol2 is integrated
+    std::string lua_module;   // module name under scripts/entities/
+    std::any    self;         // holds sol::table; set by ScriptSystem on first update
 };
 
 struct Lifetime {

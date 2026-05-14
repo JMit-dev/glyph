@@ -22,11 +22,17 @@ static GLADapiproc glad_proc_loader(const char* name) {
 namespace glyph {
 
 bool Window::create(const AppConfig& config) {
-    // Request GL 3.3 Core before creating the window. SDL reads these
-    // attributes during SDL_CreateWindow when SDL_WINDOW_OPENGL is set.
+    // Request the appropriate GL profile for the target platform.
+    // Desktop: OpenGL 3.3 Core (GLSL 330). Web/mobile: GLES 3.0 (GLSL 300 es).
+#if defined(__EMSCRIPTEN__)
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+#else
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#endif
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
     SDL_WindowFlags flags = SDL_WINDOW_OPENGL;

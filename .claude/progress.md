@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 19: Emscripten web build**
+**Phase 20: Android build**
 
 Status: not started
 
@@ -30,7 +30,7 @@ Status: not started
 - [x] **16. Lua + sol2 bindings** — core API exposed → tag `v0.16.0`
 - [x] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
 - [x] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
-- [ ] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
+- [x] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
 - [ ] **20. Android build** — `samples/02_sprite` on device → tag `v0.20.0`
 - [ ] **21. iOS build** → tag `v0.21.0`
 - [ ] **22. Lua platformer sample** — full dogfood test → tag `v1.0.0`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 19
+window.cpp: SDL_GL_CONTEXT_PROFILE_ES + MAJOR=3 MINOR=0 on __EMSCRIPTEN__ (WebGL2 = GLES 3.0), GL 3.3 Core on desktop. Lua54: compiled as C++ on Emscripten (set_source_files_properties LANGUAGE CXX) so Lua uses C++ exceptions instead of longjmp — required by sol2 across WASM frames. glyph target: -fexceptions on Emscripten. glyph_add_executable: outputs .html into build_web/web/<name>/ on Emscripten; link flags: USE_WEBGL2, FULL_ES3, MIN/MAX_WEBGL_VERSION=2, ALLOW_MEMORY_GROWTH, STACK_SIZE=2mb, INITIAL_MEMORY=64mb, NO_EXIT_RUNTIME, FORCE_FILESYSTEM, -fexceptions. Audio: miniaudio detects __EMSCRIPTEN__ automatically and uses its webaudio backend — no extra link flags needed. Hot reload: already guarded by GLYPH_PLATFORM_DESKTOP so compiles to no-op on web. Added build_web.sh convenience script. Desktop build unchanged.
 
 ### Phase 18
 lua_hotreload.cpp polls std::filesystem::last_write_time every 250ms (std::chrono::steady_clock timer in LuaStateImpl::last_reload_check). Entity script modules: mtime recorded in module_mtimes on first load_script_module(); on change: evict from module_cache, reload, patch all live entity self metatables (__index → new class table) preserving per-entity state. Global scripts (run_file paths): tracked in global_scripts/global_mtimes; on change: re-execute with safe_script_file. All hot reload code guarded by #ifdef GLYPH_PLATFORM_DESKTOP — no-op on web/mobile. std::find used to avoid duplicate path registration in global_scripts.

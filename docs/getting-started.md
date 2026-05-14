@@ -44,6 +44,43 @@ Binaries land in `build/samples/<name>/`.
 
 ---
 
+## Building (Web — Emscripten)
+
+**Prerequisites:** install [emsdk](https://emscripten.org/docs/getting_started/downloads.html) and activate it:
+
+```bash
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk && ./emsdk install latest && ./emsdk activate latest
+source emsdk_env.sh   # adds emcc to PATH
+```
+
+Then build from the repo root:
+
+```bash
+source /path/to/emsdk/emsdk_env.sh
+./build_web.sh        # wraps cmake with the Emscripten toolchain
+```
+
+Or manually:
+
+```bash
+cmake -B build_web \
+    -DCMAKE_TOOLCHAIN_FILE="$(em-config EMSCRIPTEN_ROOT)/cmake/Modules/Platform/Emscripten.cmake" \
+    -DCMAKE_BUILD_TYPE=Release
+cmake --build build_web -j
+```
+
+HTML/JS/WASM output lands in `build_web/web/<sample>/`. Serve locally (browsers block local file:// WebGL):
+
+```bash
+python3 -m http.server --directory build_web/web
+# open http://localhost:8000/02_sprite/02_sprite.html
+```
+
+**All engine modules work on web:** rendering (WebGL2), audio (Web Audio via miniaudio), input (SDL3), ECS, Lua scripting. Hot reload is disabled on web (no filesystem watcher) — scripts are baked into the WASM bundle at build time.
+
+---
+
 ## Running the samples
 
 ```bash

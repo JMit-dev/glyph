@@ -24,10 +24,11 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 16 | Lua 5.4 + sol2 bindings — `LuaState`, core API, `glyph.*` table in Lua | `v0.16.0` |
 | ✅ 17 | Script component + ScriptSystem — `on_start`, `on_update`, `on_collision` per entity | `v0.17.0` |
 | ✅ 18 | Hot reload — mtime polling, metatable patching, global script re-execution (desktop only) | `v0.18.0` |
+| ✅ 19 | Emscripten web build — WebGL2, Web Audio, Lua/WASM; all modules on all platforms | `v0.19.0` |
 
 ## Current phase
 
-**Phase 19: Emscripten web build** — `samples/02_sprite` in browser.
+**Phase 20: Android build**
 
 ## Upcoming phases
 

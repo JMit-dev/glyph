@@ -141,8 +141,13 @@ add_library(lua54 STATIC ${_LUA_SOURCES})
 target_include_directories(lua54 PUBLIC "${CMAKE_SOURCE_DIR}/external/lua")
 if(MSVC)
     target_compile_definitions(lua54 PRIVATE _CRT_SECURE_NO_WARNINGS)
-    # Suppress C4324 (padding) warnings from Lua internals
     target_compile_options(lua54 PRIVATE /wd4324)
+endif()
+if(EMSCRIPTEN)
+    # Compile Lua as C++ so it uses C++ exceptions instead of longjmp.
+    # Required when sol2 propagates errors across Lua frames inside WASM.
+    set_source_files_properties(${_LUA_SOURCES} PROPERTIES LANGUAGE CXX)
+    target_compile_options(lua54 PRIVATE -fexceptions)
 endif()
 
 # sol2 — header-only C++ Lua binding layer.
@@ -212,6 +217,7 @@ target_link_libraries(glyph
 # miniaudio platform audio backends.
 # Windows links via #pragma comment(lib,...) in the IMPLEMENTATION block.
 # Linux needs dl, pthread, m. macOS needs CoreAudio/CoreFoundation.
+# Emscripten uses the Web Audio API via miniaudio's webaudio backend — no extra libs.
 if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN AND NOT ANDROID)
     target_link_libraries(glyph PUBLIC dl pthread m)
 elseif(APPLE)
@@ -219,6 +225,12 @@ elseif(APPLE)
         "-framework CoreAudio"
         "-framework CoreFoundation"
         "-framework AudioToolbox")
+endif()
+
+# Emscripten: C++ exceptions must be enabled so Lua (compiled as C++) and
+# sol2 can propagate errors correctly across WASM frames.
+if(EMSCRIPTEN)
+    target_compile_options(glyph PRIVATE -fexceptions)
 endif()
 
 # ---------------------------------------------------------------------------
@@ -240,14 +252,35 @@ target_link_libraries(glyph_runtime PRIVATE SDL3::SDL3-static glm::glm EnTT::EnT
 # ---------------------------------------------------------------------------
 function(glyph_add_executable target)
     add_executable(${target} ${ARGN})
-    target_link_libraries(${target}
-        PRIVATE
-            glyph
-            glyph_runtime
-    )
-    set_target_properties(${target} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/samples/${target}
-    )
+    target_link_libraries(${target} PRIVATE glyph glyph_runtime)
+
+    if(EMSCRIPTEN)
+        # Output an HTML page with embedded JS loader; WASM lives alongside.
+        set_target_properties(${target} PROPERTIES SUFFIX ".html")
+        set_target_properties(${target} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/web/${target})
+
+        target_compile_options(${target} PRIVATE -fexceptions)
+        target_link_options(${target} PRIVATE
+            # WebGL2 / GLES 3.0
+            "-sUSE_WEBGL2=1"
+            "-sFULL_ES3=1"
+            "-sMIN_WEBGL_VERSION=2"
+            "-sMAX_WEBGL_VERSION=2"
+            # Memory
+            "-sALLOW_MEMORY_GROWTH=1"
+            "-sSTACK_SIZE=2097152"      # 2 MB — Lua needs more stack than the default
+            "-sINITIAL_MEMORY=67108864" # 64 MB initial heap
+            "-sNO_EXIT_RUNTIME=1"
+            # Virtual filesystem — needed for asset and script file access
+            "-sFORCE_FILESYSTEM=1"
+            # C++ exceptions required for Lua/sol2
+            "-fexceptions"
+        )
+    else()
+        set_target_properties(${target} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/samples/${target})
+    endif()
 endfunction()
 
 # ---------------------------------------------------------------------------

@@ -103,6 +103,16 @@ if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/stb/stb_image.h")
         "Run: git submodule update --init --recursive")
 endif()
 
+# EnTT — header-only ECS library.
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/entt/single_include/entt/entt.hpp")
+    message(FATAL_ERROR
+        "EnTT submodule not found at external/entt. "
+        "Run: git submodule update --init --recursive")
+endif()
+set(ENTT_BUILD_TESTING OFF CACHE BOOL "" FORCE)
+set(ENTT_INSTALL       OFF CACHE BOOL "" FORCE)
+add_subdirectory(external/entt EXCLUDE_FROM_ALL)
+
 # miniaudio — single-header audio library.
 # Implementation translation unit: src/audio/miniaudio_impl.cpp
 if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/miniaudio/miniaudio.h")
@@ -124,6 +134,7 @@ add_library(glyph STATIC
     src/input/input.cpp
     src/audio/miniaudio_impl.cpp
     src/audio/audio.cpp
+    src/scene/scene.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -151,6 +162,7 @@ target_link_libraries(glyph
     PUBLIC
         SDL3::SDL3-static
         glm::glm
+        EnTT::EnTT
         $<$<BOOL:${GLYPH_PLATFORM_DESKTOP}>:glad_gl>
 )
 

@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/input/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/time/">
       
       
-        <link rel="prev" href="../camera/">
+        <link rel="prev" href="../input/">
       
       
-        <link rel="next" href="../time/">
+        <link rel="next" href="../texture/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Input - Glyph Engine</title>
+        <title>Time - Glyph Engine</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#input" class="md-skip">
+        <a href="#time" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Input
+              Time
             
           </span>
         </div>
@@ -571,6 +571,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -590,7 +618,7 @@
   <span class="md-ellipsis">
     
   
-    Input
+    Time
   
 
     
@@ -608,7 +636,7 @@
   <span class="md-ellipsis">
     
   
-    Input
+    Time
   
 
     
@@ -645,22 +673,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#keyboard" class="md-nav__link">
+  <a href="#constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Keyboard
+        Constants
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Keyboard">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#key_downkey-k-bool" class="md-nav__link">
+  <a href="#delta-float" class="md-nav__link">
     <span class="md-ellipsis">
       
-        key_down(Key k) → bool
+        delta() → float
       
     </span>
   </a>
@@ -668,10 +707,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#key_pressedkey-k-bool" class="md-nav__link">
+  <a href="#elapsed-double" class="md-nav__link">
     <span class="md-ellipsis">
       
-        key_pressed(Key k) → bool
+        elapsed() → double
       
     </span>
   </a>
@@ -679,10 +718,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#key_releasedkey-k-bool" class="md-nav__link">
+  <a href="#frame_count-uint64_t" class="md-nav__link">
     <span class="md-ellipsis">
       
-        key_released(Key k) → bool
+        frame_count() → uint64_t
       
     </span>
   </a>
@@ -690,10 +729,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#key-enum" class="md-nav__link">
+  <a href="#fps-float" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key enum
+        fps() → float
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_alpha-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fixed_alpha() → float
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_time_scalefloat-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_time_scale(float s)
       
     </span>
   </a>
@@ -706,132 +767,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mouse" class="md-nav__link">
+  <a href="#frame-loop-sequence" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mouse
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mouse">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mouse_position-vec2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        mouse_position() → vec2
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mouse_downmousebutton-bool-mouse_pressed-mouse_released" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        mouse_down(MouseButton) → bool / mouse_pressed / mouse_released
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mouse_wheel-vec2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        mouse_wheel() → vec2
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mousebutton-enum" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MouseButton enum
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#action-bindings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Action bindings
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Action bindings">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bind_actionname-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bind_action(name, Key)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bind_axisname-key-neg-key-pos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bind_axis(name, Key neg, Key pos)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#action_downname-action_pressedname-bool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        action_down(name) / action_pressed(name) → bool
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#axis_valuename-float" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        axis_value(name) → float
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#default-bindings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Default bindings
+        Frame loop sequence
       
     </span>
   </a>
@@ -839,10 +778,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#frame-timing" class="md-nav__link">
+  <a href="#slow-frame-verification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Frame timing
+        Slow-frame verification
       
     </span>
   </a>
@@ -853,34 +792,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../time/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Time
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1112,138 +1023,83 @@
   
 
 
-<h1 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h1>
-<p><strong>Header:</strong> <code>#include &lt;glyph/input.h&gt;</code></p>
-<p>Access via <code>input()</code> inside any <code>Game</code> lifecycle hook. The engine updates state from SDL events before each frame.</p>
+<h1 id="time">Time<a class="headerlink" href="#time" title="Permanent link">&para;</a></h1>
+<p><strong>Header:</strong> <code>#include &lt;glyph/time.h&gt;</code></p>
+<p>Frame timing and the fixed-timestep accumulator. Access via <code>time()</code> inside any <code>Game</code> lifecycle hook.</p>
+<p>Implements the "Fix Your Timestep" pattern (Glenn Fiedler, 2006): physics and gameplay logic run at a fixed 60 Hz regardless of display frame rate.</p>
 <hr />
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// Axis — returns -1, 0, or +1 (clamped, normalised across all bound pairs)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">axis_value</span><span class="p">(</span><span class="s">&quot;move_x&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// A/D + Left/Right by default</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">axis_value</span><span class="p">(</span><span class="s">&quot;move_y&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// W/S + Up/Down by default</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// Single-frame press detection</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">action_pressed</span><span class="p">(</span><span class="s">&quot;confirm&quot;</span><span class="p">))</span><span class="w">     </span><span class="c1">// Space or Enter by default</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">start_action</span><span class="p">();</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// Raw key query</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">key_down</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">LShift</span><span class="p">))</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="n">speed</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">2.f</span><span class="p">;</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="c1">// Mouse</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">mouse_position</span><span class="p">();</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">scroll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">mouse_wheel</span><span class="p">().</span><span class="n">y</span><span class="p">;</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_fixed_update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// dt is always Time::kFixedDt (1/60 s)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// Put physics, AI, and frame-rate-sensitive logic here</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">velocity_</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">gravity_</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">position_</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">velocity_</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="c1">// dt is variable (capped, time-scaled)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// Use for input reading, camera, and anything tolerant of variable rate</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">}</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="c1">// Interpolate between physics frames for smooth rendering</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">().</span><span class="n">fixed_alpha</span><span class="p">();</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">render_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">lerp</span><span class="p">(</span><span class="n">prev_pos_</span><span class="p">,</span><span class="w"> </span><span class="n">position_</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">);</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">sprite_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">render_pos</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">render_pos</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">});</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
 </code></pre></div>
 <hr />
-<h2 id="keyboard">Keyboard<a class="headerlink" href="#keyboard" title="Permanent link">&para;</a></h2>
-<h3 id="key_downkey-k-bool"><code>key_down(Key k) → bool</code><a class="headerlink" href="#key_downkey-k-bool" title="Permanent link">&para;</a></h3>
-<p>True while the key is held.</p>
-<h3 id="key_pressedkey-k-bool"><code>key_pressed(Key k) → bool</code><a class="headerlink" href="#key_pressedkey-k-bool" title="Permanent link">&para;</a></h3>
-<p>True <strong>only on the frame</strong> the key went from up to down.</p>
-<h3 id="key_releasedkey-k-bool"><code>key_released(Key k) → bool</code><a class="headerlink" href="#key_releasedkey-k-bool" title="Permanent link">&para;</a></h3>
-<p>True <strong>only on the frame</strong> the key went from down to up.</p>
-<h3 id="key-enum">Key enum<a class="headerlink" href="#key-enum" title="Permanent link">&para;</a></h3>
-<p>Common values (full list in <code>input.h</code>):</p>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Enum</th>
-<th>Key</th>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Key::A</code>–<code>Key::Z</code></td>
-<td>Letter keys</td>
+<td><code>Time::kFixedDt</code></td>
+<td><code>1/60 ≈ 0.01667 s</code></td>
+<td>Fixed update step duration</td>
 </tr>
 <tr>
-<td><code>Key::Num0</code>–<code>Key::Num9</code></td>
-<td>Number row</td>
-</tr>
-<tr>
-<td><code>Key::Up/Down/Left/Right</code></td>
-<td>Arrow keys</td>
-</tr>
-<tr>
-<td><code>Key::Space</code>, <code>Key::Return</code>, <code>Key::Escape</code></td>
-<td>Special</td>
-</tr>
-<tr>
-<td><code>Key::LShift</code>, <code>Key::LCtrl</code>, <code>Key::LAlt</code></td>
-<td>Modifiers</td>
-</tr>
-<tr>
-<td><code>Key::F1</code>–<code>Key::F12</code></td>
-<td>Function keys</td>
+<td><code>Time::kMaxAccum</code></td>
+<td><code>0.25 s</code></td>
+<td>Accumulator cap — prevents spiral of death</td>
 </tr>
 </tbody>
 </table>
+<p>If a frame takes longer than <code>kMaxAccum</code>, at most <code>0.25 / (1/60) = 15</code> fixed steps run that frame. The simulation slows down rather than running away.</p>
 <hr />
-<h2 id="mouse">Mouse<a class="headerlink" href="#mouse" title="Permanent link">&para;</a></h2>
-<h3 id="mouse_position-vec2"><code>mouse_position() → vec2</code><a class="headerlink" href="#mouse_position-vec2" title="Permanent link">&para;</a></h3>
-<p>Current cursor position in screen pixels (top-left origin).</p>
-<h3 id="mouse_downmousebutton-bool-mouse_pressed-mouse_released"><code>mouse_down(MouseButton) → bool</code> / <code>mouse_pressed</code> / <code>mouse_released</code><a class="headerlink" href="#mouse_downmousebutton-bool-mouse_pressed-mouse_released" title="Permanent link">&para;</a></h3>
-<p>Same frame-delta semantics as keyboard.</p>
-<h3 id="mouse_wheel-vec2"><code>mouse_wheel() → vec2</code><a class="headerlink" href="#mouse_wheel-vec2" title="Permanent link">&para;</a></h3>
-<p>Accumulated scroll delta this frame. <code>y &gt; 0</code> = scroll up. Resets to zero each frame.</p>
-<h3 id="mousebutton-enum">MouseButton enum<a class="headerlink" href="#mousebutton-enum" title="Permanent link">&para;</a></h3>
-<p><code>MouseButton::Left</code>, <code>MouseButton::Right</code>, <code>MouseButton::Middle</code></p>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="delta-float"><code>delta() → float</code><a class="headerlink" href="#delta-float" title="Permanent link">&para;</a></h3>
+<p>Time-scaled, capped frame delta in seconds. Always use this in <code>on_update</code>, not raw dt.</p>
+<h3 id="elapsed-double"><code>elapsed() → double</code><a class="headerlink" href="#elapsed-double" title="Permanent link">&para;</a></h3>
+<p>Unscaled wall-clock seconds since the engine started.</p>
+<h3 id="frame_count-uint64_t"><code>frame_count() → uint64_t</code><a class="headerlink" href="#frame_count-uint64_t" title="Permanent link">&para;</a></h3>
+<p>Total number of frames rendered.</p>
+<h3 id="fps-float"><code>fps() → float</code><a class="headerlink" href="#fps-float" title="Permanent link">&para;</a></h3>
+<p>Exponentially smoothed frame rate (~20-frame window). Suitable for HUD display.</p>
+<h3 id="fixed_alpha-float"><code>fixed_alpha() → float</code><a class="headerlink" href="#fixed_alpha-float" title="Permanent link">&para;</a></h3>
+<p>Sub-step interpolation factor in <code>[0, 1]</code>. How far into the next fixed step the current render is:
+- <code>0.0</code> = rendering at exactly the previous fixed-update state
+- <code>1.0</code> = rendering at exactly the current fixed-update state</p>
+<p>Use with <code>lerp()</code> to eliminate visual jitter when <code>on_fixed_update</code> runs slower than the display.</p>
+<h3 id="set_time_scalefloat-s"><code>set_time_scale(float s)</code><a class="headerlink" href="#set_time_scalefloat-s" title="Permanent link">&para;</a></h3>
+<p>Scale all time. <code>1.0</code> = normal, <code>0.5</code> = half speed (slow motion), <code>2.0</code> = double speed. Affects <code>delta()</code> and the fixed-step accumulator.</p>
 <hr />
-<h2 id="action-bindings">Action bindings<a class="headerlink" href="#action-bindings" title="Permanent link">&para;</a></h2>
-<p>Named bindings decouple game logic from specific keys.</p>
-<h3 id="bind_actionname-key"><code>bind_action(name, Key)</code><a class="headerlink" href="#bind_actionname-key" title="Permanent link">&para;</a></h3>
-<p>Add a key trigger to a named action. Multiple keys can be bound; any one fires the action.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_action</span><span class="p">(</span><span class="s">&quot;jump&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Space</span><span class="p">);</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_action</span><span class="p">(</span><span class="s">&quot;jump&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Up</span><span class="p">);</span><span class="w">    </span><span class="c1">// second binding for same action</span>
+<h2 id="frame-loop-sequence">Frame loop sequence<a class="headerlink" href="#frame-loop-sequence" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>time.tick(raw_dt)           — cap, scale, accumulate
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>while time.step_fixed():    — drain fixed budget (max kMaxAccum / kFixedDt per frame)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    on_fixed_update(1/60)
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>on_update(time.delta())     — variable-rate
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>on_render(renderer)         — use fixed_alpha() for interpolation
 </code></pre></div>
-<h3 id="bind_axisname-key-neg-key-pos"><code>bind_axis(name, Key neg, Key pos)</code><a class="headerlink" href="#bind_axisname-key-neg-key-pos" title="Permanent link">&para;</a></h3>
-<p>Add a key pair to a named axis. Multiple pairs are OR'd and clamped to <code>[-1, 1]</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_axis</span><span class="p">(</span><span class="s">&quot;move_x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Left</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Right</span><span class="p">);</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_axis</span><span class="p">(</span><span class="s">&quot;move_x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">A</span><span class="p">,</span><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">D</span><span class="p">);</span><span class="w">   </span><span class="c1">// both pairs active</span>
-</code></pre></div>
-<h3 id="action_downname-action_pressedname-bool"><code>action_down(name)</code> / <code>action_pressed(name)</code> → bool<a class="headerlink" href="#action_downname-action_pressedname-bool" title="Permanent link">&para;</a></h3>
-<p><code>action_pressed</code> returns true only on the frame any bound key is first pressed.</p>
-<h3 id="axis_valuename-float"><code>axis_value(name)</code> → float<a class="headerlink" href="#axis_valuename-float" title="Permanent link">&para;</a></h3>
-<p>Returns <code>−1</code>, <code>0</code>, or <code>+1</code> (clamped). Diagonal movement should be normalised by the caller.</p>
 <hr />
-<h2 id="default-bindings">Default bindings<a class="headerlink" href="#default-bindings" title="Permanent link">&para;</a></h2>
-<p>Set up in <code>Input::Input()</code>. Games can add more or override with <code>bind_axis</code>/<code>bind_action</code>.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Keys</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>"move_x"</code></td>
-<td><code>A</code>/<code>D</code> + <code>Left</code>/<code>Right</code></td>
-</tr>
-<tr>
-<td><code>"move_y"</code></td>
-<td><code>W</code>/<code>S</code> + <code>Up</code>/<code>Down</code></td>
-</tr>
-<tr>
-<td><code>"confirm"</code></td>
-<td><code>Space</code>, <code>Return</code></td>
-</tr>
-<tr>
-<td><code>"cancel"</code></td>
-<td><code>Escape</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="frame-timing">Frame timing<a class="headerlink" href="#frame-timing" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>SDL events fired  →  SDL_AppEvent updates Input state
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>         ↓
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>SDL_AppIterate:  on_update() + on_render()  ←  game reads Input here
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>         ↓
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Input::begin_frame()  — copies current→previous, resets mouse_wheel
-</code></pre></div>
-<p><code>key_pressed</code> is true for exactly one frame per physical key press.</p>
+<h2 id="slow-frame-verification">Slow-frame verification<a class="headerlink" href="#slow-frame-verification" title="Permanent link">&para;</a></h2>
+<p>With <code>kMaxAccum = 0.25 s</code>, a 2-second freeze causes exactly 15 fixed steps on the next frame, not 120. The game slows to 1/8 speed temporarily instead of running ahead to catch up.</p>
 
 
 

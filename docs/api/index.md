@@ -46,8 +46,6 @@ Or include individual headers as needed:
 
 | Header | Contents | Phase |
 |---|---|---|
-| `entity.h` | `Entity` handle | 10 |
-| `sprite_sheet.h` | Aseprite JSON loader | 12 |
 | `sprite_sheet.h` | Aseprite JSON loader | 12 |
 | `tilemap.h` | Tiled TMJ loader | 13 |
 | `lua_api.h` | Lua scripting layer | 16 |

@@ -75,8 +75,8 @@ void on_update(float dt) override {
 | `create_entity(name)` | Create entity with a `Name` component |
 | `find(name)` | First entity with matching `Name`; invalid if not found |
 | `each<Comps...>(fn)` | Iterate entities with all listed components |
-| `run_systems(dt)` | Run built-in systems *(phase 11)* |
-| `render(r)` | Render sprites *(phase 11)* |
+| `run_systems(dt)` | Run built-in systems (Lifetime, Movement; others stubbed for later phases) |
+| `render(r)` | Find primary Camera2D, sort sprites by layer, submit to batcher |
 | `clear()` | Destroy all entities |
 | `registry()` | Raw `entt::registry&` escape hatch |
 
@@ -89,19 +89,19 @@ void on_update(float dt) override {
 | `Name` | `value: string` | Used by `scene().find()` |
 | `Transform` | `position`, `rotation`, `scale`, `parent` | Y-down, radians CW |
 | `Sprite` | `texture`, `src`, `tint`, `layer`, `origin`, `visible` | Rendered by `Scene::render()` |
-| `Velocity` | `value: vec2` | World units per second; applied by MovementSystem (phase 11) |
-| `Animator` | `sheet`, `clip`, `time`, `playing`, `loop` | Driven by AnimatorSystem (phase 12) |
+| `Velocity` | `value: vec2` | World units per second; applied by `MovementSystem` each frame |
+| `Animator` | `sheet`, `clip`, `time`, `playing`, `loop` | Driven by `AnimatorSystem` (phase 12) |
 | `BoxCollider` | `bounds`, `layer`, `mask`, `is_trigger` | Used by CollisionSystem (phase 14) |
 | `Camera2D` | `value: Camera`, `primary: bool` | First primary used for rendering |
 | `TilemapRef` | `map: shared_ptr<Tilemap>` | Rendered by Scene (phase 13) |
 | `Script` | `lua_module: string` | Lua entity script; expanded in phase 16 |
-| `Lifetime` | `seconds: float` | Destroyed when ≤ 0 by LifetimeSystem (phase 11) |
+| `Lifetime` | `seconds: float` | Destroyed when ≤ 0 by `LifetimeSystem` each frame |
 
 ---
 
 ## Transform hierarchy
 
-Set `Transform::parent` to another entity to form a parent-child relationship. `TransformPropagationSystem` (phase 11) resolves world transforms. A null/invalid `parent` means no parent.
+Set `Transform::parent` to another entity to form a parent-child relationship. `TransformPropagationSystem` is stubbed for now — correct implementation requires a separate world-transform store to avoid accumulating parent offsets each frame. `Transform::position` is always world-space until then. A null/invalid `parent` means no parent.
 
 ---
 

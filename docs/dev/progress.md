@@ -16,17 +16,16 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 8 | Time + fixed timestep — `on_fixed_update`, `fixed_alpha`, smoothed FPS | `v0.8.0` |
 | ✅ 9 | Audio — miniaudio, `Sound`/`Music`, `SoundHandle`, volume, fade | `v0.9.0` |
 | ✅ 10 | EnTT + Entity façade — `Scene`, `Entity`, `components.h` | `v0.10.0` |
+| ✅ 11 | Built-in systems — `MovementSystem`, `LifetimeSystem`, `Scene::render()` with sprite sorting | `v0.11.0` |
 
 ## Current phase
 
-**Phase 11: Built-in systems** — `MovementSystem`, `LifetimeSystem`, `Scene::render()` with sprite sorting.
+**Phase 12: Aseprite JSON loader** — animated sprite plays.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 11 | Built-in ECS systems | `v0.11.0` |
-| 11 | Built-in ECS systems | `v0.11.0` |
 | 12 | Aseprite JSON loader | `v0.12.0` |
 | 13 | Tiled TMJ loader + tilemap renderer · `04_tilemap` | `v0.13.0` |
 | 14 | CollisionSystem (spatial hash + AABB) | `v0.14.0` |

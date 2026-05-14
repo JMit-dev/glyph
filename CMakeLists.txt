@@ -135,6 +135,7 @@ add_library(glyph STATIC
     src/audio/miniaudio_impl.cpp
     src/audio/audio.cpp
     src/scene/scene.cpp
+    src/scene/systems.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp

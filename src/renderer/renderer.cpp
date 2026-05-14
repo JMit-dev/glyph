@@ -61,4 +61,19 @@ void Renderer::draw_textured_quad(const Texture& tex, Rect dest, Color tint) {
                    tint);
 }
 
+void Renderer::draw_textured_quad(const Texture& tex, Rect dest, Rect src_px, Color tint) {
+    float u0 = 0.f, v0 = 0.f, u1 = 1.f, v1 = 1.f;
+    if (src_px.w > 0.f && src_px.h > 0.f) {
+        const float iw = 1.f / static_cast<float>(tex.width());
+        const float ih = 1.f / static_cast<float>(tex.height());
+        u0 = src_px.x * iw;        v0 = src_px.y * ih;
+        u1 = (src_px.x + src_px.w) * iw;
+        v1 = (src_px.y + src_px.h) * ih;
+    }
+    batch_->submit(tex,
+                   dest.x, dest.y, dest.x + dest.w, dest.y + dest.h,
+                   u0, v0, u1, v1,
+                   tint);
+}
+
 } // namespace glyph

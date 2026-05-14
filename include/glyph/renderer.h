@@ -39,8 +39,12 @@ public:
     const Camera& camera() const { return camera_; }
 
     // Draw a textured rectangle. dest is in world-space pixel coordinates.
-    // UV covers the full texture; source-rect support comes with sprite sheets.
+    // UV covers the full texture.
     void draw_textured_quad(const Texture& tex, Rect dest, Color tint = {1, 1, 1, 1});
+
+    // Draw with an explicit source rect in pixels (for sub-texture / sprite-sheet use).
+    // If src_px has zero width or height, the full texture is used.
+    void draw_textured_quad(const Texture& tex, Rect dest, Rect src_px, Color tint = {1, 1, 1, 1});
 
 private:
     Camera                       camera_;

@@ -11,6 +11,7 @@ namespace glyph {
 class Audio;
 class Input;
 class Renderer;
+class Scene;
 class Time;
 
 struct AppConfig {
@@ -37,17 +38,20 @@ protected:
     // Engine services — valid after on_start(); do not call from configure().
     Audio& audio();
     Input& input();
+    Scene& scene();
     Time&  time();
 
 public:
     // Engine-internal wiring — called before on_start(). Not for game code.
     void engine_set_audio(Audio* a) { audio_ = a; }
     void engine_set_input(Input* i) { input_ = i; }
+    void engine_set_scene(Scene* s) { scene_ = s; }
     void engine_set_time (Time*  t) { time_  = t; }
 
 private:
     Audio* audio_ = nullptr;
     Input* input_ = nullptr;
+    Scene* scene_ = nullptr;
     Time*  time_  = nullptr;
 };
 

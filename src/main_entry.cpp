@@ -19,6 +19,7 @@
 #include <glyph/audio.h>
 #include <glyph/input.h>
 #include <glyph/renderer.h>
+#include <glyph/scene.h>
 #include <glyph/time.h>
 
 #include <cstdio>
@@ -30,6 +31,7 @@ struct AppState {
     std::unique_ptr<glyph::Game> game;
     glyph::Window                window;
     glyph::Renderer              renderer;
+    glyph::Scene                 scene;
     glyph::Audio                 audio;
     glyph::Input                 input;
     glyph::Time                  time;
@@ -64,6 +66,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
 
     state->game->engine_set_audio(&state->audio);
     state->game->engine_set_input(&state->input);
+    state->game->engine_set_scene(&state->scene);
     state->game->engine_set_time (&state->time);
 
     state->game->on_start();
@@ -86,9 +89,11 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
         s->game->on_fixed_update(glyph::Time::kFixedDt);
     }
 
+    s->scene.run_systems(s->time.delta());
     s->game->on_update(s->time.delta());
 
     s->renderer.begin_frame();
+    s->scene.render(s->renderer);   // built-in sprite rendering (phase 11)
     s->game->on_render(s->renderer);
     s->renderer.end_frame();
     s->window.swap_buffers();

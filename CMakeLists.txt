@@ -189,7 +189,7 @@ target_include_directories(glyph_runtime
         ${CMAKE_SOURCE_DIR}/include
 )
 
-target_link_libraries(glyph_runtime PRIVATE SDL3::SDL3-static glm::glm)
+target_link_libraries(glyph_runtime PRIVATE SDL3::SDL3-static glm::glm EnTT::EnTT)
 
 # ---------------------------------------------------------------------------
 # Helper: glyph_add_executable(<target> <sources...>)

@@ -1152,11 +1152,11 @@
 </tr>
 <tr>
 <td><code>run_systems(dt)</code></td>
-<td>Run built-in systems <em>(phase 11)</em></td>
+<td>Run built-in systems (Lifetime, Movement; others stubbed for later phases)</td>
 </tr>
 <tr>
 <td><code>render(r)</code></td>
-<td>Render sprites <em>(phase 11)</em></td>
+<td>Find primary Camera2D, sort sprites by layer, submit to batcher</td>
 </tr>
 <tr>
 <td><code>clear()</code></td>
@@ -1197,12 +1197,12 @@
 <tr>
 <td><code>Velocity</code></td>
 <td><code>value: vec2</code></td>
-<td>World units per second; applied by MovementSystem (phase 11)</td>
+<td>World units per second; applied by <code>MovementSystem</code> each frame</td>
 </tr>
 <tr>
 <td><code>Animator</code></td>
 <td><code>sheet</code>, <code>clip</code>, <code>time</code>, <code>playing</code>, <code>loop</code></td>
-<td>Driven by AnimatorSystem (phase 12)</td>
+<td>Driven by <code>AnimatorSystem</code> (phase 12)</td>
 </tr>
 <tr>
 <td><code>BoxCollider</code></td>
@@ -1227,13 +1227,13 @@
 <tr>
 <td><code>Lifetime</code></td>
 <td><code>seconds: float</code></td>
-<td>Destroyed when ≤ 0 by LifetimeSystem (phase 11)</td>
+<td>Destroyed when ≤ 0 by <code>LifetimeSystem</code> each frame</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="transform-hierarchy">Transform hierarchy<a class="headerlink" href="#transform-hierarchy" title="Permanent link">&para;</a></h2>
-<p>Set <code>Transform::parent</code> to another entity to form a parent-child relationship. <code>TransformPropagationSystem</code> (phase 11) resolves world transforms. A null/invalid <code>parent</code> means no parent.</p>
+<p>Set <code>Transform::parent</code> to another entity to form a parent-child relationship. <code>TransformPropagationSystem</code> is stubbed for now — correct implementation requires a separate world-transform store to avoid accumulating parent offsets each frame. <code>Transform::position</code> is always world-space until then. A null/invalid <code>parent</code> means no parent.</p>
 <hr />
 <h2 id="entt-escape-hatch">EnTT escape hatch<a class="headerlink" href="#entt-escape-hatch" title="Permanent link">&para;</a></h2>
 <p>For advanced use, the raw registry is accessible:</p>

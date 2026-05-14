@@ -94,6 +94,7 @@ add_library(glyph STATIC
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
+    src/renderer/sprite_batch.cpp
 )
 
 target_include_directories(glyph

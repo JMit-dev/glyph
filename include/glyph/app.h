@@ -1,14 +1,14 @@
 // app.h — Game base class and AppConfig.
 //
-// Game authors subclass Game, override the lifecycle hooks they care about,
-// and register their class with GLYPH_MAIN(). The engine owns main() and
-// drives the lifecycle.
+// Subclass Game, override the lifecycle hooks you care about, and register
+// with GLYPH_MAIN(). The engine owns main() and drives the lifecycle.
 #pragma once
 
 #include <string>
 
 namespace glyph {
 
+class Input;
 class Renderer;
 
 struct AppConfig {
@@ -24,25 +24,24 @@ class Game {
 public:
     virtual ~Game() = default;
 
-    // Called once before window creation. Return the desired config.
-    virtual AppConfig configure() { return {}; }
-
-    // Called once after the window, GL context, and subsystems are ready.
-    virtual void on_start() {}
-
-    // Called every frame. dt is delta time in seconds.
-    virtual void on_update(float /*dt*/) {}
-
-    // Called every frame after on_update. Issue all draw calls here.
+    virtual AppConfig configure()           { return {}; }
+    virtual void on_start()                 {}
+    virtual void on_update(float /*dt*/)    {}
     virtual void on_render(Renderer& /*r*/) {}
+    virtual void on_shutdown()              {}
 
-    // Called once before subsystems shut down.
-    virtual void on_shutdown() {}
+protected:
+    // Engine services — valid after on_start(); do not call from configure().
+    Input& input();
+
+private:
+    // Engine-internal wiring — called by AppState before on_start().
+    // Not for game code; use the protected accessors above.
+    friend struct AppState;
+    Input* input_ = nullptr;
 };
 
 } // namespace glyph
 
-// Game authors call GLYPH_MAIN(MyGameClass) at file scope in one
-// translation unit to register their game with the engine.
-#define GLYPH_MAIN(GameClass)                                                   \
+#define GLYPH_MAIN(GameClass) \
     extern "C" glyph::Game* glyph_create_game() { return new GameClass(); }

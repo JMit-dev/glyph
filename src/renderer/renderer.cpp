@@ -32,6 +32,8 @@ void Renderer::shutdown() {
 }
 
 void Renderer::begin_frame() {
+    glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
+    glClear(GL_COLOR_BUFFER_BIT);
     mat4 vp = camera_.view_projection();
     batch_->begin(glm::value_ptr(vp));
 }

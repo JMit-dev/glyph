@@ -26,7 +26,12 @@ public:
     void begin_frame();
     void end_frame();
 
-    // Fill the framebuffer with a solid color.
+    // Set the background color used to clear the framebuffer at begin_frame().
+    // Default: opaque black.
+    void set_clear_color(Color c) { clear_color_ = c; }
+
+    // Manually fill the framebuffer with a solid color (rarely needed;
+    // begin_frame() already clears automatically).
     void clear(Color c);
 
     // Update the GL viewport and camera viewport_size. Call on window resize.
@@ -48,6 +53,7 @@ public:
 
 private:
     Camera                       camera_;
+    Color                        clear_color_ {0.f, 0.f, 0.f, 1.f};
     std::unique_ptr<SpriteBatch> batch_;
 };
 

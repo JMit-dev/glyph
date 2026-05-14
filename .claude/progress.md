@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 4: Sprite batcher**
+**Phase 5: Camera + math**
 
 Status: not started
 
@@ -15,7 +15,7 @@ Status: not started
 - [x] **1. CMake skeleton + SDL3 window** — `samples/01_hello_window` opens and closes cleanly → tag `v0.1.0`
 - [x] **2. GL context + clear color** — verified on desktop → tag `v0.2.0`
 - [x] **3. Shader + textured quad** — hardcoded vertices, one texture → tag `v0.3.0`
-- [ ] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
+- [x] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
 - [ ] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
 - [ ] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
 - [ ] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
@@ -48,3 +48,6 @@ glad2 loaded inside Window::create() after SDL_GL_MakeCurrent — keeps platform
 
 ### Phase 3
 GLSL source strings carry no #version — platform header injected at compile time via glShaderSource two-source array (#version 330 core on desktop, #version 300 es on GLES). #ifdef GL_ES guards precision qualifiers. Renderer stores GL handles (unsigned int) directly as private members to avoid leaking internal types into the public header. Ortho matrix computed without glm; will be replaced when glm arrives in phase 5. LNK4098 warning from SDL/MSVC runtime mix is harmless — address if it causes runtime issues.
+
+### Phase 4
+SpriteBatch owns shader/VAO/VBO/IBO; Renderer delegates everything to it via unique_ptr<SpriteBatch> (forward-declared to keep internal type out of public header; ~Renderer() defined in renderer.cpp so unique_ptr can see the complete type). Fragment shader uses a switch on int(v_tex_index) rather than dynamic sampler array indexing — GLES 3.0 spec allows it but some drivers reject it. Static IBO (pre-built quad index pattern, GL_STATIC_DRAW). Index type uint16_t — safe up to kMaxQuads=2000 (max vertex index 7999 < 65535).

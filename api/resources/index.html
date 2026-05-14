@@ -630,6 +630,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../lua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../audio/" class="md-nav__link">
         
   
@@ -881,10 +909,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#set_rootconst-stdstring-path" class="md-nav__link">
+  <a href="#set_rootpath-root" class="md-nav__link">
     <span class="md-ellipsis">
       
-        set_root(const std::string&amp; path)
+        set_root(path) / root()
       
     </span>
   </a>
@@ -892,10 +920,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#textureconst-stdstring-path-shared_ptrtexture" class="md-nav__link">
+  <a href="#texturepath-shared_ptrtexture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        texture(const std::string&amp; path) → shared_ptr&lt;Texture&gt;
+        texture(path) → shared_ptr&lt;Texture&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fontpath-size_px-shared_ptrfont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        font(path, size_px) → shared_ptr&lt;Font&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soundpath-shared_ptrsound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sound(path) → shared_ptr&lt;Sound&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#musicpath-shared_ptrmusic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        music(path) → shared_ptr&lt;Music&gt;
       
     </span>
   </a>
@@ -930,21 +991,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lifetime" class="md-nav__link">
+  <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lifetime
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#coming-in-future-phases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coming in future phases
+        Notes
       
     </span>
   </a>
@@ -1132,52 +1182,60 @@
 
 <h1 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h1>
 <p><strong>Header:</strong> <code>#include &lt;glyph/resources.h&gt;</code></p>
-<p>Reference-counted asset cache. Assets are loaded on demand and cached by resolved path. The cache holds <code>weak_ptr</code> references — when all external <code>shared_ptr</code>s are released the cache entry expires and is cleaned up on the next <code>unload_unused()</code> call.</p>
+<p>Reference-counted asset cache. Assets are loaded on demand and cached by resolved path. The cache holds <code>weak_ptr</code> references — when all external <code>shared_ptr</code>s are released, the entry expires and is cleaned up on the next <code>unload_unused()</code> call.</p>
 <p>All methods must be called from the <strong>main thread</strong>.</p>
 <hr />
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>The engine provides a shared <code>Resources</code> instance accessible via <code>Game::resources()</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Resources</span><span class="w">             </span><span class="n">res_</span><span class="p">;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Texture</span><span class="o">&gt;</span><span class="w"> </span><span class="n">player_</span><span class="p">;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Texture</span><span class="o">&gt;</span><span class="w"> </span><span class="n">player_</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Font</span><span class="o">&gt;</span><span class="w">    </span><span class="n">font_</span><span class="p">;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">res_</span><span class="p">.</span><span class="n">set_root</span><span class="p">(</span><span class="s">&quot;assets&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">player_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;player.png&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">player_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;player.png&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">font_</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">font</span><span class="p">(</span><span class="s">&quot;fonts/roboto.ttf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="o">*</span><span class="n">player_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">});</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="n">player_</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">        </span><span class="n">res_</span><span class="p">.</span><span class="n">unload_unused</span><span class="p">();</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">};</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="o">*</span><span class="n">font_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Score: 0&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">});</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">};</span>
 </code></pre></div>
 <hr />
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="set_rootconst-stdstring-path"><code>set_root(const std::string&amp; path)</code><a class="headerlink" href="#set_rootconst-stdstring-path" title="Permanent link">&para;</a></h3>
-<p>Set the directory prepended to all relative asset paths. Default: <code>"assets"</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">res_</span><span class="p">.</span><span class="n">set_root</span><span class="p">(</span><span class="s">&quot;assets&quot;</span><span class="p">);</span><span class="w">          </span><span class="c1">// looks in ./assets/</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">res_</span><span class="p">.</span><span class="n">set_root</span><span class="p">(</span><span class="s">&quot;/absolute/path&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// absolute path</span>
+<h3 id="set_rootpath-root"><code>set_root(path)</code> / <code>root()</code><a class="headerlink" href="#set_rootpath-root" title="Permanent link">&para;</a></h3>
+<p>Set (or get) the directory prepended to all relative asset paths. Default: <code>"assets"</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">resources</span><span class="p">().</span><span class="n">set_root</span><span class="p">(</span><span class="s">&quot;assets&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// relative paths look in ./assets/</span>
 </code></pre></div>
-<h3 id="textureconst-stdstring-path-shared_ptrtexture"><code>texture(const std::string&amp; path) → shared_ptr&lt;Texture&gt;</code><a class="headerlink" href="#textureconst-stdstring-path-shared_ptrtexture" title="Permanent link">&para;</a></h3>
-<p>Load a texture from an image file (PNG, JPG, BMP, TGA via stb_image). Returns a cached copy if the same path was loaded before and is still alive.</p>
-<p>Returns <code>nullptr</code> and logs an error if the file cannot be read or decoded.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">tex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;tiles.png&quot;</span><span class="p">);</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">tex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle error */</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">// Second call returns the same GPU texture — no re-upload.</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">auto</span><span class="w"> </span><span class="n">tex2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;tiles.png&quot;</span><span class="p">);</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">assert</span><span class="p">(</span><span class="n">tex</span><span class="p">.</span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">tex2</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+<h3 id="texturepath-shared_ptrtexture"><code>texture(path) → shared_ptr&lt;Texture&gt;</code><a class="headerlink" href="#texturepath-shared_ptrtexture" title="Permanent link">&para;</a></h3>
+<p>Load a PNG/JPG/BMP/TGA from disk via stb_image. Returns a cached copy if already alive. Returns <code>nullptr</code> on failure.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">tex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;tiles.png&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">// Second call returns the same object — no re-upload.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">auto</span><span class="w"> </span><span class="n">tex2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;tiles.png&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">assert</span><span class="p">(</span><span class="n">tex</span><span class="p">.</span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">tex2</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+</code></pre></div>
+<h3 id="fontpath-size_px-shared_ptrfont"><code>font(path, size_px) → shared_ptr&lt;Font&gt;</code><a class="headerlink" href="#fontpath-size_px-shared_ptrfont" title="Permanent link">&para;</a></h3>
+<p>Load a TTF/OTF file and bake an ASCII glyph atlas at the given pixel size. Cached by <code>(path, size_px)</code>. Returns <code>nullptr</code> on failure.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">font</span><span class="p">(</span><span class="s">&quot;fonts/roboto.ttf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">);</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">font</span><span class="p">(</span><span class="s">&quot;fonts/roboto.ttf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">36</span><span class="p">);</span><span class="w">  </span><span class="c1">// separate atlas</span>
+</code></pre></div>
+<h3 id="soundpath-shared_ptrsound"><code>sound(path) → shared_ptr&lt;Sound&gt;</code><a class="headerlink" href="#soundpath-shared_ptrsound" title="Permanent link">&para;</a></h3>
+<p>Returns a <code>Sound</code> path-wrapper. Actual audio decoding happens at play time via <code>Audio::play()</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">sfx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">sound</span><span class="p">(</span><span class="s">&quot;sfx/jump.wav&quot;</span><span class="p">);</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">audio</span><span class="p">().</span><span class="n">play</span><span class="p">(</span><span class="n">sfx</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="musicpath-shared_ptrmusic"><code>music(path) → shared_ptr&lt;Music&gt;</code><a class="headerlink" href="#musicpath-shared_ptrmusic" title="Permanent link">&para;</a></h3>
+<p>Returns a <code>Music</code> path-wrapper for streaming playback.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">bgm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resources</span><span class="p">().</span><span class="n">music</span><span class="p">(</span><span class="s">&quot;music/theme.ogg&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">audio</span><span class="p">().</span><span class="n">play_music</span><span class="p">(</span><span class="n">bgm</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="unload_unused"><code>unload_unused()</code><a class="headerlink" href="#unload_unused" title="Permanent link">&para;</a></h3>
-<p>Remove expired cache entries (those whose <code>shared_ptr</code>s have all been released). Call this in <code>on_shutdown()</code> or periodically when switching scenes.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">player_</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">res_</span><span class="p">.</span><span class="n">unload_unused</span><span class="p">();</span><span class="w">   </span><span class="c1">// frees the GPU texture</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+<p>Remove cache entries whose <code>shared_ptr</code>s have all been released. Call when switching scenes or in <code>on_shutdown()</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">player_</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">resources</span><span class="p">().</span><span class="n">unload_unused</span><span class="p">();</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
 </code></pre></div>
 <hr />
 <h2 id="path-resolution">Path resolution<a class="headerlink" href="#path-resolution" title="Permanent link">&para;</a></h2>
@@ -1185,7 +1243,7 @@
 <thead>
 <tr>
 <th>Path</th>
-<th>Resolved to</th>
+<th>Resolved as</th>
 </tr>
 </thead>
 <tbody>
@@ -1198,54 +1256,25 @@
 <td><code>{root}/ui/button.png</code></td>
 </tr>
 <tr>
-<td><code>"/absolute/tex.png"</code></td>
-<td><code>/absolute/tex.png</code> (unchanged)</td>
+<td><code>"/absolute/path.png"</code></td>
+<td>unchanged</td>
 </tr>
 <tr>
 <td><code>"C:\\data\\tex.png"</code></td>
-<td><code>C:\data\tex.png</code> (unchanged)</td>
+<td>unchanged (Windows absolute)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="lifetime">Lifetime<a class="headerlink" href="#lifetime" title="Permanent link">&para;</a></h2>
-<p>The <code>Resources</code> instance does not need to outlive the textures it created — each <code>shared_ptr&lt;Texture&gt;</code> is self-contained. However, keeping a single <code>Resources</code> per scene (or per game) avoids redundant disk reads.</p>
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">GL context required</p>
-<p><code>texture()</code> uploads pixel data to the GPU. Only call it after <code>on_start()</code> while the GL context is active.</p>
+<p><code>texture()</code> and <code>font()</code> upload data to the GPU. Only call them from <code>on_start()</code> or later lifecycle hooks while the GL context is active — never from <code>configure()</code>.</p>
 </div>
-<hr />
-<h2 id="coming-in-future-phases">Coming in future phases<a class="headerlink" href="#coming-in-future-phases" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Phase</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>sprite_sheet(path)</code></td>
-<td>12 — Aseprite JSON</td>
-</tr>
-<tr>
-<td><code>tilemap(path)</code></td>
-<td>13 — Tiled TMJ</td>
-</tr>
-<tr>
-<td><code>font(path, size)</code></td>
-<td>15 — stb_truetype</td>
-</tr>
-<tr>
-<td><code>sound(path)</code></td>
-<td>9 — miniaudio</td>
-</tr>
-<tr>
-<td><code>music(path)</code></td>
-<td>9 — miniaudio</td>
-</tr>
-</tbody>
-</table>
+<div class="admonition tip">
+<p class="admonition-title">Lua access</p>
+<p>From Lua scripts, use <code>glyph.load_texture(path)</code> to preload into the shared cache, or <code>glyph.play_sound(path)</code> / <code>glyph.play_music(path)</code> which resolve through Resources automatically.</p>
+</div>
 
 
 

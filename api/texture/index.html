@@ -630,6 +630,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../lua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../audio/" class="md-nav__link">
         
   
@@ -1143,7 +1171,7 @@
 
 <h1 id="texture">Texture<a class="headerlink" href="#texture" title="Permanent link">&para;</a></h1>
 <p><strong>Header:</strong> <code>#include &lt;glyph/texture.h&gt;</code></p>
-<p>A 2D GPU texture. Created from raw RGBA8 pixel data. In phase 6, <code>Resources::texture()</code> will load from PNG/JPG files via stb_image — for now, create textures manually from pixel arrays.</p>
+<p>A 2D GPU texture backed by a GL object. Create from raw RGBA8 pixel data directly, or let <code>Resources::texture()</code> load from a PNG/JPG/BMP/TGA file (the usual path).</p>
 <hr />
 <h2 id="creating-a-texture">Creating a texture<a class="headerlink" href="#creating-a-texture" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 2×2 checkerboard (black and white)</span>
@@ -1196,9 +1224,9 @@
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">atlas_</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">};</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Future: Resources</p>
-<p>Phase 6 introduces <code>Resources::texture(path)</code> which returns a <code>shared_ptr&lt;Texture&gt;</code> with automatic lifetime management and caching.</p>
+<div class="admonition tip">
+<p class="admonition-title">Prefer Resources</p>
+<p><code>Resources::texture(path)</code> returns a <code>shared_ptr&lt;Texture&gt;</code> with automatic lifetime management and caching. Raw <code>Texture</code> creation is mainly useful for procedurally generated data (e.g. a font atlas).</p>
 </div>
 
 

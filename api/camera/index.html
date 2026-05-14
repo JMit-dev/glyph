@@ -630,6 +630,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../lua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../audio/" class="md-nav__link">
         
   
@@ -829,10 +857,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fitmode-not-yet-implemented" class="md-nav__link">
+  <a href="#fitmode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FitMode (not yet implemented)
+        FitMode
       
     </span>
   </a>
@@ -1212,8 +1240,10 @@
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">}</span>
 </code></pre></div>
 <hr />
-<h2 id="fitmode-not-yet-implemented">FitMode <em>(not yet implemented)</em><a class="headerlink" href="#fitmode-not-yet-implemented" title="Permanent link">&para;</a></h2>
-<p><code>enum class FitMode { Stretch, Letterbox, PixelPerfect }</code> is declared but not yet wired into the renderer. Letterboxing / pillarboxing arrives alongside window resize handling.</p>
+<h2 id="fitmode">FitMode<a class="headerlink" href="#fitmode" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FitMode</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Stretch</span><span class="p">,</span><span class="w"> </span><span class="n">Letterbox</span><span class="p">,</span><span class="w"> </span><span class="n">PixelPerfect</span><span class="w"> </span><span class="p">};</span>
+</code></pre></div>
+<p>Declared for future use. Not yet wired into the renderer — letterboxing and pixel-perfect scaling are deferred until window resize handling is formalised.</p>
 
 
 

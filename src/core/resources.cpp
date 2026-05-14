@@ -14,8 +14,8 @@ void Resources::set_root(const std::string& path) {
 }
 
 std::string Resources::resolve(const std::string& path) const {
-    // Treat absolute paths (Unix: '/', Windows: 'X:') as-is.
     if (path.empty()) return path;
+    // Absolute paths: Unix '/' or Windows 'X:' prefix.
     if (path[0] == '/' || (path.size() > 1 && path[1] == ':')) return path;
     return root_ + "/" + path;
 }
@@ -23,43 +23,65 @@ std::string Resources::resolve(const std::string& path) const {
 std::shared_ptr<Texture> Resources::texture(const std::string& path) {
     const std::string key = resolve(path);
 
-    // Return cached instance if still alive.
     auto it = textures_.find(key);
-    if (it != textures_.end()) {
+    if (it != textures_.end())
         if (auto tex = it->second.lock()) return tex;
-    }
 
-    // Load file bytes through FileIO so the same path syntax works everywhere.
     const auto data = FileIO::read_binary(key);
     if (data.empty()) {
         std::fprintf(stderr, "[glyph] Resources: cannot read '%s'\n", key.c_str());
         return nullptr;
     }
 
-    // Decode via stb_image. Force 4 channels (RGBA) regardless of source format.
-    int w, h, src_channels;
-    stbi_uc* pixels = stbi_load_from_memory(
-        data.data(), static_cast<int>(data.size()),
-        &w, &h, &src_channels, 4);
-
-    if (!pixels) {
+    int w, h, ch;
+    stbi_uc* px = stbi_load_from_memory(data.data(), static_cast<int>(data.size()),
+                                        &w, &h, &ch, 4);
+    if (!px) {
         std::fprintf(stderr, "[glyph] Resources: stbi_load failed for '%s': %s\n",
                      key.c_str(), stbi_failure_reason());
         return nullptr;
     }
 
     auto tex = std::make_shared<Texture>();
-    tex->create(w, h, pixels);
-    stbi_image_free(pixels);
+    tex->create(w, h, px);
+    stbi_image_free(px);
 
     textures_[key] = tex;
     return tex;
 }
 
+std::shared_ptr<Sound> Resources::sound(const std::string& path) {
+    const std::string key = resolve(path);
+
+    auto it = sounds_.find(key);
+    if (it != sounds_.end())
+        if (auto s = it->second.lock()) return s;
+
+    // Sound is a path wrapper; miniaudio decodes it at play time.
+    auto s = std::shared_ptr<Sound>(new Sound(key));
+    sounds_[key] = s;
+    return s;
+}
+
+std::shared_ptr<Music> Resources::music(const std::string& path) {
+    const std::string key = resolve(path);
+
+    auto it = musics_.find(key);
+    if (it != musics_.end())
+        if (auto m = it->second.lock()) return m;
+
+    auto m = std::shared_ptr<Music>(new Music(key));
+    musics_[key] = m;
+    return m;
+}
+
 void Resources::unload_unused() {
-    for (auto it = textures_.begin(); it != textures_.end(); ) {
+    for (auto it = textures_.begin(); it != textures_.end(); )
         it = it->second.expired() ? textures_.erase(it) : std::next(it);
-    }
+    for (auto it = sounds_.begin(); it != sounds_.end(); )
+        it = it->second.expired() ? sounds_.erase(it) : std::next(it);
+    for (auto it = musics_.begin(); it != musics_.end(); )
+        it = it->second.expired() ? musics_.erase(it) : std::next(it);
 }
 
 } // namespace glyph

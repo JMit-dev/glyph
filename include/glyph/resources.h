@@ -6,6 +6,7 @@
 // All methods must be called from the main thread.
 #pragma once
 
+#include <glyph/audio.h>
 #include <glyph/texture.h>
 
 #include <memory>
@@ -25,6 +26,11 @@ public:
     // Returns nullptr and logs an error if the file cannot be read or decoded.
     std::shared_ptr<Texture> texture(const std::string& path);
 
+    // Return a Sound/Music handle for the given audio file path.
+    // Sound/Music are path wrappers; actual decoding happens at play time.
+    std::shared_ptr<Sound> sound(const std::string& path);
+    std::shared_ptr<Music> music(const std::string& path);
+
     // Remove cache entries whose shared_ptrs have all expired (no live references).
     void unload_unused();
 
@@ -33,6 +39,8 @@ private:
 
     std::string root_ = "assets";
     std::unordered_map<std::string, std::weak_ptr<Texture>> textures_;
+    std::unordered_map<std::string, std::weak_ptr<Sound>>   sounds_;
+    std::unordered_map<std::string, std::weak_ptr<Music>>   musics_;
 };
 
 } // namespace glyph

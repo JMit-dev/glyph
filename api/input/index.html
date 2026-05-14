@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/texture/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/input/">
       
       
-        <link rel="prev" href="../input/">
+        <link rel="prev" href="../camera/">
       
       
-        <link rel="next" href="../resources/">
+        <link rel="next" href="../texture/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Texture - Glyph Engine</title>
+        <title>Input - Glyph Engine</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#texture" class="md-skip">
+        <a href="#input" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Texture
+              Input
             
           </span>
         </div>
@@ -571,34 +571,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../input/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Input
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -618,7 +590,7 @@
   <span class="md-ellipsis">
     
   
-    Texture
+    Input
   
 
     
@@ -636,7 +608,7 @@
   <span class="md-ellipsis">
     
   
-    Texture
+    Input
   
 
     
@@ -662,10 +634,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-a-texture" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Creating a texture
+        Quick start
       
     </span>
   </a>
@@ -673,22 +645,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
+  <a href="#keyboard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Methods
+        Keyboard
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Methods">
+    <nav class="md-nav" aria-label="Keyboard">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#createint-w-int-h-const-uint8_t-rgba_pixels-bool" class="md-nav__link">
+  <a href="#key_downkey-k-bool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        create(int w, int h, const uint8_t* rgba_pixels) → bool
+        key_down(Key k) → bool
       
     </span>
   </a>
@@ -696,10 +668,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#destroy" class="md-nav__link">
+  <a href="#key_pressedkey-k-bool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        destroy()
+        key_pressed(Key k) → bool
       
     </span>
   </a>
@@ -707,10 +679,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#bindint-slot-0" class="md-nav__link">
+  <a href="#key_releasedkey-k-bool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        bind(int slot = 0)
+        key_released(Key k) → bool
       
     </span>
   </a>
@@ -718,32 +690,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#valid-bool" class="md-nav__link">
+  <a href="#key-enum" class="md-nav__link">
     <span class="md-ellipsis">
       
-        valid() → bool
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#width-int-height-int" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        width() → int / height() → int
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#id-unsigned-int" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        id() → unsigned int
+        Key enum
       
     </span>
   </a>
@@ -756,10 +706,143 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lifetime" class="md-nav__link">
+  <a href="#mouse" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lifetime
+        Mouse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mouse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mouse_position-vec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mouse_position() → vec2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mouse_downmousebutton-bool-mouse_pressed-mouse_released" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mouse_down(MouseButton) → bool / mouse_pressed / mouse_released
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mouse_wheel-vec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mouse_wheel() → vec2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mousebutton-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MouseButton enum
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#action-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action bindings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Action bindings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bind_actionname-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind_action(name, Key)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind_axisname-key-neg-key-pos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind_axis(name, Key neg, Key pos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#action_downname-action_pressedname-bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        action_down(name) / action_pressed(name) → bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axis_valuename-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        axis_value(name) → float
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default bindings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frame-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frame timing
       
     </span>
   </a>
@@ -770,6 +853,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../texture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Texture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -973,65 +1084,138 @@
   
 
 
-<h1 id="texture">Texture<a class="headerlink" href="#texture" title="Permanent link">&para;</a></h1>
-<p><strong>Header:</strong> <code>#include &lt;glyph/texture.h&gt;</code></p>
-<p>A 2D GPU texture. Created from raw RGBA8 pixel data. In phase 6, <code>Resources::texture()</code> will load from PNG/JPG files via stb_image — for now, create textures manually from pixel arrays.</p>
+<h1 id="input">Input<a class="headerlink" href="#input" title="Permanent link">&para;</a></h1>
+<p><strong>Header:</strong> <code>#include &lt;glyph/input.h&gt;</code></p>
+<p>Access via <code>input()</code> inside any <code>Game</code> lifecycle hook. The engine updates state from SDL events before each frame.</p>
 <hr />
-<h2 id="creating-a-texture">Creating a texture<a class="headerlink" href="#creating-a-texture" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 2×2 checkerboard (black and white)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">pixels</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="c1">// row 0: white, black</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="c1">// row 1: black, white</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">};</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Texture</span><span class="w"> </span><span class="n">tex</span><span class="p">;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">tex</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">pixels</span><span class="p">);</span>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// Axis — returns -1, 0, or +1 (clamped, normalised across all bound pairs)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">axis_value</span><span class="p">(</span><span class="s">&quot;move_x&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// A/D + Left/Right by default</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">vy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">axis_value</span><span class="p">(</span><span class="s">&quot;move_y&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// W/S + Up/Down by default</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// Single-frame press detection</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">action_pressed</span><span class="p">(</span><span class="s">&quot;confirm&quot;</span><span class="p">))</span><span class="w">     </span><span class="c1">// Space or Enter by default</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">start_action</span><span class="p">();</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// Raw key query</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">key_down</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">LShift</span><span class="p">))</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="n">speed</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mf">2.f</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="c1">// Mouse</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">mouse_position</span><span class="p">();</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">scroll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">().</span><span class="n">mouse_wheel</span><span class="p">().</span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
 </code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">GL context required</p>
-<p><code>create()</code> uploads data to the GPU. Call it after <code>on_start()</code> — never in a constructor or before the engine initializes.</p>
-</div>
 <hr />
-<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="createint-w-int-h-const-uint8_t-rgba_pixels-bool"><code>create(int w, int h, const uint8_t* rgba_pixels) → bool</code><a class="headerlink" href="#createint-w-int-h-const-uint8_t-rgba_pixels-bool" title="Permanent link">&para;</a></h3>
-<p>Upload RGBA8 pixels and allocate a GL texture object. Returns <code>true</code> on success.</p>
-<ul>
-<li>Pixel format: 4 bytes per pixel, R G B A order, top-row first.</li>
-<li>Filtering: <strong>nearest-neighbor</strong> (sharp pixels, no blurring — ideal for pixel art).</li>
-<li>Wrap mode: <code>CLAMP_TO_EDGE</code>.</li>
-</ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tex</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">pixel_data</span><span class="p">);</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle error */</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
-<h3 id="destroy"><code>destroy()</code><a class="headerlink" href="#destroy" title="Permanent link">&para;</a></h3>
-<p>Free the GPU texture. Call this in <code>Game::on_shutdown()</code> for any textures you created manually.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">tex_</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
-</code></pre></div>
-<p>Calling <code>destroy()</code> on an already-destroyed texture is safe (no-op).</p>
-<h3 id="bindint-slot-0"><code>bind(int slot = 0)</code><a class="headerlink" href="#bindint-slot-0" title="Permanent link">&para;</a></h3>
-<p>Bind to a GL texture slot (0–7). You generally don't need to call this directly — draw calls handle binding internally.</p>
-<h3 id="valid-bool"><code>valid() → bool</code><a class="headerlink" href="#valid-bool" title="Permanent link">&para;</a></h3>
-<p>Returns <code>true</code> if the texture has been successfully created and not yet destroyed.</p>
-<h3 id="width-int-height-int"><code>width() → int</code> / <code>height() → int</code><a class="headerlink" href="#width-int-height-int" title="Permanent link">&para;</a></h3>
-<p>Dimensions in pixels.</p>
-<h3 id="id-unsigned-int"><code>id() → unsigned int</code><a class="headerlink" href="#id-unsigned-int" title="Permanent link">&para;</a></h3>
-<p>The raw GL texture name. Exposed for advanced use; prefer the higher-level draw API.</p>
+<h2 id="keyboard">Keyboard<a class="headerlink" href="#keyboard" title="Permanent link">&para;</a></h2>
+<h3 id="key_downkey-k-bool"><code>key_down(Key k) → bool</code><a class="headerlink" href="#key_downkey-k-bool" title="Permanent link">&para;</a></h3>
+<p>True while the key is held.</p>
+<h3 id="key_pressedkey-k-bool"><code>key_pressed(Key k) → bool</code><a class="headerlink" href="#key_pressedkey-k-bool" title="Permanent link">&para;</a></h3>
+<p>True <strong>only on the frame</strong> the key went from up to down.</p>
+<h3 id="key_releasedkey-k-bool"><code>key_released(Key k) → bool</code><a class="headerlink" href="#key_releasedkey-k-bool" title="Permanent link">&para;</a></h3>
+<p>True <strong>only on the frame</strong> the key went from down to up.</p>
+<h3 id="key-enum">Key enum<a class="headerlink" href="#key-enum" title="Permanent link">&para;</a></h3>
+<p>Common values (full list in <code>input.h</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Enum</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Key::A</code>–<code>Key::Z</code></td>
+<td>Letter keys</td>
+</tr>
+<tr>
+<td><code>Key::Num0</code>–<code>Key::Num9</code></td>
+<td>Number row</td>
+</tr>
+<tr>
+<td><code>Key::Up/Down/Left/Right</code></td>
+<td>Arrow keys</td>
+</tr>
+<tr>
+<td><code>Key::Space</code>, <code>Key::Return</code>, <code>Key::Escape</code></td>
+<td>Special</td>
+</tr>
+<tr>
+<td><code>Key::LShift</code>, <code>Key::LCtrl</code>, <code>Key::LAlt</code></td>
+<td>Modifiers</td>
+</tr>
+<tr>
+<td><code>Key::F1</code>–<code>Key::F12</code></td>
+<td>Function keys</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="lifetime">Lifetime<a class="headerlink" href="#lifetime" title="Permanent link">&para;</a></h2>
-<p><code>Texture</code> is a plain value type — it doesn't auto-destroy when it goes out of scope. Always pair <code>create()</code> with a matching <code>destroy()</code> call in <code>on_shutdown()</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Texture</span><span class="w"> </span><span class="n">atlas_</span><span class="p">;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">atlas_</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">atlas_</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">};</span>
+<h2 id="mouse">Mouse<a class="headerlink" href="#mouse" title="Permanent link">&para;</a></h2>
+<h3 id="mouse_position-vec2"><code>mouse_position() → vec2</code><a class="headerlink" href="#mouse_position-vec2" title="Permanent link">&para;</a></h3>
+<p>Current cursor position in screen pixels (top-left origin).</p>
+<h3 id="mouse_downmousebutton-bool-mouse_pressed-mouse_released"><code>mouse_down(MouseButton) → bool</code> / <code>mouse_pressed</code> / <code>mouse_released</code><a class="headerlink" href="#mouse_downmousebutton-bool-mouse_pressed-mouse_released" title="Permanent link">&para;</a></h3>
+<p>Same frame-delta semantics as keyboard.</p>
+<h3 id="mouse_wheel-vec2"><code>mouse_wheel() → vec2</code><a class="headerlink" href="#mouse_wheel-vec2" title="Permanent link">&para;</a></h3>
+<p>Accumulated scroll delta this frame. <code>y &gt; 0</code> = scroll up. Resets to zero each frame.</p>
+<h3 id="mousebutton-enum">MouseButton enum<a class="headerlink" href="#mousebutton-enum" title="Permanent link">&para;</a></h3>
+<p><code>MouseButton::Left</code>, <code>MouseButton::Right</code>, <code>MouseButton::Middle</code></p>
+<hr />
+<h2 id="action-bindings">Action bindings<a class="headerlink" href="#action-bindings" title="Permanent link">&para;</a></h2>
+<p>Named bindings decouple game logic from specific keys.</p>
+<h3 id="bind_actionname-key"><code>bind_action(name, Key)</code><a class="headerlink" href="#bind_actionname-key" title="Permanent link">&para;</a></h3>
+<p>Add a key trigger to a named action. Multiple keys can be bound; any one fires the action.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_action</span><span class="p">(</span><span class="s">&quot;jump&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Space</span><span class="p">);</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_action</span><span class="p">(</span><span class="s">&quot;jump&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Up</span><span class="p">);</span><span class="w">    </span><span class="c1">// second binding for same action</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Future: Resources</p>
-<p>Phase 6 introduces <code>Resources::texture(path)</code> which returns a <code>shared_ptr&lt;Texture&gt;</code> with automatic lifetime management and caching.</p>
-</div>
+<h3 id="bind_axisname-key-neg-key-pos"><code>bind_axis(name, Key neg, Key pos)</code><a class="headerlink" href="#bind_axisname-key-neg-key-pos" title="Permanent link">&para;</a></h3>
+<p>Add a key pair to a named axis. Multiple pairs are OR'd and clamped to <code>[-1, 1]</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_axis</span><span class="p">(</span><span class="s">&quot;move_x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Left</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">Right</span><span class="p">);</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">input</span><span class="p">().</span><span class="n">bind_axis</span><span class="p">(</span><span class="s">&quot;move_x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">A</span><span class="p">,</span><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Key</span><span class="o">::</span><span class="n">D</span><span class="p">);</span><span class="w">   </span><span class="c1">// both pairs active</span>
+</code></pre></div>
+<h3 id="action_downname-action_pressedname-bool"><code>action_down(name)</code> / <code>action_pressed(name)</code> → bool<a class="headerlink" href="#action_downname-action_pressedname-bool" title="Permanent link">&para;</a></h3>
+<p><code>action_pressed</code> returns true only on the frame any bound key is first pressed.</p>
+<h3 id="axis_valuename-float"><code>axis_value(name)</code> → float<a class="headerlink" href="#axis_valuename-float" title="Permanent link">&para;</a></h3>
+<p>Returns <code>−1</code>, <code>0</code>, or <code>+1</code> (clamped). Diagonal movement should be normalised by the caller.</p>
+<hr />
+<h2 id="default-bindings">Default bindings<a class="headerlink" href="#default-bindings" title="Permanent link">&para;</a></h2>
+<p>Set up in <code>Input::Input()</code>. Games can add more or override with <code>bind_axis</code>/<code>bind_action</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"move_x"</code></td>
+<td><code>A</code>/<code>D</code> + <code>Left</code>/<code>Right</code></td>
+</tr>
+<tr>
+<td><code>"move_y"</code></td>
+<td><code>W</code>/<code>S</code> + <code>Up</code>/<code>Down</code></td>
+</tr>
+<tr>
+<td><code>"confirm"</code></td>
+<td><code>Space</code>, <code>Return</code></td>
+</tr>
+<tr>
+<td><code>"cancel"</code></td>
+<td><code>Escape</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="frame-timing">Frame timing<a class="headerlink" href="#frame-timing" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>SDL events fired  →  SDL_AppEvent updates Input state
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>         ↓
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>SDL_AppIterate:  on_update() + on_render()  ←  game reads Input here
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>         ↓
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Input::begin_frame()  — copies current→previous, resets mouse_wheel
+</code></pre></div>
+<p><code>key_pressed</code> is true for exactly one frame per physical key press.</p>
 
 
 

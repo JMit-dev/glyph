@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 6: Resources + Texture loading**
+**Phase 7: Input + action mapping**
 
 Status: not started
 
@@ -17,7 +17,7 @@ Status: not started
 - [x] **3. Shader + textured quad** — hardcoded vertices, one texture → tag `v0.3.0`
 - [x] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
 - [x] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
-- [ ] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
+- [x] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
 - [ ] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
 - [ ] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
 - [ ] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
@@ -54,3 +54,6 @@ SpriteBatch owns shader/VAO/VBO/IBO; Renderer delegates everything to it via uni
 
 ### Phase 5
 glm added as a submodule at 1.0.1. Must be linked to BOTH glyph (PUBLIC) AND glyph_runtime (PRIVATE) — glyph_runtime compiles main_entry.cpp which includes renderer.h → camera.h → math.h → glm/glm.hpp. Camera stores VP in terms of position/zoom/rotation; view_projection() builds glm::ortho with bottom=pos.y+hh, top=pos.y-hh for y-down convention. Mouse pan/zoom deferred to phase 7 (Input system); phase 5 verifies math with time-based camera animation.
+
+### Phase 6
+`core` in .gitignore was catching src/core/ — fixed to `/core` (root-anchored). stb_image IMPLEMENTATION defined in stb_impl.cpp (one TU only); all other files include stb_image.h without IMPLEMENTATION. Texture made move-only RAII (destructor calls glDeleteTextures; copy deleted). Resources uses weak_ptr cache — entries expire naturally when shared_ptrs are released. 02_sprite generates its own test PNG via stb_image_write at startup (no binary in repo); _CRT_SECURE_NO_WARNINGS suppresses MSVC sprintf warning from stb internals.

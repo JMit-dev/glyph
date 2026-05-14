@@ -39,6 +39,7 @@ nav:
       - Renderer: api/renderer.md
       - Camera: api/camera.md
       - Texture: api/texture.md
+      - Resources: api/resources.md
       - Math Types: api/math.md
   - Development:
       - Build Progress: dev/progress.md

@@ -24,6 +24,7 @@ Or include individual headers:
 | [`app.h`](game.md) | `Game`, `AppConfig`, `GLYPH_MAIN` | v0.1.0 |
 | [`renderer.h`](renderer.md) | `Renderer` | v0.2.0 |
 | [`texture.h`](texture.md) | `Texture` | v0.3.0 |
+| [`resources.h`](resources.md) | `Resources` | v0.6.0 |
 | [`math.h`](math.md) | `Color`, `Rect`, `vec2`, `mat4`, `ivec2`, `lerp` | v0.2.0 / v0.5.0 |
 | [`camera.h`](camera.md) | `Camera`, `FitMode` | v0.5.0 |
 

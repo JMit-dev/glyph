@@ -109,8 +109,10 @@ endif()
 add_library(glyph STATIC
     src/platform/window.cpp
     src/platform/file_io.cpp
+    src/core/app.cpp
     src/core/stb_impl.cpp
     src/core/resources.cpp
+    src/input/input.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -175,4 +177,5 @@ endfunction()
 if(GLYPH_BUILD_SAMPLES)
     add_subdirectory(samples/01_hello_window)
     add_subdirectory(samples/02_sprite)
+    add_subdirectory(samples/03_input)
 endif()

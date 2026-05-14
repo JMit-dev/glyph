@@ -103,6 +103,14 @@ if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/stb/stb_image.h")
         "Run: git submodule update --init --recursive")
 endif()
 
+# miniaudio — single-header audio library.
+# Implementation translation unit: src/audio/miniaudio_impl.cpp
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/miniaudio/miniaudio.h")
+    message(FATAL_ERROR
+        "miniaudio submodule not found at external/miniaudio. "
+        "Run: git submodule update --init --recursive")
+endif()
+
 # ---------------------------------------------------------------------------
 # Engine library
 # ---------------------------------------------------------------------------
@@ -114,6 +122,8 @@ add_library(glyph STATIC
     src/core/stb_impl.cpp
     src/core/resources.cpp
     src/input/input.cpp
+    src/audio/miniaudio_impl.cpp
+    src/audio/audio.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -127,6 +137,7 @@ target_include_directories(glyph
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/external/stb
+        ${CMAKE_SOURCE_DIR}/external/miniaudio
 )
 
 target_compile_definitions(glyph PUBLIC
@@ -142,6 +153,18 @@ target_link_libraries(glyph
         glm::glm
         $<$<BOOL:${GLYPH_PLATFORM_DESKTOP}>:glad_gl>
 )
+
+# miniaudio platform audio backends.
+# Windows links via #pragma comment(lib,...) in the IMPLEMENTATION block.
+# Linux needs dl, pthread, m. macOS needs CoreAudio/CoreFoundation.
+if(UNIX AND NOT APPLE AND NOT EMSCRIPTEN AND NOT ANDROID)
+    target_link_libraries(glyph PUBLIC dl pthread m)
+elseif(APPLE)
+    target_link_libraries(glyph PUBLIC
+        "-framework CoreAudio"
+        "-framework CoreFoundation"
+        "-framework AudioToolbox")
+endif()
 
 # ---------------------------------------------------------------------------
 # Runtime entry point (OBJECT lib so main() always links into the executable)

@@ -13,6 +13,7 @@
 
 #include <entt/entt.hpp>
 
+#include <functional>
 #include <string>
 
 namespace glyph {
@@ -54,6 +55,9 @@ private:
 // ---------------------------------------------------------------------------
 // Scene — owns the EnTT registry and provides a friendly entity API.
 // ---------------------------------------------------------------------------
+// Callback fired by CollisionSystem for each overlapping BoxCollider pair.
+using CollisionCallback = std::function<void(Entity, Entity)>;
+
 class Scene {
 public:
     // Create an anonymous entity.
@@ -70,10 +74,14 @@ public:
     template<class... Comps, class Fn>
     void each(Fn&& fn);
 
-    // Run built-in systems (Lifetime, Movement, etc.). Implemented in phase 11.
+    // Run built-in systems (Lifetime, Movement, Collision, etc.).
     void run_systems(float dt);
 
-    // Render all Sprite+Transform entities. Implemented in phase 11.
+    // Register a callback invoked once per overlapping BoxCollider pair per frame.
+    // Replaces any previously registered callback. Pass nullptr to clear.
+    void on_collision(CollisionCallback cb) { collision_cb_ = std::move(cb); }
+
+    // Render all Sprite+Transform entities.
     void render(Renderer& r);
 
     // Destroy all entities and components.
@@ -83,7 +91,8 @@ public:
     entt::registry& registry() { return registry_; }
 
 private:
-    entt::registry registry_;
+    entt::registry   registry_;
+    CollisionCallback collision_cb_;
 };
 
 // ---------------------------------------------------------------------------

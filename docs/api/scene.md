@@ -75,7 +75,8 @@ void on_update(float dt) override {
 | `create_entity(name)` | Create entity with a `Name` component |
 | `find(name)` | First entity with matching `Name`; invalid if not found |
 | `each<Comps...>(fn)` | Iterate entities with all listed components |
-| `run_systems(dt)` | Run built-in systems (Lifetime, Movement; others stubbed for later phases) |
+| `run_systems(dt)` | Run built-in systems (Lifetime, Movement, Collision, Animator) |
+| `on_collision(fn)` | Register a `void(Entity, Entity)` callback fired for each overlapping `BoxCollider` pair |
 | `render(r)` | Find primary Camera2D, sort sprites by layer, submit to batcher |
 | `clear()` | Destroy all entities |
 | `registry()` | Raw `entt::registry&` escape hatch |
@@ -96,6 +97,38 @@ void on_update(float dt) override {
 | `TilemapRef` | `map: shared_ptr<Tilemap>` | Rendered by Scene (phase 13) |
 | `Script` | `lua_module: string` | Lua entity script; expanded in phase 16 |
 | `Lifetime` | `seconds: float` | Destroyed when ≤ 0 by `LifetimeSystem` each frame |
+
+---
+
+---
+
+## Collision detection
+
+`BoxCollider` defines an axis-aligned bounding box in local space. `CollisionSystem` runs each frame via `Scene::run_systems()` and fires the registered callback for every overlapping pair that passes the layer/mask filter.
+
+```cpp
+void on_start() override {
+    scene().on_collision([](glyph::Entity a, glyph::Entity b) {
+        // called once per overlapping pair per frame
+    });
+
+    auto bullet = scene().create_entity("bullet");
+    auto& col = bullet.add<glyph::BoxCollider>();
+    col.bounds    = {-4, -4, 8, 8};   // local-space AABB, centred on origin
+    col.layer     = 0x02;              // bullet layer
+    col.mask      = 0x01;              // detects enemy layer
+    col.is_trigger = true;             // fire event, no physics resolution
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `bounds` | Local-space AABB relative to `Transform::position` |
+| `layer` | Bitmask — which layer this collider is on |
+| `mask` | Bitmask — which layers this collider detects |
+| `is_trigger` | Fires events but does not push entities apart |
+
+A collision is reported when `(a.layer & b.mask) || (b.layer & a.mask)` and the world-space AABBs overlap.
 
 ---
 

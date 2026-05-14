@@ -19,10 +19,11 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 11 | Built-in systems — `MovementSystem`, `LifetimeSystem`, `Scene::render()` with sprite sorting | `v0.11.0` |
 | ✅ 12 | Aseprite JSON loader — `SpriteSheet::load()`, `AnimClip`, `AnimatorSystem` | `v0.12.0` |
 | ✅ 13 | Tiled TMJ loader + tilemap renderer — `TilemapRef`, `samples/04_tilemap` | `v0.13.0` |
+| ✅ 14 | CollisionSystem — spatial hash broad-phase, AABB narrow-phase, `on_collision` callback | `v0.14.0` |
 
 ## Current phase
 
-**Phase 14: CollisionSystem** — spatial hash + AABB.
+**Phase 15: Font + text rendering** — stb_truetype atlas.
 
 ## Upcoming phases
 

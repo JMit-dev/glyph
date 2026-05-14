@@ -7,6 +7,8 @@
 #include <glyph/sprite_sheet.h>
 
 #include <cmath>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace glyph {
@@ -75,8 +77,83 @@ void run_movement_system(entt::registry& reg, float dt) {
     });
 }
 
-void run_collision_system(entt::registry& /*reg*/, float /*dt*/) {
-    // Spatial-hash AABB collision deferred to phase 14.
+void run_collision_system(entt::registry& reg, Scene* scene, float /*dt*/,
+                          const CollisionCallback& cb) {
+    if (!cb) return;  // no subscriber — skip the entire pass
+
+    // --- Step 1: compute world-space AABBs for all BoxCollider+Transform entities ---
+    // Rotation is ignored (TransformPropagation still stubbed); scale is applied.
+    std::unordered_map<entt::entity, Rect> aabbs;
+    {
+        auto view = reg.view<BoxCollider, Transform>();
+        for (auto e : view) {
+            const auto& col = view.get<BoxCollider>(e);
+            const auto& xf  = view.get<Transform>(e);
+            aabbs[e] = {
+                xf.position.x + col.bounds.x * xf.scale.x,
+                xf.position.y + col.bounds.y * xf.scale.y,
+                col.bounds.w  * xf.scale.x,
+                col.bounds.h  * xf.scale.y
+            };
+        }
+    }
+    if (aabbs.size() < 2) return;
+
+    // --- Step 2: build spatial hash ---
+    // Cell size ≈ average sprite size; 64 px is a reasonable default.
+    static constexpr float kCellSize = 64.f;
+
+    struct CellKey {
+        int x, y;
+        bool operator==(const CellKey& o) const { return x == o.x && y == o.y; }
+    };
+    struct CellHash {
+        size_t operator()(const CellKey& k) const {
+            return static_cast<size_t>(k.x) * 2654435761u
+                 ^ static_cast<size_t>(k.y) * 2246822519u;
+        }
+    };
+
+    std::unordered_map<CellKey, std::vector<entt::entity>, CellHash> grid;
+    for (auto& [e, aabb] : aabbs) {
+        const int x0 = static_cast<int>(std::floor(aabb.x / kCellSize));
+        const int y0 = static_cast<int>(std::floor(aabb.y / kCellSize));
+        const int x1 = static_cast<int>(std::floor((aabb.x + aabb.w) / kCellSize));
+        const int y1 = static_cast<int>(std::floor((aabb.y + aabb.h) / kCellSize));
+        for (int cy = y0; cy <= y1; ++cy)
+            for (int cx = x0; cx <= x1; ++cx)
+                grid[{cx, cy}].push_back(e);
+    }
+
+    // --- Step 3: test candidate pairs ---
+    // Encode pair as (min_id << 32 | max_id) so each pair is checked once.
+    std::unordered_set<uint64_t> checked;
+
+    for (auto& [cell, entities] : grid) {
+        const int n = static_cast<int>(entities.size());
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                const entt::entity ea = entities[i];
+                const entt::entity eb = entities[j];
+
+                const auto ia = static_cast<uint64_t>(entt::to_integral(ea));
+                const auto ib = static_cast<uint64_t>(entt::to_integral(eb));
+                const uint64_t pk = ia < ib ? (ia << 32 | ib) : (ib << 32 | ia);
+                if (!checked.insert(pk).second) continue;
+
+                // Layer / mask filter (either side must see the other's layer).
+                const auto& col_a = reg.get<BoxCollider>(ea);
+                const auto& col_b = reg.get<BoxCollider>(eb);
+                if (!(col_a.layer & col_b.mask) && !(col_b.layer & col_a.mask))
+                    continue;
+
+                // AABB narrow phase.
+                if (!aabbs[ea].intersects(aabbs[eb])) continue;
+
+                cb({scene, ea}, {scene, eb});
+            }
+        }
+    }
 }
 
 void run_transform_propagation_system(entt::registry& /*reg*/) {

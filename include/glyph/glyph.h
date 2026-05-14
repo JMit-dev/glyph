@@ -2,6 +2,7 @@
 #pragma once
 
 #include <glyph/app.h>
+#include <glyph/audio.h>
 #include <glyph/camera.h>
 #include <glyph/input.h>
 #include <glyph/math.h>

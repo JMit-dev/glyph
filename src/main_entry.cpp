@@ -1,16 +1,13 @@
-// main_entry.cpp — engine entry point.
+// main_entry.cpp — engine entry point via SDL3 callbacks.
 //
-// Uses SDL3's callback-based main pattern. SDL calls SDL_AppEvent for each
-// pending event before calling SDL_AppIterate, so Input state updated in
-// SDL_AppEvent is always visible to on_update().
-//
-// Frame loop order (per iterate):
-//   time.tick()                  — advance timing, accumulate fixed steps
-//   while time.step_fixed()      — drain fixed-update budget (capped at 0.25 s)
+// Frame loop order (per SDL_AppIterate):
+//   time.tick()              — advance timing, accumulate fixed steps
+//   while time.step_fixed()  — drain fixed-update budget (capped at 0.25 s)
 //     game->on_fixed_update(dt)
-//   game->on_update(dt)          — variable-rate game logic
-//   render + swap                — draw, present
-//   input.begin_frame()          — advance key pressed/released snapshots
+//   game->on_update(dt)      — variable-rate game logic
+//   render + swap            — draw and present
+//   audio.update()           — recycle finished sound instances
+//   input.begin_frame()      — advance key pressed/released snapshots
 
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL.h>
@@ -19,6 +16,7 @@
 #include "platform/window.h"
 
 #include <glyph/app.h>
+#include <glyph/audio.h>
 #include <glyph/input.h>
 #include <glyph/renderer.h>
 #include <glyph/time.h>
@@ -32,6 +30,7 @@ struct AppState {
     std::unique_ptr<glyph::Game> game;
     glyph::Window                window;
     glyph::Renderer              renderer;
+    glyph::Audio                 audio;
     glyph::Input                 input;
     glyph::Time                  time;
     uint64_t                     prev_ticks_ms = 0;
@@ -60,6 +59,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
         return SDL_APP_FAILURE;
     }
 
+    // Audio init failure is non-fatal — game runs silently.
+    state->audio.init();
+
+    state->game->engine_set_audio(&state->audio);
     state->game->engine_set_input(&state->input);
     state->game->engine_set_time (&state->time);
 
@@ -73,19 +76,16 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
 SDL_AppResult SDL_AppIterate(void* appstate) {
     auto* s = static_cast<AppState*>(appstate);
 
-    // Raw frame time; Time::tick() caps and scales it.
     const uint64_t now_ms = SDL_GetTicks();
     const float raw_dt = static_cast<float>(now_ms - s->prev_ticks_ms) / 1000.f;
     s->prev_ticks_ms = now_ms;
 
     s->time.tick(raw_dt);
 
-    // Fixed-rate updates — at most kMaxAccum / kFixedDt per frame.
     while (s->time.step_fixed()) {
         s->game->on_fixed_update(glyph::Time::kFixedDt);
     }
 
-    // Variable-rate update — dt is already capped and time-scaled.
     s->game->on_update(s->time.delta());
 
     s->renderer.begin_frame();
@@ -93,6 +93,7 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     s->renderer.end_frame();
     s->window.swap_buffers();
 
+    s->audio.update();
     s->input.begin_frame();
 
     return s->window.should_close() ? SDL_APP_SUCCESS : SDL_APP_CONTINUE;
@@ -136,6 +137,7 @@ void SDL_AppQuit(void* appstate, SDL_AppResult /*result*/) {
     auto* s = static_cast<AppState*>(appstate);
     if (s) {
         s->game->on_shutdown();
+        s->audio.shutdown();
         s->renderer.shutdown();
         s->window.destroy();
         delete s;

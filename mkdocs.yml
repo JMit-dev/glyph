@@ -39,6 +39,7 @@ nav:
       - Renderer: api/renderer.md
       - Camera: api/camera.md
       - Input: api/input.md
+      - Time: api/time.md
       - Texture: api/texture.md
       - Resources: api/resources.md
       - Math Types: api/math.md

@@ -13,16 +13,17 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 5 | Camera + math — glm aliases, `Camera::view_projection`, pan/zoom | `v0.5.0` |
 | ✅ 6 | Resources + Texture loading — stb_image, `Resources` cache, `02_sprite` | `v0.6.0` |
 | ✅ 7 | Input system + action mapping — `Key`/`MouseButton`, axes, `03_input` | `v0.7.0` |
+| ✅ 8 | Time + fixed timestep — `on_fixed_update`, `fixed_alpha`, smoothed FPS | `v0.8.0` |
 
 ## Current phase
 
-**Phase 8: Time + fixed timestep** — `Time` class, fixed-step accumulator, `Time::delta()`, `Time::fps()`.
+**Phase 9: Audio** — miniaudio, `Sound` (decoded, low-latency), `Music` (streamed), volume control.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 8 | Time + fixed timestep | `v0.8.0` |
+| 9 | Audio (miniaudio) | `v0.9.0` |
 | 9 | Audio (miniaudio) | `v0.9.0` |
 | 10 | EnTT + Entity façade | `v0.10.0` |
 | 11 | Built-in ECS systems | `v0.11.0` |

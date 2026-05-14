@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 8: Time + fixed timestep**
+**Phase 9: Audio**
 
 Status: not started
 
@@ -19,7 +19,7 @@ Status: not started
 - [x] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
 - [x] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
 - [x] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
-- [ ] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
+- [x] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
 - [ ] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
 - [ ] **10. EnTT + Entity façade** — built-in components defined → tag `v0.10.0`
 - [ ] **11. Built-in systems** — movement, sprite render, animator → tag `v0.11.0`
@@ -60,3 +60,6 @@ glm added as a submodule at 1.0.1. Must be linked to BOTH glyph (PUBLIC) AND gly
 
 ### Phase 7
 Key enum values match SDL_Scancode for zero-overhead lookup. bind_axis() appends pairs (not replaces) so both WASD and arrow keys can share move_x/move_y — default bindings set both. begin_frame() placed at END of SDL_AppIterate (after swap) so events arriving before iterate are visible to on_update, then prev snapshot advances. Game::engine_set_input() is a public setter (friend struct across TUs doesn't work in C++ for locally-defined structs). Mouse pan in 03_input converts screen-pixel delta to world units by dividing by zoom.
+
+### Phase 8
+Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale to prevent spiral-of-death even at scale > 1. step_fixed() sets fixed_alpha when returning false (end of loop) so the alpha is correct whether 0 or N steps ran. FPS uses EMA with 0.95/0.05 split (~20 frame window), initialized on first frame to avoid NaN. on_fixed_update added as a virtual with default no-op so existing game code needs no changes.

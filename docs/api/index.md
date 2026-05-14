@@ -10,6 +10,8 @@ Or include individual headers as needed:
 
 ```cpp
 #include <glyph/app.h>       // Game, AppConfig, GLYPH_MAIN
+#include <glyph/scene.h>     // Scene, Entity
+#include <glyph/components.h>// Transform, Sprite, Velocity, ...
 #include <glyph/math.h>      // vec2, mat4, Color, Rect, lerp
 #include <glyph/camera.h>    // Camera, FitMode
 #include <glyph/audio.h>     // Audio, Sound, Music, SoundHandle
@@ -27,6 +29,8 @@ Or include individual headers as needed:
 | Header | Contents | Since |
 |---|---|---|
 | [`app.h`](game.md) | `Game`, `AppConfig`, `GLYPH_MAIN` | v0.1.0 |
+| [`scene.h`](scene.md) | `Scene`, `Entity` | v0.10.0 |
+| [`components.h`](scene.md#built-in-components-componentsh) | `Transform`, `Sprite`, `Velocity`, etc. | v0.10.0 |
 | [`audio.h`](audio.md) | `Audio`, `Sound`, `Music`, `SoundHandle` | v0.9.0 |
 | [`math.h`](math.md) | `vec2`, `vec3`, `mat4`, `ivec2`, `Color`, `Rect`, `lerp` | v0.2.0 / v0.5.0 |
 | [`camera.h`](camera.md) | `Camera`, `FitMode` | v0.5.0 |
@@ -43,9 +47,7 @@ Or include individual headers as needed:
 | Header | Contents | Phase |
 |---|---|---|
 | `entity.h` | `Entity` handle | 10 |
-| `entity.h` | `Entity` handle | 10 |
-| `scene.h` | `Scene`, ECS systems | 10 |
-| `components.h` | `Transform`, `Sprite`, `Animator`, etc. | 10 |
+| `sprite_sheet.h` | Aseprite JSON loader | 12 |
 | `sprite_sheet.h` | Aseprite JSON loader | 12 |
 | `tilemap.h` | Tiled TMJ loader | 13 |
 | `lua_api.h` | Lua scripting layer | 16 |

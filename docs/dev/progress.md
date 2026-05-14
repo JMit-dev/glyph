@@ -15,16 +15,17 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 7 | Input system + action mapping — `Key`/`MouseButton`, axes, `03_input` | `v0.7.0` |
 | ✅ 8 | Time + fixed timestep — `on_fixed_update`, `fixed_alpha`, smoothed FPS | `v0.8.0` |
 | ✅ 9 | Audio — miniaudio, `Sound`/`Music`, `SoundHandle`, volume, fade | `v0.9.0` |
+| ✅ 10 | EnTT + Entity façade — `Scene`, `Entity`, `components.h` | `v0.10.0` |
 
 ## Current phase
 
-**Phase 10: EnTT + Entity façade** — `Entity` handle, built-in components, `Scene`.
+**Phase 11: Built-in systems** — `MovementSystem`, `LifetimeSystem`, `Scene::render()` with sprite sorting.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 10 | EnTT + Entity façade | `v0.10.0` |
+| 11 | Built-in ECS systems | `v0.11.0` |
 | 11 | Built-in ECS systems | `v0.11.0` |
 | 12 | Aseprite JSON loader | `v0.12.0` |
 | 13 | Tiled TMJ loader + tilemap renderer · `04_tilemap` | `v0.13.0` |

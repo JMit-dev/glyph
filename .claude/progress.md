@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 10: EnTT + Entity façade**
+**Phase 11: Built-in systems**
 
 Status: not started
 
@@ -21,7 +21,7 @@ Status: not started
 - [x] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
 - [x] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
 - [x] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
-- [ ] **10. EnTT + Entity façade** — built-in components defined → tag `v0.10.0`
+- [x] **10. EnTT + Entity façade** — built-in components defined → tag `v0.10.0`
 - [ ] **11. Built-in systems** — movement, sprite render, animator → tag `v0.11.0`
 - [ ] **12. Aseprite JSON loader** — animated sprite plays → tag `v0.12.0`
 - [ ] **13. Tiled TMJ loader + tilemap renderer** — `samples/04_tilemap` → tag `v0.13.0`
@@ -66,3 +66,6 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 10
+Entity/Scene circular dep broken by: scene.h has NO glyph component includes; components.h includes scene.h (for Entity in Transform); scene.cpp pulls in both. Entity template methods (add/get/try_get/has/remove) defined inline in scene.h AFTER Scene class so they can call scene_->registry() with complete type. EnTT must be linked to BOTH glyph (PUBLIC) AND glyph_runtime (PRIVATE) — same pattern as glm. run_systems() and render() are stubs (phase 11). Script component omits sol::table for now (added phase 16). Animator/TilemapRef use forward-declared SpriteSheet/Tilemap — shared_ptr<incomplete> is safe in C++ via type-erased deleter.

@@ -1,12 +1,16 @@
 // main_entry.cpp — engine entry point.
 //
-// Uses SDL3's callback-based main pattern (SDL_MAIN_USE_CALLBACKS). Events
-// are dispatched via SDL_AppEvent before each SDL_AppIterate call, so the
-// Input state updated by SDL_AppEvent is always visible to on_update().
+// Uses SDL3's callback-based main pattern. SDL calls SDL_AppEvent for each
+// pending event before calling SDL_AppIterate, so Input state updated in
+// SDL_AppEvent is always visible to on_update().
 //
-// Input::begin_frame() runs at the END of each iterate, after on_render and
-// the buffer swap. This ensures the previous-frame snapshot used for
-// key_pressed / key_released is correct on the next frame.
+// Frame loop order (per iterate):
+//   time.tick()                  — advance timing, accumulate fixed steps
+//   while time.step_fixed()      — drain fixed-update budget (capped at 0.25 s)
+//     game->on_fixed_update(dt)
+//   game->on_update(dt)          — variable-rate game logic
+//   render + swap                — draw, present
+//   input.begin_frame()          — advance key pressed/released snapshots
 
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL.h>
@@ -17,19 +21,19 @@
 #include <glyph/app.h>
 #include <glyph/input.h>
 #include <glyph/renderer.h>
+#include <glyph/time.h>
 
 #include <cstdio>
 #include <memory>
 
 extern "C" glyph::Game* glyph_create_game();
 
-// AppState is forward-declared as a friend in Game so it can set the service
-// pointers (input_, etc.) without exposing a public setter.
 struct AppState {
     std::unique_ptr<glyph::Game> game;
     glyph::Window                window;
     glyph::Renderer              renderer;
     glyph::Input                 input;
+    glyph::Time                  time;
     uint64_t                     prev_ticks_ms = 0;
 };
 
@@ -56,8 +60,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
         return SDL_APP_FAILURE;
     }
 
-    // Wire engine services into the Game base class.
     state->game->engine_set_input(&state->input);
+    state->game->engine_set_time (&state->time);
 
     state->game->on_start();
     state->prev_ticks_ms = SDL_GetTicks();
@@ -67,53 +71,60 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
 }
 
 SDL_AppResult SDL_AppIterate(void* appstate) {
-    auto* state = static_cast<AppState*>(appstate);
+    auto* s = static_cast<AppState*>(appstate);
 
+    // Raw frame time; Time::tick() caps and scales it.
     const uint64_t now_ms = SDL_GetTicks();
-    const float    dt     = static_cast<float>(now_ms - state->prev_ticks_ms) / 1000.0f;
-    state->prev_ticks_ms  = now_ms;
+    const float raw_dt = static_cast<float>(now_ms - s->prev_ticks_ms) / 1000.f;
+    s->prev_ticks_ms = now_ms;
 
-    state->game->on_update(dt);
+    s->time.tick(raw_dt);
 
-    state->renderer.begin_frame();
-    state->game->on_render(state->renderer);
-    state->renderer.end_frame();
-    state->window.swap_buffers();
+    // Fixed-rate updates — at most kMaxAccum / kFixedDt per frame.
+    while (s->time.step_fixed()) {
+        s->game->on_fixed_update(glyph::Time::kFixedDt);
+    }
 
-    // begin_frame after the swap: copies current→previous for key_pressed /
-    // key_released detection, and resets the scroll-wheel delta.
-    state->input.begin_frame();
+    // Variable-rate update — dt is already capped and time-scaled.
+    s->game->on_update(s->time.delta());
 
-    return state->window.should_close() ? SDL_APP_SUCCESS : SDL_APP_CONTINUE;
+    s->renderer.begin_frame();
+    s->game->on_render(s->renderer);
+    s->renderer.end_frame();
+    s->window.swap_buffers();
+
+    s->input.begin_frame();
+
+    return s->window.should_close() ? SDL_APP_SUCCESS : SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
-    auto* state = static_cast<AppState*>(appstate);
+    auto* s = static_cast<AppState*>(appstate);
 
     switch (event->type) {
     case SDL_EVENT_QUIT:
     case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
-        state->window.request_close();
+        s->window.request_close();
         return SDL_APP_SUCCESS;
 
     case SDL_EVENT_KEY_DOWN:
-        state->input.set_key(static_cast<int>(event->key.scancode), true);
+        s->input.set_key(static_cast<int>(event->key.scancode), true);
         break;
     case SDL_EVENT_KEY_UP:
-        state->input.set_key(static_cast<int>(event->key.scancode), false);
+        s->input.set_key(static_cast<int>(event->key.scancode), false);
         break;
 
     case SDL_EVENT_MOUSE_MOTION:
-        state->input.set_mouse_position(event->motion.x, event->motion.y);
+        s->input.set_mouse_position(event->motion.x, event->motion.y);
         break;
     case SDL_EVENT_MOUSE_BUTTON_DOWN:
-        state->input.set_mouse_button(static_cast<int>(event->button.button), true);
+        s->input.set_mouse_button(static_cast<int>(event->button.button), true);
         break;
     case SDL_EVENT_MOUSE_BUTTON_UP:
-        state->input.set_mouse_button(static_cast<int>(event->button.button), false);
+        s->input.set_mouse_button(static_cast<int>(event->button.button), false);
         break;
     case SDL_EVENT_MOUSE_WHEEL:
-        state->input.add_mouse_wheel(event->wheel.x, event->wheel.y);
+        s->input.add_mouse_wheel(event->wheel.x, event->wheel.y);
         break;
 
     default: break;
@@ -122,12 +133,12 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
 }
 
 void SDL_AppQuit(void* appstate, SDL_AppResult /*result*/) {
-    auto* state = static_cast<AppState*>(appstate);
-    if (state) {
-        state->game->on_shutdown();
-        state->renderer.shutdown();
-        state->window.destroy();
-        delete state;
+    auto* s = static_cast<AppState*>(appstate);
+    if (s) {
+        s->game->on_shutdown();
+        s->renderer.shutdown();
+        s->window.destroy();
+        delete s;
     }
     SDL_Quit();
 }

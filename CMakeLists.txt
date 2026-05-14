@@ -110,6 +110,7 @@ add_library(glyph STATIC
     src/platform/window.cpp
     src/platform/file_io.cpp
     src/core/app.cpp
+    src/core/time.cpp
     src/core/stb_impl.cpp
     src/core/resources.cpp
     src/input/input.cpp

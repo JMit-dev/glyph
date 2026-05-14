@@ -70,5 +70,5 @@ site/
 
 # Logs and crash dumps
 *.log
-core
+/core
 *.stackdump

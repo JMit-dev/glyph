@@ -34,10 +34,11 @@ protected:
     // Engine services — valid after on_start(); do not call from configure().
     Input& input();
 
+public:
+    // Engine-internal wiring — called before on_start(). Not for game code.
+    void engine_set_input(Input* i) { input_ = i; }
+
 private:
-    // Engine-internal wiring — called by AppState before on_start().
-    // Not for game code; use the protected accessors above.
-    friend struct AppState;
     Input* input_ = nullptr;
 };
 

@@ -57,7 +57,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
     }
 
     // Wire engine services into the Game base class.
-    state->game->input_ = &state->input;
+    state->game->engine_set_input(&state->input);
 
     state->game->on_start();
     state->prev_ticks_ms = SDL_GetTicks();

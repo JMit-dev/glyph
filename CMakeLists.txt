@@ -95,11 +95,22 @@ endif()
 set(GLM_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 add_subdirectory(external/glm EXCLUDE_FROM_ALL)
 
+# stb — single-header image loading (stb_image) and font rendering (stb_truetype).
+# Implementation translation unit: src/core/stb_impl.cpp
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/stb/stb_image.h")
+    message(FATAL_ERROR
+        "stb submodule not found at external/stb. "
+        "Run: git submodule update --init --recursive")
+endif()
+
 # ---------------------------------------------------------------------------
 # Engine library
 # ---------------------------------------------------------------------------
 add_library(glyph STATIC
     src/platform/window.cpp
+    src/platform/file_io.cpp
+    src/core/stb_impl.cpp
+    src/core/resources.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -112,6 +123,7 @@ target_include_directories(glyph
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/external/stb
 )
 
 target_compile_definitions(glyph PUBLIC
@@ -162,4 +174,5 @@ endfunction()
 # ---------------------------------------------------------------------------
 if(GLYPH_BUILD_SAMPLES)
     add_subdirectory(samples/01_hello_window)
+    add_subdirectory(samples/02_sprite)
 endif()

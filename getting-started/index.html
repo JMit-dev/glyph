@@ -471,6 +471,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#building-web-emscripten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building (Web — Emscripten)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-the-samples" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1190,48 +1201,70 @@
 </code></pre></div>
 <p>Binaries land in <code>build/samples/&lt;name&gt;/</code>.</p>
 <hr />
+<h2 id="building-web-emscripten">Building (Web — Emscripten)<a class="headerlink" href="#building-web-emscripten" title="Permanent link">&para;</a></h2>
+<p><strong>Prerequisites:</strong> install <a href="https://emscripten.org/docs/getting_started/downloads.html">emsdk</a> and activate it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/emscripten-core/emsdk.git
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>emsdk<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./emsdk<span class="w"> </span>install<span class="w"> </span>latest<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./emsdk<span class="w"> </span>activate<span class="w"> </span>latest
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">source</span><span class="w"> </span>emsdk_env.sh<span class="w">   </span><span class="c1"># adds emcc to PATH</span>
+</code></pre></div>
+<p>Then build from the repo root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>/path/to/emsdk/emsdk_env.sh
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./build_web.sh<span class="w">        </span><span class="c1"># wraps cmake with the Emscripten toolchain</span>
+</code></pre></div>
+<p>Or manually:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build_web<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>em-config<span class="w"> </span>EMSCRIPTEN_ROOT<span class="k">)</span><span class="s2">/cmake/Modules/Platform/Emscripten.cmake&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build_web<span class="w"> </span>-j
+</code></pre></div>
+<p>HTML/JS/WASM output lands in <code>build_web/web/&lt;sample&gt;/</code>. Serve locally (browsers block local file:// WebGL):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--directory<span class="w"> </span>build_web/web
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># open http://localhost:8000/02_sprite/02_sprite.html</span>
+</code></pre></div>
+<p><strong>All engine modules work on web:</strong> rendering (WebGL2), audio (Web Audio via miniaudio), input (SDL3), ECS, Lua scripting. Hot reload is disabled on web (no filesystem watcher) — scripts are baked into the WASM bundle at build time.</p>
+<hr />
 <h2 id="running-the-samples">Running the samples<a class="headerlink" href="#running-the-samples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Hello window — verifies GL context and textured quad</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>./build/samples/01_hello_window/01_hello_window<span class="w">      </span><span class="c1"># Linux/macOS</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>build<span class="se">\s</span>amples<span class="se">\0</span>1_hello_window<span class="se">\D</span>ebug<span class="se">\0</span>1_hello_window.exe<span class="w">  </span><span class="c1"># Windows</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Hello window — verifies GL context and textured quad</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>./build/samples/01_hello_window/01_hello_window<span class="w">      </span><span class="c1"># Linux/macOS</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>build<span class="se">\s</span>amples<span class="se">\0</span>1_hello_window<span class="se">\D</span>ebug<span class="se">\0</span>1_hello_window.exe<span class="w">  </span><span class="c1"># Windows</span>
 </code></pre></div>
 <p>You should see a cornflower-blue window with a black-and-white checkerboard in the center.</p>
 <hr />
 <h2 id="writing-your-first-game">Writing your first game<a class="headerlink" href="#writing-your-first-game" title="Permanent link">&para;</a></h2>
 <p><strong>1.</strong> Create a directory under <code>samples/</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>samples/my_game/
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── CMakeLists.txt
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>└── main.cpp
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>samples/my_game/
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>├── CMakeLists.txt
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>└── main.cpp
 </code></pre></div>
 <p><strong>2.</strong> <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">glyph_add_executable</span><span class="p">(</span><span class="s">my_game</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">glyph_add_executable</span><span class="p">(</span><span class="s">my_game</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>3.</strong> Register it in the root <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">if</span><span class="p">(</span><span class="s">GLYPH_BUILD_SAMPLES</span><span class="p">)</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/01_hello_window</span><span class="p">)</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/my_game</span><span class="p">)</span><span class="w">   </span><span class="c"># add this</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">endif</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">if</span><span class="p">(</span><span class="s">GLYPH_BUILD_SAMPLES</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/01_hello_window</span><span class="p">)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/my_game</span><span class="p">)</span><span class="w">   </span><span class="c"># add this</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nb">endif</span><span class="p">()</span>
 </code></pre></div>
 <p><strong>4.</strong> <code>main.cpp</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/glyph.h&gt;</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">configure</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Game&quot;</span><span class="p">;</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">));</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">};</span>
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="n">GLYPH_MAIN</span><span class="p">(</span><span class="n">MyGame</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/glyph.h&gt;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">configure</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Game&quot;</span><span class="p">;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">));</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="p">};</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="n">GLYPH_MAIN</span><span class="p">(</span><span class="n">MyGame</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>5.</strong> Rebuild:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
 </code></pre></div>
 <hr />
 <h2 id="cmake-options">CMake options<a class="headerlink" href="#cmake-options" title="Permanent link">&para;</a></h2>

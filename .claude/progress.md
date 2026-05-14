@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 18: Hot reload**
+**Phase 19: Emscripten web build**
 
 Status: not started
 
@@ -29,7 +29,7 @@ Status: not started
 - [x] **15. Font + text rendering** — stb_truetype atlas → tag `v0.15.0`
 - [x] **16. Lua + sol2 bindings** — core API exposed → tag `v0.16.0`
 - [x] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
-- [ ] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
+- [x] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
 - [ ] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
 - [ ] **20. Android build** — `samples/02_sprite` on device → tag `v0.20.0`
 - [ ] **21. iOS build** → tag `v0.21.0`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 18
+lua_hotreload.cpp polls std::filesystem::last_write_time every 250ms (std::chrono::steady_clock timer in LuaStateImpl::last_reload_check). Entity script modules: mtime recorded in module_mtimes on first load_script_module(); on change: evict from module_cache, reload, patch all live entity self metatables (__index → new class table) preserving per-entity state. Global scripts (run_file paths): tracked in global_scripts/global_mtimes; on change: re-execute with safe_script_file. All hot reload code guarded by #ifdef GLYPH_PLATFORM_DESKTOP — no-op on web/mobile. std::find used to avoid duplicate path registration in global_scripts.
 
 ### Phase 17
 ScriptSystem in src/lua/script_system.cpp (requires sol2 — split from systems.cpp). First-frame init: loads class table via load_script_module (cached in LuaStateImpl::module_cache after first load), creates self = setmetatable({}, {__index=class}), sets self.entity = Entity handle, calls class:on_start(self). Every frame: calls self:on_update(dt) via sol::protected_function. on_collision forwarded via LuaState::init() registering scene.set_lua_collision_handler — calls self:on_collision(other) on both entities in each collision pair. Scene::set_lua() stores LuaState*; run_script_system and run_collision_system receive it from scene.lua_. CollisionSystem now takes two callbacks (C++ + Lua); fires both. Script::self stores sol::table as std::any; any_cast<sol::table&> avoids copy. Module path convention: scripts/entities/<name>.lua.

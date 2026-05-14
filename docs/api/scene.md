@@ -95,7 +95,7 @@ void on_update(float dt) override {
 | `BoxCollider` | `bounds`, `layer`, `mask`, `is_trigger` | Used by CollisionSystem (phase 14) |
 | `Camera2D` | `value: Camera`, `primary: bool` | First primary used for rendering |
 | `TilemapRef` | `map: shared_ptr<Tilemap>` | Rendered by Scene (phase 13) |
-| `Script` | `lua_module: string` | Lua entity script; expanded in phase 16 |
+| `Script` | `lua_module: string` | Lua entity script; driven by `ScriptSystem` (phase 17) |
 | `Lifetime` | `seconds: float` | Destroyed when ≤ 0 by `LifetimeSystem` each frame |
 
 ---

@@ -80,6 +80,10 @@ void on_render(glyph::Renderer& r) override {
 
 ---
 
-## FitMode *(not yet implemented)*
+## FitMode
 
-`enum class FitMode { Stretch, Letterbox, PixelPerfect }` is declared but not yet wired into the renderer. Letterboxing / pillarboxing arrives alongside window resize handling.
+```cpp
+enum class FitMode { Stretch, Letterbox, PixelPerfect };
+```
+
+Declared for future use. Not yet wired into the renderer — letterboxing and pixel-perfect scaling are deferred until window resize handling is formalised.

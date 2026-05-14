@@ -2,7 +2,7 @@
 
 **Header:** `#include <glyph/texture.h>`
 
-A 2D GPU texture. Created from raw RGBA8 pixel data. In phase 6, `Resources::texture()` will load from PNG/JPG files via stb_image — for now, create textures manually from pixel arrays.
+A 2D GPU texture backed by a GL object. Create from raw RGBA8 pixel data directly, or let `Resources::texture()` load from a PNG/JPG/BMP/TGA file (the usual path).
 
 ---
 
@@ -82,5 +82,5 @@ class MyGame : public glyph::Game {
 };
 ```
 
-!!! note "Future: Resources"
-    Phase 6 introduces `Resources::texture(path)` which returns a `shared_ptr<Texture>` with automatic lifetime management and caching.
+!!! tip "Prefer Resources"
+    `Resources::texture(path)` returns a `shared_ptr<Texture>` with automatic lifetime management and caching. Raw `Texture` creation is mainly useful for procedurally generated data (e.g. a font atlas).

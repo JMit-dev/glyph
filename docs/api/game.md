@@ -95,17 +95,49 @@ void on_update(float dt) override {
 ```
 
 #### `on_render(Renderer& r)`
-Called every frame after `on_update`. All draw calls must go here. The renderer is in a clean state at the start of each call.
+Called every frame after `on_update`. All draw calls must go here. The framebuffer is already cleared to the current `set_clear_color` before this call.
 
 ```cpp
 void on_render(glyph::Renderer& r) override {
-    r.clear(glyph::Color::rgba8(30, 30, 30));
     r.draw_textured_quad(my_texture_, {100, 100, 64, 64});
+    r.draw_text(*font_, "Score: 0", {10, 10});
 }
 ```
 
+#### `on_fixed_update(float dt)`
+Called zero or more times per frame at a fixed timestep (`Time::kFixedDt` = 1/60 s). Use for physics and deterministic simulation. `dt` is always exactly `kFixedDt`.
+
 #### `on_shutdown()`
-Called once before subsystems are torn down. Destroy GPU resources (textures, etc.) here.
+Called once before subsystems are torn down. Release any resources or state that requires the GL context.
+
+---
+
+## Engine service accessors
+
+Available from any lifecycle hook (`on_start` onward). Never call from `configure()`.
+
+| Accessor | Type | Description |
+|---|---|---|
+| `audio()` | `Audio&` | Sound + music playback |
+| `input()` | `Input&` | Keyboard, mouse, action bindings |
+| `scene()` | `Scene&` | ECS — entities, components, systems |
+| `time()` | `Time&` | Frame timing, fixed timestep, FPS |
+| `resources()` | `Resources&` | Asset cache (textures, fonts, sounds) |
+| `lua()` | `LuaState&` | Lua scripting state (include `<glyph/lua_state.h>`) |
+
+```cpp
+void on_start() override {
+    auto tex = resources().texture("player.png");
+    auto e   = scene().create_entity("player");
+    e.add<glyph::Transform>();
+    e.add<glyph::Sprite>(glyph::Sprite{tex});
+}
+
+void on_update(float dt) override {
+    if (input().action_pressed("confirm"))
+        audio().play(resources().sound("click.wav"));
+}
+```
 
 ---
 

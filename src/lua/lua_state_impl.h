@@ -11,9 +11,12 @@
 
 #include <glyph/lua_state.h>
 
+#include <chrono>
 #include <cstdio>
+#include <filesystem>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 namespace glyph {
 
@@ -33,7 +36,17 @@ struct LuaStateImpl {
     float      dt        = 0.f;
 
     // Module cache: module_name → class table returned by the Lua file.
-    std::unordered_map<std::string, sol::table> module_cache;
+    std::unordered_map<std::string, sol::table>               module_cache;
+    // Modification times for hot reload (entity script modules).
+    std::unordered_map<std::string, std::filesystem::file_time_type> module_mtimes;
+    // Paths registered via run_file() and their last seen mtimes.
+    std::vector<std::string>                                  global_scripts;
+    std::unordered_map<std::string, std::filesystem::file_time_type> global_mtimes;
+
+    // Hot reload timer — checked every 250 ms.
+    std::chrono::steady_clock::time_point last_reload_check =
+        std::chrono::steady_clock::now();
+    static constexpr int kReloadIntervalMs = 250;
 
     // Load a Lua module from scripts/entities/<name>.lua.
     // Returns an invalid table on failure; result is cached after first load.
@@ -56,6 +69,11 @@ struct LuaStateImpl {
             return sol::table{};
         }
         module_cache[name] = tbl;
+
+        // Record mtime so hot reload can detect future changes.
+        std::error_code ec;
+        module_mtimes[name] = std::filesystem::last_write_time(path, ec);
+
         return tbl;
     }
 };

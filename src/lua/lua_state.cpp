@@ -1,11 +1,14 @@
 // lua_state.cpp — LuaState implementation.
 #include "lua_state_impl.h"
+#include "lua_hotreload.h"
 
 #include <glyph/components.h>   // Script
 #include <glyph/scene.h>        // Scene, Entity
 
+#include <algorithm>
 #include <any>
 #include <cstdio>
+#include <filesystem>
 #include <string>
 
 namespace glyph {
@@ -57,18 +60,27 @@ void LuaState::shutdown() {
 
 void LuaState::run_file(const std::string& path) {
     if (!impl_) return;
-    auto result = impl_->lua.safe_script_file(path,
-        [](lua_State*, sol::protected_function_result pfr) { return pfr; });
+    auto result = impl_->lua.safe_script_file(path, sol::script_pass_on_error);
     if (!result.valid()) {
         sol::error err = result;
         std::fprintf(stderr, "[glyph] Lua error in %s: %s\n",
                      path.c_str(), err.what());
+        return;
+    }
+
+    // Track this file for hot reload.
+    auto& scripts = impl_->global_scripts;
+    if (std::find(scripts.begin(), scripts.end(), path) == scripts.end()) {
+        scripts.push_back(path);
+        std::error_code ec;
+        impl_->global_mtimes[path] = std::filesystem::last_write_time(path, ec);
     }
 }
 
 void LuaState::on_update(float dt) {
     if (!impl_) return;
     impl_->dt = dt;
+    check_hot_reload(*impl_);
     sol::protected_function fn = impl_->lua["glyph"]["on_update"];
     if (!fn.valid()) return;
     auto r = fn(dt);

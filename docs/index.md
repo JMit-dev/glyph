@@ -80,7 +80,8 @@ See [Getting Started](getting-started.md) for a full walkthrough.
 | Audio | miniaudio | 0.11.25 |
 | ECS | EnTT | 3.13.2 |
 | JSON (Tiled + Aseprite) | nlohmann/json | 3.11.3 |
-| Scripting | Lua 5.4 + sol2 | *(phase 16 — not yet vendored)* |
+| Scripting | Lua 5.4 | 5.4.7 |
+| C++ ↔ Lua binding | sol2 | 3.3.0 |
 
 All dependencies are vendored as git submodules under `external/`.
 

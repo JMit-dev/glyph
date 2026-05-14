@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/camera/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/audio/">
       
       
-        <link rel="prev" href="../renderer/">
+        <link rel="prev" href="../game/">
       
       
-        <link rel="next" href="../input/">
+        <link rel="next" href="../renderer/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Camera - Glyph Engine</title>
+        <title>Audio - Glyph Engine</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#camera" class="md-skip">
+        <a href="#audio" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Camera
+              Audio
             
           </span>
         </div>
@@ -515,10 +515,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../audio/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -534,6 +561,192 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soundhandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SoundHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#music" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Music
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audio-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audio methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audio methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#playsound-volume-pitch-looped-soundhandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        play(sound, volume, pitch, looped) → SoundHandle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopsoundhandle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop(SoundHandle)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_volumesoundhandle-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_volume(SoundHandle, float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#play_musicmusic-fade_in_seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        play_music(music, fade_in_seconds)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop_musicfade_out_seconds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stop_music(fade_out_seconds)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master_volumefloat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        master_volume(float)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread safety
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -571,37 +784,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Camera
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../camera/" class="md-nav__link">
         
   
   
@@ -617,120 +803,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Methods
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#view_projection-mat4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        view_projection() → mat4
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#screen_to_worldvec2-screen_px-vec2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        screen_to_world(vec2 screen_px) → vec2
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#world_to_screenvec2-world_pos-vec2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        world_to_screen(vec2 world_pos) → vec2
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#coordinate-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coordinate system
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-with-renderer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using with Renderer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fitmode-not-yet-implemented" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FitMode (not yet implemented)
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1018,90 +1090,101 @@
   
 
 
-<h1 id="camera">Camera<a class="headerlink" href="#camera" title="Permanent link">&para;</a></h1>
-<p><strong>Header:</strong> <code>#include &lt;glyph/camera.h&gt;</code></p>
-<p>A 2D orthographic camera. Controls what region of world space is visible and at what zoom level. Pass to <code>Renderer::set_camera()</code> or modify <code>Renderer::camera()</code> directly before draw calls.</p>
+<h1 id="audio">Audio<a class="headerlink" href="#audio" title="Permanent link">&para;</a></h1>
+<p><strong>Header:</strong> <code>#include &lt;glyph/audio.h&gt;</code></p>
+<p>Thin wrapper over <a href="https://miniaud.io">miniaudio</a>. The audio device runs on its own thread internally — do not call any Audio methods from background threads.</p>
+<p>Access via <code>audio()</code> inside any <code>Game</code> lifecycle hook. Obtain <code>Sound</code> and <code>Music</code> via <code>Resources</code>.</p>
 <hr />
-<h2 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h2>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">res_</span><span class="p">.</span><span class="n">set_root</span><span class="p">(</span><span class="s">&quot;assets&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">shoot_sfx_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">sound</span><span class="p">(</span><span class="s">&quot;shoot.wav&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">bgm_</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">music</span><span class="p">(</span><span class="s">&quot;theme.ogg&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">audio</span><span class="p">().</span><span class="n">play_music</span><span class="p">(</span><span class="n">bgm_</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0f</span><span class="p">);</span><span class="w">   </span><span class="c1">// fade in over 1 second</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">input</span><span class="p">().</span><span class="n">action_pressed</span><span class="p">(</span><span class="s">&quot;fire&quot;</span><span class="p">))</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="n">audio</span><span class="p">().</span><span class="n">play</span><span class="p">(</span><span class="n">shoot_sfx_</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8f</span><span class="p">);</span><span class="w">   </span><span class="c1">// volume 0.8, fire-and-forget</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">audio</span><span class="p">().</span><span class="n">stop_music</span><span class="p">();</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">shoot_sfx_</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">bgm_</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">res_</span><span class="p">.</span><span class="n">unload_unused</span><span class="p">();</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h2>
+<h3 id="soundhandle"><code>SoundHandle</code><a class="headerlink" href="#soundhandle" title="Permanent link">&para;</a></h3>
+<p>Returned by <code>Audio::play()</code>. Discard for fire-and-forget; keep it to stop or adjust volume later.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">SoundHandle</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">audio</span><span class="p">().</span><span class="n">play</span><span class="p">(</span><span class="n">snd</span><span class="p">);</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">audio</span><span class="p">().</span><span class="n">set_volume</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">audio</span><span class="p">().</span><span class="n">stop</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+</code></pre></div>
+<p>A handle is silently invalidated when the sound finishes — calling stop/set_volume on a finished handle is safe.</p>
+<h3 id="sound"><code>Sound</code><a class="headerlink" href="#sound" title="Permanent link">&para;</a></h3>
+<p>A short audio clip decoded fully into memory for low-latency, multi-instance playback. Obtained from <code>Resources::sound()</code>. Supported formats: WAV, OGG, MP3, FLAC (via miniaudio).</p>
+<h3 id="music"><code>Music</code><a class="headerlink" href="#music" title="Permanent link">&para;</a></h3>
+<p>A long audio track streamed from disk. Obtained from <code>Resources::music()</code>. Automatically looped when played via <code>Audio::play_music()</code>.</p>
+<hr />
+<h2 id="audio-methods">Audio methods<a class="headerlink" href="#audio-methods" title="Permanent link">&para;</a></h2>
+<h3 id="playsound-volume-pitch-looped-soundhandle"><code>play(sound, volume, pitch, looped) → SoundHandle</code><a class="headerlink" href="#playsound-volume-pitch-looped-soundhandle" title="Permanent link">&para;</a></h3>
+<p>Play a sound effect. Decodes the file to memory (<code>MA_SOUND_FLAG_DECODE</code>) on first play.</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Type</th>
+<th>Parameter</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>position</code></td>
-<td><code>vec2</code></td>
-<td><code>{0, 0}</code></td>
-<td>World position at the centre of the view</td>
-</tr>
-<tr>
-<td><code>zoom</code></td>
-<td><code>float</code></td>
+<td><code>volume</code></td>
 <td><code>1.0</code></td>
-<td><code>&gt;1</code> = zoomed in (things appear larger), <code>&lt;1</code> = zoomed out</td>
+<td>Linear gain [0, 1]</td>
 </tr>
 <tr>
-<td><code>rotation</code></td>
-<td><code>float</code></td>
-<td><code>0.0</code></td>
-<td>Radians, clockwise positive (y-down convention)</td>
+<td><code>pitch</code></td>
+<td><code>1.0</code></td>
+<td>Playback speed scalar</td>
 </tr>
 <tr>
-<td><code>viewport_size</code></td>
-<td><code>vec2</code></td>
-<td><code>{1280, 720}</code></td>
-<td>Logical resolution in world units. Updated by <code>Renderer::set_viewport()</code>.</td>
+<td><code>looped</code></td>
+<td><code>false</code></td>
+<td>Loop indefinitely</td>
 </tr>
 </tbody>
 </table>
+<h3 id="stopsoundhandle"><code>stop(SoundHandle)</code><a class="headerlink" href="#stopsoundhandle" title="Permanent link">&para;</a></h3>
+<p>Stop and release the sound instance immediately.</p>
+<h3 id="set_volumesoundhandle-float"><code>set_volume(SoundHandle, float)</code><a class="headerlink" href="#set_volumesoundhandle-float" title="Permanent link">&para;</a></h3>
+<p>Adjust volume of a playing sound.</p>
+<h3 id="play_musicmusic-fade_in_seconds"><code>play_music(music, fade_in_seconds)</code><a class="headerlink" href="#play_musicmusic-fade_in_seconds" title="Permanent link">&para;</a></h3>
+<p>Stream a music track. Replaces any currently playing music. Pass <code>fade_in_seconds &gt; 0</code> for a smooth start.</p>
+<h3 id="stop_musicfade_out_seconds"><code>stop_music(fade_out_seconds)</code><a class="headerlink" href="#stop_musicfade_out_seconds" title="Permanent link">&para;</a></h3>
+<p>Stop the music. <code>fade_out_seconds = 0</code> stops immediately; <code>&gt; 0</code> fades out over that duration (music continues until next <code>play_music</code> or shutdown).</p>
+<h3 id="master_volumefloat"><code>master_volume(float)</code><a class="headerlink" href="#master_volumefloat" title="Permanent link">&para;</a></h3>
+<p>Global volume scalar applied to all sounds and music. Range <code>[0, 1]</code>.</p>
 <hr />
-<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="view_projection-mat4"><code>view_projection() → mat4</code><a class="headerlink" href="#view_projection-mat4" title="Permanent link">&para;</a></h3>
-<p>Returns the combined orthographic × view matrix for the current camera state. The renderer calls this internally at <code>begin_frame()</code> — you rarely need it directly.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Example: passing to a custom shader</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">mat4</span><span class="w"> </span><span class="n">vp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">camera</span><span class="p">.</span><span class="n">view_projection</span><span class="p">();</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">glUniformMatrix4fv</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">GL_FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">value_ptr</span><span class="p">(</span><span class="n">vp</span><span class="p">));</span>
+<h2 id="resources-integration">Resources integration<a class="headerlink" href="#resources-integration" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Resources</span><span class="w"> </span><span class="n">res_</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Sound</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shoot_</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Music</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bgm_</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">res_</span><span class="p">.</span><span class="n">set_root</span><span class="p">(</span><span class="s">&quot;assets&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">shoot_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">sound</span><span class="p">(</span><span class="s">&quot;sfx/shoot.wav&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">bgm_</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">music</span><span class="p">(</span><span class="s">&quot;music/theme.ogg&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="screen_to_worldvec2-screen_px-vec2"><code>screen_to_world(vec2 screen_px) → vec2</code><a class="headerlink" href="#screen_to_worldvec2-screen_px-vec2" title="Permanent link">&para;</a></h3>
-<p>Convert a screen pixel position (top-left origin, y-down) to world space.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Where did the user click in world space?</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">camera</span><span class="p">().</span><span class="n">screen_to_world</span><span class="p">(</span><span class="n">mouse_px</span><span class="p">);</span>
-</code></pre></div>
-<h3 id="world_to_screenvec2-world_pos-vec2"><code>world_to_screen(vec2 world_pos) → vec2</code><a class="headerlink" href="#world_to_screenvec2-world_pos-vec2" title="Permanent link">&para;</a></h3>
-<p>Convert a world position to screen pixel coordinates.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Is this entity visible?</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">camera</span><span class="p">().</span><span class="n">world_to_screen</span><span class="p">(</span><span class="n">entity_pos</span><span class="p">);</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">bool</span><span class="w"> </span><span class="n">on_screen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">800</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">              </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">600</span><span class="p">;</span>
-</code></pre></div>
+<p><code>Resources::sound()</code> and <code>Resources::music()</code> cache by resolved path and return <code>shared_ptr</code> handles.</p>
 <hr />
-<h2 id="coordinate-system">Coordinate system<a class="headerlink" href="#coordinate-system" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>World (y-down)          NDC / GL             Screen pixels
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>(0,0) top-left    →   (-1,+1) top-left  →   (0,0) top-left
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  x → right              x → right              x → right
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  y ↓ down               y ↑ up                 y ↓ down
-</code></pre></div>
-<p>The camera's <code>view_projection()</code> handles all three conversions automatically.</p>
-<hr />
-<h2 id="using-with-renderer">Using with Renderer<a class="headerlink" href="#using-with-renderer" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Camera</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">camera</span><span class="p">();</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">cam</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">player_pos_</span><span class="p">;</span><span class="w">          </span><span class="c1">// follow player</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">cam</span><span class="p">.</span><span class="n">zoom</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">2.f</span><span class="p">;</span><span class="w">                  </span><span class="c1">// zoomed in</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">));</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// draw calls use cam&#39;s VP automatically</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">sprite_</span><span class="p">,</span><span class="w"> </span><span class="n">dest_</span><span class="p">);</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">}</span>
-</code></pre></div>
-<hr />
-<h2 id="fitmode-not-yet-implemented">FitMode <em>(not yet implemented)</em><a class="headerlink" href="#fitmode-not-yet-implemented" title="Permanent link">&para;</a></h2>
-<p><code>enum class FitMode { Stretch, Letterbox, PixelPerfect }</code> is declared but not yet wired into the renderer. Letterboxing / pillarboxing arrives alongside window resize handling.</p>
+<h2 id="thread-safety">Thread safety<a class="headerlink" href="#thread-safety" title="Permanent link">&para;</a></h2>
+<p>All <code>Audio</code> methods must be called from the <strong>main thread</strong>. miniaudio manages its own audio callback thread internally; you never need to touch it.</p>
 
 
 

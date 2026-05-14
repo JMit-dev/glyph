@@ -37,6 +37,7 @@ nav:
       - Overview: api/index.md
       - Game & Lifecycle: api/game.md
       - Scene & Entity: api/scene.md
+      - Sprite Sheets: api/sprite_sheet.md
       - Audio: api/audio.md
       - Renderer: api/renderer.md
       - Camera: api/camera.md

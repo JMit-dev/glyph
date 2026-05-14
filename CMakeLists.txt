@@ -121,6 +121,13 @@ if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/miniaudio/miniaudio.h")
         "Run: git submodule update --init --recursive")
 endif()
 
+# nlohmann/json — header-only JSON parser (Aseprite + Tiled loaders).
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/json/single_include/nlohmann/json.hpp")
+    message(FATAL_ERROR
+        "nlohmann/json submodule not found at external/json. "
+        "Run: git submodule update --init --recursive")
+endif()
+
 # ---------------------------------------------------------------------------
 # Engine library
 # ---------------------------------------------------------------------------
@@ -136,6 +143,7 @@ add_library(glyph STATIC
     src/audio/audio.cpp
     src/scene/scene.cpp
     src/scene/systems.cpp
+    src/scene/sprite_sheet.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -150,6 +158,7 @@ target_include_directories(glyph
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/external/stb
         ${CMAKE_SOURCE_DIR}/external/miniaudio
+        ${CMAKE_SOURCE_DIR}/external/json/single_include
 )
 
 target_compile_definitions(glyph PUBLIC

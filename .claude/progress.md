@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 12: Aseprite JSON loader**
+**Phase 13: Tiled TMJ loader + tilemap renderer**
 
 Status: not started
 
@@ -23,7 +23,7 @@ Status: not started
 - [x] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
 - [x] **10. EnTT + Entity façade** — built-in components defined → tag `v0.10.0`
 - [x] **11. Built-in systems** — movement, sprite render, animator → tag `v0.11.0`
-- [ ] **12. Aseprite JSON loader** — animated sprite plays → tag `v0.12.0`
+- [x] **12. Aseprite JSON loader** — animated sprite plays → tag `v0.12.0`
 - [ ] **13. Tiled TMJ loader + tilemap renderer** — `samples/04_tilemap` → tag `v0.13.0`
 - [ ] **14. CollisionSystem** — spatial hash + AABB → tag `v0.14.0`
 - [ ] **15. Font + text rendering** — stb_truetype atlas → tag `v0.15.0`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 12
+nlohmann/json added as submodule at external/json; single_include path added to glyph PRIVATE includes. SpriteSheet::load() handles both Aseprite Hash and Array JSON formats; ordered_json used for Hash format to preserve frame export order. Durations read from each frame entry (ms → seconds). AnimatorSystem implemented: time += dt, fmod for looping, walks frame durations to find current frame, writes sp.src and sp.texture each tick. TransformPropagation and Collision remain stubbed.
 
 ### Phase 11
 LifetimeSystem and MovementSystem implemented in src/scene/systems.cpp; ScriptSystem, AnimatorSystem, CollisionSystem, TransformPropagationSystem are stubs (phases 16, 12, 14, and deferred respectively). Scene::render() finds the primary Camera2D, calls set_camera()+begin_frame() to re-upload the VP, then collects Sprite+Transform pairs, stable-sorts by layer, and submits each to the batcher via the new draw_textured_quad(tex, dest, src_px, tint) overload. Sprite::origin (pivot) and Transform::scale are applied; rotation in the batcher requires per-vertex positions — deferred. TransformPropagationSystem stubbed: correct implementation needs a separate WorldTransform component to avoid accumulating parent offsets each frame.

@@ -4,7 +4,9 @@
 #include "systems.h"
 
 #include <glyph/components.h>
+#include <glyph/sprite_sheet.h>
 
+#include <cmath>
 #include <vector>
 
 namespace glyph {
@@ -24,8 +26,47 @@ void run_script_system(entt::registry& /*reg*/, float /*dt*/) {
     // Lua scripting not available until phase 16.
 }
 
-void run_animator_system(entt::registry& /*reg*/, float /*dt*/) {
-    // SpriteSheet / AnimClip not available until phase 12.
+void run_animator_system(entt::registry& reg, float dt) {
+    reg.view<Animator, Sprite>().each([dt](Animator& anim, Sprite& sp) {
+        if (!anim.sheet || !anim.playing) return;
+
+        auto it = anim.sheet->clips.find(anim.clip);
+        if (it == anim.sheet->clips.end()) return;
+
+        const AnimClip& clip = it->second;
+        const int n = static_cast<int>(clip.frame_indices.size());
+        if (n == 0) return;
+
+        // Total clip duration in seconds.
+        float total = 0.f;
+        for (float d : clip.durations) total += d;
+        if (total <= 0.f) return;
+
+        anim.time += dt;
+
+        float t = anim.time;
+        if (clip.loop) {
+            t = std::fmod(t, total);
+        } else if (t >= total) {
+            anim.time = total;
+            anim.playing = false;
+            t = total - 1e-6f;
+        }
+
+        // Walk frame durations to find which frame t falls into.
+        int fi = n - 1;
+        float acc = 0.f;
+        for (int i = 0; i < n; ++i) {
+            acc += clip.durations[i];
+            if (t < acc) { fi = i; break; }
+        }
+
+        const int frame_idx = clip.frame_indices[fi];
+        if (frame_idx < static_cast<int>(anim.sheet->frames.size())) {
+            sp.src     = anim.sheet->frames[frame_idx];
+            sp.texture = anim.sheet->texture;
+        }
+    });
 }
 
 void run_movement_system(entt::registry& reg, float dt) {

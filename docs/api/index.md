@@ -10,8 +10,9 @@ Or include individual headers as needed:
 
 ```cpp
 #include <glyph/app.h>       // Game, AppConfig, GLYPH_MAIN
-#include <glyph/scene.h>     // Scene, Entity
-#include <glyph/components.h>// Transform, Sprite, Velocity, ...
+#include <glyph/scene.h>        // Scene, Entity
+#include <glyph/components.h>   // Transform, Sprite, Velocity, ...
+#include <glyph/sprite_sheet.h> // SpriteSheet, AnimClip
 #include <glyph/math.h>      // vec2, mat4, Color, Rect, lerp
 #include <glyph/camera.h>    // Camera, FitMode
 #include <glyph/audio.h>     // Audio, Sound, Music, SoundHandle
@@ -31,6 +32,7 @@ Or include individual headers as needed:
 | [`app.h`](game.md) | `Game`, `AppConfig`, `GLYPH_MAIN` | v0.1.0 |
 | [`scene.h`](scene.md) | `Scene`, `Entity` | v0.10.0 |
 | [`components.h`](scene.md#built-in-components-componentsh) | `Transform`, `Sprite`, `Velocity`, etc. | v0.10.0 |
+| [`sprite_sheet.h`](sprite_sheet.md) | `SpriteSheet`, `AnimClip` | v0.12.0 |
 | [`audio.h`](audio.md) | `Audio`, `Sound`, `Music`, `SoundHandle` | v0.9.0 |
 | [`math.h`](math.md) | `vec2`, `vec3`, `mat4`, `ivec2`, `Color`, `Rect`, `lerp` | v0.2.0 / v0.5.0 |
 | [`camera.h`](camera.md) | `Camera`, `FitMode` | v0.5.0 |
@@ -46,6 +48,5 @@ Or include individual headers as needed:
 
 | Header | Contents | Phase |
 |---|---|---|
-| `sprite_sheet.h` | Aseprite JSON loader | 12 |
 | `tilemap.h` | Tiled TMJ loader | 13 |
 | `lua_api.h` | Lua scripting layer | 16 |

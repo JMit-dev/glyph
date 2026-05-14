@@ -86,6 +86,15 @@ if(GLYPH_PLATFORM_DESKTOP)
     glad_add_library(glad_gl STATIC REPRODUCIBLE API gl:core=3.3)
 endif()
 
+# glm — header-only math library (vec2, mat4, etc.)
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/glm/CMakeLists.txt")
+    message(FATAL_ERROR
+        "glm submodule not found at external/glm. "
+        "Run: git submodule update --init --recursive")
+endif()
+set(GLM_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+add_subdirectory(external/glm EXCLUDE_FROM_ALL)
+
 # ---------------------------------------------------------------------------
 # Engine library
 # ---------------------------------------------------------------------------
@@ -95,6 +104,7 @@ add_library(glyph STATIC
     src/renderer/shader.cpp
     src/renderer/texture.cpp
     src/renderer/sprite_batch.cpp
+    src/renderer/camera.cpp
 )
 
 target_include_directories(glyph
@@ -114,6 +124,7 @@ target_compile_definitions(glyph PUBLIC
 target_link_libraries(glyph
     PUBLIC
         SDL3::SDL3-static
+        glm::glm
         $<$<BOOL:${GLYPH_PLATFORM_DESKTOP}>:glad_gl>
 )
 

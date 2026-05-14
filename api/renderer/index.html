@@ -602,6 +602,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../font/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Font & Text
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../audio/" class="md-nav__link">
         
   
@@ -690,10 +718,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#call-order" class="md-nav__link">
+  <a href="#frame-lifecycle" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Call order
+        Frame lifecycle
       
     </span>
   </a>
@@ -713,6 +741,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#set_clear_colorcolor-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_clear_color(Color c)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#clearcolor-c" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -724,10 +763,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#draw_textured_quadconst-texture-tex-rect-dest-color-tint" class="md-nav__link">
+  <a href="#draw_textured_quadtex-dest-tint" class="md-nav__link">
     <span class="md-ellipsis">
       
-        draw_textured_quad(const Texture&amp; tex, Rect dest, Color tint)
+        draw_textured_quad(tex, dest, tint)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#draw_textured_quadtex-dest-src_px-tint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw_textured_quad(tex, dest, src_px, tint)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#draw_textfont-text-pos-tint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        draw_text(font, text, pos, tint)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_cameraconst-camera-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_camera(const Camera&amp; c)
       
     </span>
   </a>
@@ -739,6 +811,17 @@
     <span class="md-ellipsis">
       
         set_viewport(int w, int h)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#camera-camera-const" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        camera() / camera() const
       
     </span>
   </a>
@@ -1093,26 +1176,27 @@
 
 <h1 id="renderer">Renderer<a class="headerlink" href="#renderer" title="Permanent link">&para;</a></h1>
 <p><strong>Header:</strong> <code>#include &lt;glyph/renderer.h&gt;</code></p>
-<p>The <code>Renderer</code> is passed to <code>Game::on_render()</code> each frame. All draw calls must happen inside that hook. The renderer is owned by the engine — do not store a pointer to it.</p>
+<p>The <code>Renderer</code> is passed to <code>Game::on_render()</code> each frame. All draw calls must happen inside that hook (or inside <code>Scene::render()</code> which the engine calls automatically). The renderer is owned by the engine — do not store a pointer to it.</p>
 <hr />
-<h2 id="call-order">Call order<a class="headerlink" href="#call-order" title="Permanent link">&para;</a></h2>
-<p>Every frame, call in this order:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>begin_frame()
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  → clear()             (optional, but recommended)
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  → draw_textured_quad() / [future draw calls]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>end_frame()
+<h2 id="frame-lifecycle">Frame lifecycle<a class="headerlink" href="#frame-lifecycle" title="Permanent link">&para;</a></h2>
+<p>The engine manages <code>begin_frame()</code> and <code>end_frame()</code> for you. <code>begin_frame()</code> clears the framebuffer with the current clear color and uploads the camera VP matrix. Inside <code>on_render(Renderer&amp; r)</code> you only need draw calls:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">my_tex_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">});</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="o">*</span><span class="n">font_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Score: 42&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">});</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
 </code></pre></div>
-<p>The engine calls <code>begin_frame()</code> and <code>end_frame()</code> for you. Inside <code>on_render(Renderer&amp; r)</code>, you only need the draw calls.</p>
 <hr />
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="clearcolor-c"><code>clear(Color c)</code><a class="headerlink" href="#clearcolor-c" title="Permanent link">&para;</a></h3>
-<p>Fill the framebuffer with a solid color. Call this at the start of <code>on_render</code> to erase the previous frame.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">));</span><span class="w">  </span><span class="c1">// dark grey</span>
+<h3 id="set_clear_colorcolor-c"><code>set_clear_color(Color c)</code><a class="headerlink" href="#set_clear_colorcolor-c" title="Permanent link">&para;</a></h3>
+<p>Set the background color used to wipe the framebuffer at the start of every frame. Default is opaque black.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">renderer</span><span class="p">().</span><span class="n">set_clear_color</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="p">));</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="draw_textured_quadconst-texture-tex-rect-dest-color-tint"><code>draw_textured_quad(const Texture&amp; tex, Rect dest, Color tint)</code><a class="headerlink" href="#draw_textured_quadconst-texture-tex-rect-dest-color-tint" title="Permanent link">&para;</a></h3>
-<p>Draw a single textured rectangle. <code>dest</code> is in pixel/screen coordinates (y-down, origin top-left).</p>
+<h3 id="clearcolor-c"><code>clear(Color c)</code><a class="headerlink" href="#clearcolor-c" title="Permanent link">&para;</a></h3>
+<p>Manually fill the framebuffer with a solid color. Rarely needed — <code>begin_frame()</code> already clears automatically. If called inside <code>on_render()</code>, it wipes any sprites already drawn that frame.</p>
+<h3 id="draw_textured_quadtex-dest-tint"><code>draw_textured_quad(tex, dest, tint)</code><a class="headerlink" href="#draw_textured_quadtex-dest-tint" title="Permanent link">&para;</a></h3>
+<p>Draw a single textured rectangle in world space.</p>
 <table>
 <thead>
 <tr>
@@ -1125,51 +1209,85 @@
 <tr>
 <td><code>tex</code></td>
 <td><code>const Texture&amp;</code></td>
-<td>GPU texture to sample from</td>
+<td>GPU texture</td>
 </tr>
 <tr>
 <td><code>dest</code></td>
 <td><code>Rect</code></td>
-<td>Destination rectangle <code>{x, y, w, h}</code> in screen pixels</td>
+<td>Destination <code>{x, y, w, h}</code> in world pixels</td>
 </tr>
 <tr>
 <td><code>tint</code></td>
 <td><code>Color</code></td>
-<td>Multiply color. Default: <code>{1,1,1,1}</code> (no tint)</td>
+<td>Multiply color — default <code>{1,1,1,1}</code></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Draw a 64×64 quad at screen position (100, 100)</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">my_texture_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">100.f</span><span class="p">,</span><span class="w"> </span><span class="mf">100.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">});</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">// Draw with a red tint</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">my_texture_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">200.f</span><span class="p">,</span><span class="w"> </span><span class="mf">100.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">},</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">                     </span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">));</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">my_tex_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">100.f</span><span class="p">,</span><span class="w"> </span><span class="mf">150.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">});</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">my_tex_</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">200.f</span><span class="p">,</span><span class="w"> </span><span class="mf">150.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">,</span><span class="w"> </span><span class="mf">64.f</span><span class="p">},</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">                     </span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">));</span><span class="w">  </span><span class="c1">// red tint</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">No batching yet</p>
-<p>Each <code>draw_textured_quad</code> call issues one GL draw call. The sprite batcher (phase 4) will collapse many draws into a single GPU submission.</p>
-</div>
+<h3 id="draw_textured_quadtex-dest-src_px-tint"><code>draw_textured_quad(tex, dest, src_px, tint)</code><a class="headerlink" href="#draw_textured_quadtex-dest-src_px-tint" title="Permanent link">&para;</a></h3>
+<p>Same as above but samples from a sub-region of the texture. <code>src_px</code> is a pixel rect in texture space — used internally by <code>Scene::render()</code> for sprite sheets and tilemaps.</p>
+<h3 id="draw_textfont-text-pos-tint"><code>draw_text(font, text, pos, tint)</code><a class="headerlink" href="#draw_textfont-text-pos-tint" title="Permanent link">&para;</a></h3>
+<p>Draw a UTF-8 string using a pre-loaded <code>Font</code> atlas.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>font</code></td>
+<td><code>const Font&amp;</code></td>
+<td>Loaded font (see <a href="../font/"><code>font.h</code></a>)</td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td><code>std::string_view</code></td>
+<td>String to render (ASCII 32–126)</td>
+</tr>
+<tr>
+<td><code>pos</code></td>
+<td><code>vec2</code></td>
+<td>Pen origin: left edge of the text baseline</td>
+</tr>
+<tr>
+<td><code>tint</code></td>
+<td><code>Color</code></td>
+<td>Text color — default white <code>{1,1,1,1}</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">r</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="o">*</span><span class="n">font_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello!&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mf">10.f</span><span class="p">,</span><span class="w"> </span><span class="mf">40.f</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">});</span><span class="w">  </span><span class="c1">// yellow</span>
+</code></pre></div>
+<h3 id="set_cameraconst-camera-c"><code>set_camera(const Camera&amp; c)</code><a class="headerlink" href="#set_cameraconst-camera-c" title="Permanent link">&para;</a></h3>
+<p>Replace the active camera for the next <code>begin_frame()</code>. <code>Scene::render()</code> calls this automatically when a <code>Camera2D</code> component is found.</p>
 <h3 id="set_viewportint-w-int-h"><code>set_viewport(int w, int h)</code><a class="headerlink" href="#set_viewportint-w-int-h" title="Permanent link">&para;</a></h3>
-<p>Update the GL viewport and recalculate the orthographic projection. Call this when the window is resized. The engine calls it automatically during <code>init()</code>.</p>
+<p>Update the GL viewport and recalculate the camera's viewport size. Called automatically on init; call again on window resize.</p>
+<h3 id="camera-camera-const"><code>camera()</code> / <code>camera() const</code><a class="headerlink" href="#camera-camera-const" title="Permanent link">&para;</a></h3>
+<p>Access the current camera directly.</p>
 <hr />
 <h2 id="coordinate-system">Coordinate system<a class="headerlink" href="#coordinate-system" title="Permanent link">&para;</a></h2>
 <p>Glyph uses <strong>Y-down, pixel units</strong>:</p>
 <ul>
-<li><code>(0, 0)</code> is the <strong>top-left</strong> of the window.</li>
-<li>X increases to the right; Y increases downward.</li>
-<li>One unit = one screen pixel at zoom 1.0.</li>
-<li>This matches SDL, Tiled, and most 2D conventions.</li>
+<li><code>(0, 0)</code> is the <strong>top-left</strong> of the world.</li>
+<li>X increases right; Y increases downward.</li>
+<li>One world unit = one screen pixel at camera zoom 1.0.</li>
+<li>Matches SDL, Tiled, and most 2D conventions.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>(0,0) ──────────────→ x
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  │
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  │
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  ↓
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  y
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>(0,0) ──────────────→ x
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  │
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  │
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  ↓
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  y
 </code></pre></div>
 <hr />
 <h2 id="thread-safety">Thread safety<a class="headerlink" href="#thread-safety" title="Permanent link">&para;</a></h2>
-<p>All <code>Renderer</code> methods must be called from the <strong>main thread</strong>. This is the only thread that may issue GL calls.</p>
+<p>All <code>Renderer</code> methods must be called from the <strong>main thread</strong> — the only thread that may issue GL calls.</p>
 
 
 

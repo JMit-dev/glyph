@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/texture/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/font/">
       
       
-        <link rel="prev" href="../time/">
+        <link rel="prev" href="../tilemap/">
       
       
-        <link rel="next" href="../resources/">
+        <link rel="next" href="../audio/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Texture - Glyph Engine</title>
+        <title>Font & Text - Glyph Engine</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#texture" class="md-skip">
+        <a href="#font-text" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Texture
+              Font & Text
             
           </span>
         </div>
@@ -599,10 +599,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../font/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Font & Text
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -618,6 +645,70 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#font" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Font
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drawing-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drawing text
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources cache
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -767,37 +858,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Texture
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../texture/" class="md-nav__link">
         
   
   
@@ -813,131 +877,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#creating-a-texture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating a texture
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Methods
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#createint-w-int-h-const-uint8_t-rgba_pixels-bool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        create(int w, int h, const uint8_t* rgba_pixels) → bool
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#destroy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        destroy()
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bindint-slot-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bind(int slot = 0)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#valid-bool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        valid() → bool
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#width-int-height-int" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        width() → int / height() → int
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#id-unsigned-int" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        id() → unsigned int
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lifetime" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lifetime
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1141,65 +1080,58 @@
   
 
 
-<h1 id="texture">Texture<a class="headerlink" href="#texture" title="Permanent link">&para;</a></h1>
-<p><strong>Header:</strong> <code>#include &lt;glyph/texture.h&gt;</code></p>
-<p>A 2D GPU texture. Created from raw RGBA8 pixel data. In phase 6, <code>Resources::texture()</code> will load from PNG/JPG files via stb_image — for now, create textures manually from pixel arrays.</p>
+<h1 id="font-text">Font &amp; Text<a class="headerlink" href="#font-text" title="Permanent link">&para;</a></h1>
+<p><strong>Header:</strong> <code>#include &lt;glyph/font.h&gt;</code></p>
+<p>Loads TTF/OTF fonts and bakes an RGBA glyph atlas using <code>stb_truetype</code>. ASCII 32–126 is baked at load time. Text is rendered via <code>Renderer::draw_text()</code>.</p>
 <hr />
-<h2 id="creating-a-texture">Creating a texture<a class="headerlink" href="#creating-a-texture" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// 2×2 checkerboard (black and white)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">pixels</span><span class="p">[</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="c1">// row 0: white, black</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="c1">// row 1: black, white</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">};</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Texture</span><span class="w"> </span><span class="n">tex</span><span class="p">;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">tex</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">pixels</span><span class="p">);</span>
+<h2 id="font">Font<a class="headerlink" href="#font" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Font</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Glyph</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="n">Rect</span><span class="w">  </span><span class="n">uv</span><span class="p">;</span><span class="w">       </span><span class="c1">// pixel rect in the atlas</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="n">vec2</span><span class="w">  </span><span class="n">size</span><span class="p">;</span><span class="w">     </span><span class="c1">// glyph bitmap size in pixels</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">vec2</span><span class="w">  </span><span class="n">bearing</span><span class="p">;</span><span class="w">  </span><span class="c1">// offset from pen position to glyph top-left</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">advance</span><span class="p">;</span><span class="w">  </span><span class="c1">// horizontal pen advance in pixels</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Texture</span><span class="o">&gt;</span><span class="w">             </span><span class="n">atlas</span><span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">uint32_t</span><span class="p">,</span><span class="w"> </span><span class="n">Glyph</span><span class="o">&gt;</span><span class="w">  </span><span class="n">glyphs</span><span class="p">;</span><span class="w">      </span><span class="c1">// keyed by codepoint</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="kt">int</span><span class="w">                                  </span><span class="n">size_px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="kt">float</span><span class="w">                                </span><span class="n">line_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.f</span><span class="p">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">vec2</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Font</span><span class="o">&gt;</span><span class="w"> </span><span class="n">load</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ttf_path</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size_px</span><span class="p">);</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">};</span>
 </code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">GL context required</p>
-<p><code>create()</code> uploads data to the GPU. Call it after <code>on_start()</code> — never in a constructor or before the engine initializes.</p>
-</div>
+<p><code>load()</code> bakes the ASCII range into a 1024×1024 white-on-alpha atlas and uploads it to the GPU. Returns <code>nullptr</code> on failure (file not found, or atlas too small for the requested size).</p>
+<p><code>measure()</code> returns <code>{total_advance_width, line_height}</code> for a string of ASCII characters.</p>
 <hr />
-<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="createint-w-int-h-const-uint8_t-rgba_pixels-bool"><code>create(int w, int h, const uint8_t* rgba_pixels) → bool</code><a class="headerlink" href="#createint-w-int-h-const-uint8_t-rgba_pixels-bool" title="Permanent link">&para;</a></h3>
-<p>Upload RGBA8 pixels and allocate a GL texture object. Returns <code>true</code> on success.</p>
+<h2 id="drawing-text">Drawing text<a class="headerlink" href="#drawing-text" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Load once (or use Resources::font() for caching).</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Font</span><span class="o">::</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;assets/fonts/roboto.ttf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">// In on_render():</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="o">*</span><span class="n">font</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Score: 100&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">});</span><span class="w"> </span><span class="c1">// yellow</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>pos</code> is the <strong>pen origin</strong> — left edge of the text baseline. Characters extend upward from the baseline (bearing.y is negative for most glyphs in Y-down space).</p>
+<p>To centre text horizontally:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">font</span><span class="o">-&gt;</span><span class="n">measure</span><span class="p">(</span><span class="s">&quot;Game Over&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">r</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="o">*</span><span class="n">font</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Game Over&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{(</span><span class="mi">800</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">size</span><span class="p">.</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">});</span>
+</code></pre></div></p>
+<hr />
+<h2 id="resources-cache">Resources cache<a class="headerlink" href="#resources-cache" title="Permanent link">&para;</a></h2>
+<p><code>Resources::font()</code> caches fonts by <code>(path, size_px)</code> so multiple calls return the same atlas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res_</span><span class="p">.</span><span class="n">font</span><span class="p">(</span><span class="s">&quot;fonts/roboto.ttf&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Pixel format: 4 bytes per pixel, R G B A order, top-row first.</li>
-<li>Filtering: <strong>nearest-neighbor</strong> (sharp pixels, no blurring — ideal for pixel art).</li>
-<li>Wrap mode: <code>CLAMP_TO_EDGE</code>.</li>
+<li><strong>Alpha blending</strong> is enabled automatically by the engine in <code>Renderer::init()</code>.</li>
+<li>Non-ASCII codepoints are silently skipped in the current implementation.</li>
+<li>The atlas is white pixels with coverage in the alpha channel — set <code>tint</code> to control text colour.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tex</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">pixel_data</span><span class="p">);</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle error */</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
-<h3 id="destroy"><code>destroy()</code><a class="headerlink" href="#destroy" title="Permanent link">&para;</a></h3>
-<p>Free the GPU texture. Call this in <code>Game::on_shutdown()</code> for any textures you created manually.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">tex_</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
-</code></pre></div>
-<p>Calling <code>destroy()</code> on an already-destroyed texture is safe (no-op).</p>
-<h3 id="bindint-slot-0"><code>bind(int slot = 0)</code><a class="headerlink" href="#bindint-slot-0" title="Permanent link">&para;</a></h3>
-<p>Bind to a GL texture slot (0–7). You generally don't need to call this directly — draw calls handle binding internally.</p>
-<h3 id="valid-bool"><code>valid() → bool</code><a class="headerlink" href="#valid-bool" title="Permanent link">&para;</a></h3>
-<p>Returns <code>true</code> if the texture has been successfully created and not yet destroyed.</p>
-<h3 id="width-int-height-int"><code>width() → int</code> / <code>height() → int</code><a class="headerlink" href="#width-int-height-int" title="Permanent link">&para;</a></h3>
-<p>Dimensions in pixels.</p>
-<h3 id="id-unsigned-int"><code>id() → unsigned int</code><a class="headerlink" href="#id-unsigned-int" title="Permanent link">&para;</a></h3>
-<p>The raw GL texture name. Exposed for advanced use; prefer the higher-level draw API.</p>
-<hr />
-<h2 id="lifetime">Lifetime<a class="headerlink" href="#lifetime" title="Permanent link">&para;</a></h2>
-<p><code>Texture</code> is a plain value type — it doesn't auto-destroy when it goes out of scope. Always pair <code>create()</code> with a matching <code>destroy()</code> call in <code>on_shutdown()</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Texture</span><span class="w"> </span><span class="n">atlas_</span><span class="p">;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">atlas_</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_shutdown</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">atlas_</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">};</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Future: Resources</p>
-<p>Phase 6 introduces <code>Resources::texture(path)</code> which returns a <code>shared_ptr&lt;Texture&gt;</code> with automatic lifetime management and caching.</p>
-</div>
 
 
 

@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/dev/progress/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/camera/">
       
       
-        <link rel="prev" href="../../api/math/">
+        <link rel="prev" href="../renderer/">
       
       
-        <link rel="next" href="../conventions/">
+        <link rel="next" href="../texture/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Build Progress - Glyph Engine</title>
+        <title>Camera - Glyph Engine</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#build-progress" class="md-skip">
+        <a href="#camera" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Build Progress
+              Camera
             
           </span>
         </div>
@@ -259,11 +259,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../api/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -279,13 +281,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../dev/progress/" class="md-tabs__link">
           
   
   
@@ -402,26 +402,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -439,7 +444,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -457,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -485,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/game/" class="md-nav__link">
+      <a href="../game/" class="md-nav__link">
         
   
   
@@ -513,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/renderer/" class="md-nav__link">
+      <a href="../renderer/" class="md-nav__link">
         
   
   
@@ -538,10 +543,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../api/camera/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Camera
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -557,6 +589,120 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#view_projection-mat4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        view_projection() → mat4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen_to_worldvec2-screen_px-vec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        screen_to_world(vec2 screen_px) → vec2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#world_to_screenvec2-world_pos-vec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        world_to_screen(vec2 world_pos) → vec2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinate-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinate system
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-renderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using with Renderer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fitmode-not-yet-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FitMode (not yet implemented)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -569,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/texture/" class="md-nav__link">
+      <a href="../texture/" class="md-nav__link">
         
   
   
@@ -597,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/math/" class="md-nav__link">
+      <a href="../math/" class="md-nav__link">
         
   
   
@@ -629,31 +775,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -671,7 +812,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -686,37 +827,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build Progress
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../dev/progress/" class="md-nav__link">
         
   
   
@@ -732,59 +846,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#completed-phases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Completed phases
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-phase" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current phase
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#upcoming-phases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Upcoming phases
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -797,7 +858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../conventions/" class="md-nav__link">
+      <a href="../../dev/conventions/" class="md-nav__link">
         
   
   
@@ -845,159 +906,90 @@
   
 
 
-<h1 id="build-progress">Build Progress<a class="headerlink" href="#build-progress" title="Permanent link">&para;</a></h1>
-<p>Tracks position in the 23-step implementation order from the engine spec.</p>
-<h2 id="completed-phases">Completed phases<a class="headerlink" href="#completed-phases" title="Permanent link">&para;</a></h2>
+<h1 id="camera">Camera<a class="headerlink" href="#camera" title="Permanent link">&para;</a></h1>
+<p><strong>Header:</strong> <code>#include &lt;glyph/camera.h&gt;</code></p>
+<p>A 2D orthographic camera. Controls what region of world space is visible and at what zoom level. Pass to <code>Renderer::set_camera()</code> or modify <code>Renderer::camera()</code> directly before draw calls.</p>
+<hr />
+<h2 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Phase</th>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
 <th>Description</th>
-<th>Tag</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>✅ 1</td>
-<td>CMake skeleton + SDL3 window — <code>01_hello_window</code> opens cleanly</td>
-<td><code>v0.1.0</code></td>
+<td><code>position</code></td>
+<td><code>vec2</code></td>
+<td><code>{0, 0}</code></td>
+<td>World position at the centre of the view</td>
 </tr>
 <tr>
-<td>✅ 2</td>
-<td>GL context + clear color — glad2 loaded, vsync swap</td>
-<td><code>v0.2.0</code></td>
+<td><code>zoom</code></td>
+<td><code>float</code></td>
+<td><code>1.0</code></td>
+<td><code>&gt;1</code> = zoomed in (things appear larger), <code>&lt;1</code> = zoomed out</td>
 </tr>
 <tr>
-<td>✅ 3</td>
-<td>Shader + textured quad — sprite shader, <code>draw_textured_quad</code></td>
-<td><code>v0.3.0</code></td>
+<td><code>rotation</code></td>
+<td><code>float</code></td>
+<td><code>0.0</code></td>
+<td>Radians, clockwise positive (y-down convention)</td>
 </tr>
 <tr>
-<td>✅ 4</td>
-<td>Sprite batcher — 2000-quad buffer, 8-texture slots, auto-flush</td>
-<td><code>v0.4.0</code></td>
-</tr>
-<tr>
-<td>✅ 5</td>
-<td>Camera + math — glm aliases, <code>Camera::view_projection</code>, pan/zoom</td>
-<td><code>v0.5.0</code></td>
+<td><code>viewport_size</code></td>
+<td><code>vec2</code></td>
+<td><code>{1280, 720}</code></td>
+<td>Logical resolution in world units. Updated by <code>Renderer::set_viewport()</code>.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="current-phase">Current phase<a class="headerlink" href="#current-phase" title="Permanent link">&para;</a></h2>
-<p><strong>Phase 6: Resources + Texture loading</strong> — stb_image, <code>Resources</code> cache, <code>samples/02_sprite</code>.</p>
-<h2 id="upcoming-phases">Upcoming phases<a class="headerlink" href="#upcoming-phases" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>Description</th>
-<th>Tag</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>~~4~~</td>
-<td>~~Sprite batcher~~</td>
-<td>~~<code>v0.4.0</code>~~</td>
-</tr>
-<tr>
-<td>~~5~~</td>
-<td>~~Camera + math (glm)~~</td>
-<td>~~<code>v0.5.0</code>~~</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Resources + Texture loading (stb_image) · <code>02_sprite</code></td>
-<td><code>v0.6.0</code></td>
-</tr>
-<tr>
-<td>7</td>
-<td>Input system + action mapping · <code>03_input</code></td>
-<td><code>v0.7.0</code></td>
-</tr>
-<tr>
-<td>8</td>
-<td>Time + fixed timestep</td>
-<td><code>v0.8.0</code></td>
-</tr>
-<tr>
-<td>9</td>
-<td>Audio (miniaudio)</td>
-<td><code>v0.9.0</code></td>
-</tr>
-<tr>
-<td>10</td>
-<td>EnTT + Entity façade</td>
-<td><code>v0.10.0</code></td>
-</tr>
-<tr>
-<td>11</td>
-<td>Built-in ECS systems</td>
-<td><code>v0.11.0</code></td>
-</tr>
-<tr>
-<td>12</td>
-<td>Aseprite JSON loader</td>
-<td><code>v0.12.0</code></td>
-</tr>
-<tr>
-<td>13</td>
-<td>Tiled TMJ loader + tilemap renderer · <code>04_tilemap</code></td>
-<td><code>v0.13.0</code></td>
-</tr>
-<tr>
-<td>14</td>
-<td>CollisionSystem (spatial hash + AABB)</td>
-<td><code>v0.14.0</code></td>
-</tr>
-<tr>
-<td>15</td>
-<td>Font + text rendering</td>
-<td><code>v0.15.0</code></td>
-</tr>
-<tr>
-<td>16</td>
-<td>Lua + sol2 bindings</td>
-<td><code>v0.16.0</code></td>
-</tr>
-<tr>
-<td>17</td>
-<td>Script component + ScriptSystem</td>
-<td><code>v0.17.0</code></td>
-</tr>
-<tr>
-<td>18</td>
-<td>Hot reload</td>
-<td><code>v0.18.0</code></td>
-</tr>
-<tr>
-<td>19</td>
-<td>Emscripten web build</td>
-<td><code>v0.19.0</code></td>
-</tr>
-<tr>
-<td>20</td>
-<td>Android build</td>
-<td><code>v0.20.0</code></td>
-</tr>
-<tr>
-<td>21</td>
-<td>iOS build</td>
-<td><code>v0.21.0</code></td>
-</tr>
-<tr>
-<td>22</td>
-<td>Lua platformer sample · <code>05_lua_platformer</code></td>
-<td><code>v1.0.0</code></td>
-</tr>
-<tr>
-<td>23</td>
-<td>Documentation pass</td>
-<td><code>v1.0.1</code></td>
-</tr>
-</tbody>
-</table>
+<hr />
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="view_projection-mat4"><code>view_projection() → mat4</code><a class="headerlink" href="#view_projection-mat4" title="Permanent link">&para;</a></h3>
+<p>Returns the combined orthographic × view matrix for the current camera state. The renderer calls this internally at <code>begin_frame()</code> — you rarely need it directly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Example: passing to a custom shader</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">mat4</span><span class="w"> </span><span class="n">vp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">camera</span><span class="p">.</span><span class="n">view_projection</span><span class="p">();</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">glUniformMatrix4fv</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">GL_FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">value_ptr</span><span class="p">(</span><span class="n">vp</span><span class="p">));</span>
+</code></pre></div>
+<h3 id="screen_to_worldvec2-screen_px-vec2"><code>screen_to_world(vec2 screen_px) → vec2</code><a class="headerlink" href="#screen_to_worldvec2-screen_px-vec2" title="Permanent link">&para;</a></h3>
+<p>Convert a screen pixel position (top-left origin, y-down) to world space.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// Where did the user click in world space?</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">camera</span><span class="p">().</span><span class="n">screen_to_world</span><span class="p">(</span><span class="n">mouse_px</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="world_to_screenvec2-world_pos-vec2"><code>world_to_screen(vec2 world_pos) → vec2</code><a class="headerlink" href="#world_to_screenvec2-world_pos-vec2" title="Permanent link">&para;</a></h3>
+<p>Convert a world position to screen pixel coordinates.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// Is this entity visible?</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">camera</span><span class="p">().</span><span class="n">world_to_screen</span><span class="p">(</span><span class="n">entity_pos</span><span class="p">);</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">bool</span><span class="w"> </span><span class="n">on_screen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">800</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">              </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">600</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="coordinate-system">Coordinate system<a class="headerlink" href="#coordinate-system" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>World (y-down)          NDC / GL             Screen pixels
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>(0,0) top-left    →   (-1,+1) top-left  →   (0,0) top-left
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  x → right              x → right              x → right
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  y ↓ down               y ↑ up                 y ↓ down
+</code></pre></div>
+<p>The camera's <code>view_projection()</code> handles all three conversions automatically.</p>
+<hr />
+<h2 id="using-with-renderer">Using with Renderer<a class="headerlink" href="#using-with-renderer" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">Camera</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">camera</span><span class="p">();</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="n">cam</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">player_pos_</span><span class="p">;</span><span class="w">          </span><span class="c1">// follow player</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">cam</span><span class="p">.</span><span class="n">zoom</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">2.f</span><span class="p">;</span><span class="w">                  </span><span class="c1">// zoomed in</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">));</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">// draw calls use cam&#39;s VP automatically</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">draw_textured_quad</span><span class="p">(</span><span class="n">sprite_</span><span class="p">,</span><span class="w"> </span><span class="n">dest_</span><span class="p">);</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="fitmode-not-yet-implemented">FitMode <em>(not yet implemented)</em><a class="headerlink" href="#fitmode-not-yet-implemented" title="Permanent link">&para;</a></h2>
+<p><code>enum class FitMode { Stretch, Letterbox, PixelPerfect }</code> is declared but not yet wired into the renderer. Letterboxing / pillarboxing arrives alongside window resize handling.</p>
 
 
 

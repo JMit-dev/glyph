@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/dev/conventions/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/sprite_sheet/">
       
       
-        <link rel="prev" href="../progress/">
+        <link rel="prev" href="../scene/">
       
+      
+        <link rel="next" href="../audio/">
       
       
         
@@ -25,7 +27,7 @@
     
     
       
-        <title>C++ Conventions - Glyph Engine</title>
+        <title>Sprite Sheets - Glyph Engine</title>
       
     
     
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#c-conventions" class="md-skip">
+        <a href="#sprite-sheets" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              C++ Conventions
+              Sprite Sheets
             
           </span>
         </div>
@@ -257,11 +259,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../api/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -277,13 +281,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../progress/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../dev/progress/" class="md-tabs__link">
           
   
   
@@ -400,26 +402,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -437,7 +444,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -455,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -483,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/game/" class="md-nav__link">
+      <a href="../game/" class="md-nav__link">
         
   
   
@@ -511,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/scene/" class="md-nav__link">
+      <a href="../scene/" class="md-nav__link">
         
   
   
@@ -519,350 +526,6 @@
     
   
     Scene & Entity
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/sprite_sheet/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sprite Sheets
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/audio/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Audio
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/renderer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Renderer
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/camera/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Camera
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/input/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Input
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/time/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Time
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/texture/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Texture
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/resources/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Resources
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/math/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Math Types
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Development
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Development
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../progress/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build Progress
   
 
     
@@ -899,7 +562,7 @@
   <span class="md-ellipsis">
     
   
-    C++ Conventions
+    Sprite Sheets
   
 
     
@@ -917,7 +580,7 @@
   <span class="md-ellipsis">
     
   
-    C++ Conventions
+    Sprite Sheets
   
 
     
@@ -943,10 +606,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#language-and-compatibility" class="md-nav__link">
+  <a href="#animclip" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Language and compatibility
+        AnimClip
       
     </span>
   </a>
@@ -954,10 +617,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#naming" class="md-nav__link">
+  <a href="#spritesheet" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Naming
+        SpriteSheet
       
     </span>
   </a>
@@ -965,10 +628,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#file-layout" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        File layout
+        Usage
       
     </span>
   </a>
@@ -976,54 +639,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#include-order-in-cpp-files" class="md-nav__link">
+  <a href="#animator-component" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Include order (in .cpp files)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#memory" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Memory
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comments
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#platform-isolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Platform isolation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error handling
+        Animator component
       
     </span>
   </a>
@@ -1034,6 +653,345 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../renderer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Renderer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Camera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../texture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Texture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build Progress
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1066,134 +1024,88 @@
   
 
 
-<h1 id="c-conventions">C++ Conventions<a class="headerlink" href="#c-conventions" title="Permanent link">&para;</a></h1>
-<p>Rules that apply to every file in the engine. These exist so the codebase stays consistent as it grows across 23 phases.</p>
+<h1 id="sprite-sheets">Sprite Sheets<a class="headerlink" href="#sprite-sheets" title="Permanent link">&para;</a></h1>
+<p><strong>Header:</strong> <code>#include &lt;glyph/sprite_sheet.h&gt;</code></p>
+<p>Loads Aseprite-exported sprite sheets (JSON + PNG). The Hash format is preferred; Array format is also supported.</p>
 <hr />
-<h2 id="language-and-compatibility">Language and compatibility<a class="headerlink" href="#language-and-compatibility" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>C++17.</strong> No C++20 features — needed for Emscripten, Android NDK, and Xcode toolchains.</li>
-<li>Exceptions <strong>on</strong> — sol2 and EnTT use them.</li>
-<li>RTTI <strong>on</strong> — EnTT and sol2 require it.</li>
-</ul>
+<h2 id="animclip">AnimClip<a class="headerlink" href="#animclip" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">AnimClip</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w">        </span><span class="n">name</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w">   </span><span class="n">frame_indices</span><span class="p">;</span><span class="w">   </span><span class="c1">// indices into SpriteSheet::frames</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">durations</span><span class="p">;</span><span class="w">       </span><span class="c1">// seconds, parallel to frame_indices</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w">               </span><span class="n">loop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">};</span>
+</code></pre></div>
 <hr />
-<h2 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link">&para;</a></h2>
+<h2 id="spritesheet">SpriteSheet<a class="headerlink" href="#spritesheet" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">SpriteSheet</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Texture</span><span class="o">&gt;</span><span class="w">                  </span><span class="n">texture</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Rect</span><span class="o">&gt;</span><span class="w">                         </span><span class="n">frames</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">AnimClip</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clips</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">SpriteSheet</span><span class="o">&gt;</span><span class="w"> </span><span class="n">load</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">json_path</span><span class="p">);</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">};</span>
+</code></pre></div>
+<p><code>load()</code> parses the JSON sidecar and loads the companion PNG (resolved from <code>meta.image</code> relative to the JSON path). Returns <code>nullptr</code> on failure.</p>
+<hr />
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>Export from Aseprite with <strong>File → Export Sprite Sheet</strong>, choose JSON (Hash) output. Both the <code>.json</code> and the <code>.png</code> must be in the same directory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">sheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">SpriteSheet</span><span class="o">::</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;assets/player.json&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">().</span><span class="n">create_entity</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">e</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="p">{{</span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">}});</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">e</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="p">();</span><span class="w">           </span><span class="c1">// src and texture set by AnimatorSystem</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">anim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Animator</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">anim</span><span class="p">.</span><span class="n">sheet</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">sheet</span><span class="p">;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">anim</span><span class="p">.</span><span class="n">clip</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;run&quot;</span><span class="p">;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">anim</span><span class="p">.</span><span class="n">playing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>AnimatorSystem</code> (run automatically by <code>Scene::run_systems</code>) advances <code>Animator::time</code> each frame, resolves the current frame from the active clip, and writes <code>Sprite::src</code> and <code>Sprite::texture</code>.</p>
+<hr />
+<h2 id="animator-component">Animator component<a class="headerlink" href="#animator-component" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Kind</th>
-<th>Style</th>
-<th>Example</th>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Types (class, struct, enum)</td>
-<td><code>PascalCase</code></td>
-<td><code>SpriteBatch</code>, <code>Entity</code></td>
+<td><code>sheet</code></td>
+<td><code>shared_ptr&lt;SpriteSheet&gt;</code></td>
+<td>The loaded sprite sheet</td>
 </tr>
 <tr>
-<td>Functions and methods</td>
-<td><code>snake_case</code></td>
-<td><code>draw_sprite</code>, <code>screen_to_world</code></td>
+<td><code>clip</code></td>
+<td><code>string</code></td>
+<td>Active clip name (must match a key in <code>sheet-&gt;clips</code>)</td>
 </tr>
 <tr>
-<td>Variables, parameters</td>
-<td><code>snake_case</code></td>
-<td><code>tile_count</code>, <code>cam_pos</code></td>
+<td><code>time</code></td>
+<td><code>float</code></td>
+<td>Playback time in seconds; reset to 0 when switching clips</td>
 </tr>
 <tr>
-<td>Member variables</td>
-<td><code>snake_case_</code> (trailing <code>_</code>)</td>
-<td><code>texture_</code>, <code>frame_count_</code></td>
+<td><code>playing</code></td>
+<td><code>bool</code></td>
+<td>Pauses when false; set to false automatically at end of non-looping clip</td>
 </tr>
 <tr>
-<td>Constants</td>
-<td><code>kPascalCase</code></td>
-<td><code>kMaxBatchSize</code></td>
-</tr>
-<tr>
-<td>Macros</td>
-<td><code>SCREAMING_SNAKE</code></td>
-<td><code>GLYPH_MAIN</code></td>
-</tr>
-<tr>
-<td>Namespaces</td>
-<td><code>lower</code></td>
-<td><code>glyph</code>, <code>glyph::detail</code></td>
-</tr>
-<tr>
-<td>Files</td>
-<td><code>snake_case</code></td>
-<td><code>sprite_batch.cpp</code></td>
+<td><code>loop</code></td>
+<td><code>bool</code></td>
+<td>Overridden by <code>AnimClip::loop</code> — the clip's own loop flag is used</td>
 </tr>
 </tbody>
 </table>
-<p>No Hungarian notation. No <code>m_</code> prefixes.</p>
-<hr />
-<h2 id="file-layout">File layout<a class="headerlink" href="#file-layout" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>include/glyph/*.h</code> — <strong>public API</strong>. What game developers include.</li>
-<li><code>src/&lt;subsystem&gt;/*.{h,cpp}</code> — <strong>implementation and internal headers</strong>. Never <code>#include</code>'d from public headers.</li>
-<li>One primary type per file. Filename matches the type.</li>
-<li><code>#pragma once</code> for header guards.</li>
-</ul>
-<hr />
-<h2 id="include-order-in-cpp-files">Include order (in <code>.cpp</code> files)<a class="headerlink" href="#include-order-in-cpp-files" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Corresponding public header (<code>#include &lt;glyph/renderer.h&gt;</code>)</li>
-<li>Other engine internal headers</li>
-<li>Third-party headers (SDL, glm, etc.)</li>
-<li>C++ standard library</li>
-</ol>
-<hr />
-<h2 id="memory">Memory<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Owning pointers → <code>std::unique_ptr&lt;T&gt;</code> or <code>std::shared_ptr&lt;T&gt;</code>.</li>
-<li>Non-owning → references (<code>T&amp;</code>) or raw pointers (<code>T*</code>) when null is meaningful.</li>
-<li>Never <code>new</code>/<code>delete</code> outside RAII wrappers.</li>
-<li><code>Entity</code> is a value handle — pass by value.</li>
-</ul>
-<hr />
-<h2 id="comments">Comments<a class="headerlink" href="#comments" title="Permanent link">&para;</a></h2>
-<p>Comments explain <strong>why</strong>, not what. The code shows what.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// SDL_FunctionPointer → void* via memcpy: function and data pointers are the</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// same size on all our targets; this is the pedantically-correct conversion.</span>
-</code></pre></div>
-<p>Not:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// bind the texture to slot 0</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">tex</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w">   </span><span class="c1">// ← don&#39;t do this</span>
-</code></pre></div>
-<hr />
-<h2 id="platform-isolation">Platform isolation<a class="headerlink" href="#platform-isolation" title="Permanent link">&para;</a></h2>
-<p><code>#ifdef GLYPH_PLATFORM_*</code> guards are only allowed inside <code>src/platform/</code>. Everywhere else uses the platform-agnostic API.</p>
-<hr />
-<h2 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Situation</th>
-<th>Strategy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Engine init failure</td>
-<td><code>throw std::runtime_error(...)</code> — caught by main loop, logged, app exits</td>
-</tr>
-<tr>
-<td>Missing asset</td>
-<td>Log + return fallback (magenta texture, empty tilemap)</td>
-</tr>
-<tr>
-<td>Lua error</td>
-<td>Caught by sol2 <code>protected_function</code>, logged with stack trace</td>
-</tr>
-<tr>
-<td>Debug invariant</td>
-<td><code>GLYPH_ASSERT(condition, message)</code> — stripped in release</td>
-</tr>
-</tbody>
-</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Reset <code>Animator::time</code> to <code>0.f</code> when switching clips.</p>
+</div>
 
 
 

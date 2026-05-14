@@ -615,6 +615,34 @@
   
   
     <li class="md-nav__item">
+      <a href="sprite_sheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sprite Sheets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="audio/" class="md-nav__link">
         
   
@@ -980,16 +1008,17 @@
 </code></pre></div>
 <p>Or include individual headers as needed:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/app.h&gt;</span><span class="c1">       // Game, AppConfig, GLYPH_MAIN</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/scene.h&gt;</span><span class="c1">     // Scene, Entity</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/components.h&gt;</span><span class="c1">// Transform, Sprite, Velocity, ...</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/math.h&gt;</span><span class="c1">      // vec2, mat4, Color, Rect, lerp</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/camera.h&gt;</span><span class="c1">    // Camera, FitMode</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/audio.h&gt;</span><span class="c1">     // Audio, Sound, Music, SoundHandle</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/input.h&gt;</span><span class="c1">     // Input, Key, MouseButton</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/time.h&gt;</span><span class="c1">      // Time, kFixedDt</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/renderer.h&gt;</span><span class="c1">  // Renderer</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/texture.h&gt;</span><span class="c1">   // Texture</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/resources.h&gt;</span><span class="c1"> // Resources</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/scene.h&gt;</span><span class="c1">        // Scene, Entity</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/components.h&gt;</span><span class="c1">   // Transform, Sprite, Velocity, ...</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/sprite_sheet.h&gt;</span><span class="c1"> // SpriteSheet, AnimClip</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/math.h&gt;</span><span class="c1">      // vec2, mat4, Color, Rect, lerp</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/camera.h&gt;</span><span class="c1">    // Camera, FitMode</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/audio.h&gt;</span><span class="c1">     // Audio, Sound, Music, SoundHandle</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/input.h&gt;</span><span class="c1">     // Input, Key, MouseButton</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/time.h&gt;</span><span class="c1">      // Time, kFixedDt</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/renderer.h&gt;</span><span class="c1">  // Renderer</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/texture.h&gt;</span><span class="c1">   // Texture</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/resources.h&gt;</span><span class="c1"> // Resources</span>
 </code></pre></div>
 <hr />
 <h2 id="available-modules">Available modules<a class="headerlink" href="#available-modules" title="Permanent link">&para;</a></h2>
@@ -1016,6 +1045,11 @@
 <td><a href="scene/#built-in-components-componentsh"><code>components.h</code></a></td>
 <td><code>Transform</code>, <code>Sprite</code>, <code>Velocity</code>, etc.</td>
 <td>v0.10.0</td>
+</tr>
+<tr>
+<td><a href="sprite_sheet/"><code>sprite_sheet.h</code></a></td>
+<td><code>SpriteSheet</code>, <code>AnimClip</code></td>
+<td>v0.12.0</td>
 </tr>
 <tr>
 <td><a href="audio/"><code>audio.h</code></a></td>
@@ -1070,11 +1104,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>sprite_sheet.h</code></td>
-<td>Aseprite JSON loader</td>
-<td>12</td>
-</tr>
 <tr>
 <td><code>tilemap.h</code></td>
 <td>Tiled TMJ loader</td>

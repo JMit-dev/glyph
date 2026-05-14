@@ -70,16 +70,17 @@ See [Getting Started](getting-started.md) for a full walkthrough.
 
 ## Tech stack
 
-| Concern | Library |
-|---|---|
-| Window / input | SDL3 3.2+ |
-| GL loader (desktop) | glad2 |
-| Math | glm 1.0+ *(phase 5)* |
-| Image loading | stb_image *(phase 6)* |
-| Audio | miniaudio *(phase 9)* |
-| ECS | EnTT *(phase 10)* |
-| Scripting | Lua 5.4 + sol2 *(phase 16)* |
-| JSON | nlohmann/json *(phase 12)* |
+| Concern | Library | Version |
+|---|---|---|
+| Window / input / platform | SDL3 | 3.2.0 |
+| GL loader (desktop) | glad2 | 2.0.8 |
+| Math | glm | 1.0.1 |
+| Image loading | stb_image | unversioned |
+| Font rasterizing | stb_truetype | unversioned |
+| Audio | miniaudio | 0.11.25 |
+| ECS | EnTT | 3.13.2 |
+| JSON (Tiled + Aseprite) | nlohmann/json | 3.11.3 |
+| Scripting | Lua 5.4 + sol2 | *(phase 16 — not yet vendored)* |
 
 All dependencies are vendored as git submodules under `external/`.
 

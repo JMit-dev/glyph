@@ -7,6 +7,7 @@
 #pragma once
 
 #include <glyph/audio.h>
+#include <glyph/font.h>
 #include <glyph/texture.h>
 
 #include <memory>
@@ -31,6 +32,9 @@ public:
     std::shared_ptr<Sound> sound(const std::string& path);
     std::shared_ptr<Music> music(const std::string& path);
 
+    // Load a TTF/OTF font at the given pixel size. Cached by (path, size_px).
+    std::shared_ptr<Font> font(const std::string& path, int size_px);
+
     // Remove cache entries whose shared_ptrs have all expired (no live references).
     void unload_unused();
 
@@ -41,6 +45,7 @@ private:
     std::unordered_map<std::string, std::weak_ptr<Texture>> textures_;
     std::unordered_map<std::string, std::weak_ptr<Sound>>   sounds_;
     std::unordered_map<std::string, std::weak_ptr<Music>>   musics_;
+    std::unordered_map<std::string, std::weak_ptr<Font>>    fonts_;   // key = "path@size"
 };
 
 } // namespace glyph

@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 15: Font + text rendering**
+**Phase 16: Lua + sol2 bindings**
 
 Status: not started
 
@@ -26,7 +26,7 @@ Status: not started
 - [x] **12. Aseprite JSON loader** — animated sprite plays → tag `v0.12.0`
 - [x] **13. Tiled TMJ loader + tilemap renderer** — `samples/04_tilemap` → tag `v0.13.0`
 - [x] **14. CollisionSystem** — spatial hash + AABB → tag `v0.14.0`
-- [ ] **15. Font + text rendering** — stb_truetype atlas → tag `v0.15.0`
+- [x] **15. Font + text rendering** — stb_truetype atlas → tag `v0.15.0`
 - [ ] **16. Lua + sol2 bindings** — core API exposed → tag `v0.16.0`
 - [ ] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
 - [ ] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 15
+STB_TRUETYPE_IMPLEMENTATION added to stb_impl.cpp alongside STB_IMAGE_IMPLEMENTATION. Font::load() bakes ASCII 32–126 into a 1024×1024 single-channel bitmap via stbtt_BakeFontBitmap, converts to RGBA8 (white+alpha) for the sprite shader, extracts line_height from stbtt_GetFontVMetrics. bearing.y (stb yoff) is negative for above-baseline glyphs — pos.y + bearing.y gives correct Y-down glyph top. Resources::font(path, size_px) caches by "path@size" key. Renderer::draw_text() iterates UTF-8 chars, advances pen_x by advance. glEnable(GL_BLEND) + glBlendFunc added to Renderer::init() — required for font alpha and transparent sprites. resources.h includes font.h directly (forward-decl not viable due to shared_ptr<Font> member).
 
 ### Phase 14
 CollisionCallback alias added to scene.h. Scene::on_collision(cb) stores a single subscriber (last registration wins; per-entity Lua hooks come in phase 17). run_collision_system takes Scene* to construct Entity handles for the callback. Spatial hash cell size = 64 px. World AABB = Transform::position + BoxCollider::bounds * Transform::scale (rotation ignored, TransformPropagation still stubbed). Pairs encoded as (min_id<<32|max_id) in unordered_set to avoid duplicate checking. Layer/mask: collision fires if (a.layer & b.mask)||(b.layer & a.mask) != 0. Early-out if no callback registered. IDE false positive on scene.cpp — MSVC compiles clean. Also fixed: begin_frame() now calls glClearColor+glClear each frame.

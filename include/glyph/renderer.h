@@ -7,9 +7,11 @@
 #include <glyph/math.h>
 
 #include <memory>
+#include <string_view>
 
 namespace glyph {
 
+class Font;          // defined in font.h
 class SpriteBatch;   // internal; defined in src/renderer/sprite_batch.h
 class Texture;
 
@@ -50,6 +52,11 @@ public:
     // Draw with an explicit source rect in pixels (for sub-texture / sprite-sheet use).
     // If src_px has zero width or height, the full texture is used.
     void draw_textured_quad(const Texture& tex, Rect dest, Rect src_px, Color tint = {1, 1, 1, 1});
+
+    // Draw a UTF-8 string. pos is the pen origin (left edge of baseline).
+    // Glyphs outside ASCII 32–126 are silently skipped until dynamic atlas is added.
+    void draw_text(const Font& font, std::string_view text, vec2 pos,
+                   Color tint = {1, 1, 1, 1});
 
 private:
     Camera                       camera_;

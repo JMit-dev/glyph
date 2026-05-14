@@ -138,6 +138,7 @@ add_library(glyph STATIC
     src/core/time.cpp
     src/core/stb_impl.cpp
     src/core/resources.cpp
+    src/core/font.cpp
     src/input/input.cpp
     src/audio/miniaudio_impl.cpp
     src/audio/audio.cpp

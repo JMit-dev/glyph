@@ -1,5 +1,6 @@
 // resources.cpp — Resources implementation.
 #include <glyph/resources.h>
+#include <glyph/font.h>
 
 #include "platform/file_io.h"
 
@@ -75,6 +76,15 @@ std::shared_ptr<Music> Resources::music(const std::string& path) {
     return m;
 }
 
+std::shared_ptr<Font> Resources::font(const std::string& path, int size_px) {
+    const std::string key = resolve(path) + "@" + std::to_string(size_px);
+    auto& wp = fonts_[key];
+    if (auto sp = wp.lock()) return sp;
+    auto f = Font::load(resolve(path), size_px);
+    wp = f;
+    return f;
+}
+
 void Resources::unload_unused() {
     for (auto it = textures_.begin(); it != textures_.end(); )
         it = it->second.expired() ? textures_.erase(it) : std::next(it);
@@ -82,6 +92,8 @@ void Resources::unload_unused() {
         it = it->second.expired() ? sounds_.erase(it) : std::next(it);
     for (auto it = musics_.begin(); it != musics_.end(); )
         it = it->second.expired() ? musics_.erase(it) : std::next(it);
+    for (auto it = fonts_.begin(); it != fonts_.end(); )
+        it = it->second.expired() ? fonts_.erase(it) : std::next(it);
 }
 
 } // namespace glyph

@@ -39,6 +39,7 @@ nav:
       - Scene & Entity: api/scene.md
       - Sprite Sheets: api/sprite_sheet.md
       - Tilemaps: api/tilemap.md
+      - Font & Text: api/font.md
       - Audio: api/audio.md
       - Renderer: api/renderer.md
       - Camera: api/camera.md

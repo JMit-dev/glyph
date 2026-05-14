@@ -1,5 +1,6 @@
 // renderer.cpp — Renderer implementation.
 #include <glyph/renderer.h>
+#include <glyph/font.h>
 #include <glyph/texture.h>
 
 #include "gl.h"
@@ -21,6 +22,12 @@ bool Renderer::init(int viewport_w, int viewport_h) {
         return false;
     }
     set_viewport(viewport_w, viewport_h);
+
+    // Standard pre-multiplied-alpha blending — required for font rendering and
+    // any sprite with transparent pixels.
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     return true;
 }
 
@@ -61,6 +68,28 @@ void Renderer::draw_textured_quad(const Texture& tex, Rect dest, Color tint) {
                    dest.x, dest.y, dest.x + dest.w, dest.y + dest.h,
                    0.f, 0.f, 1.f, 1.f,
                    tint);
+}
+
+void Renderer::draw_text(const Font& font, std::string_view text,
+                         vec2 pos, Color tint) {
+    if (!font.atlas || !font.atlas->valid()) return;
+    float pen_x = pos.x;
+    for (unsigned char c : text) {
+        auto it = font.glyphs.find(static_cast<uint32_t>(c));
+        if (it == font.glyphs.end()) {
+            pen_x += static_cast<float>(font.size_px) * 0.5f;
+            continue;
+        }
+        const Font::Glyph& g = it->second;
+        if (g.size.x > 0.f && g.size.y > 0.f) {
+            // bearing.y (= stb yoff) is negative for glyphs above the baseline:
+            // pos.y is the baseline, so pos.y + bearing.y gives the glyph top in Y-down.
+            const Rect dest = {pen_x + g.bearing.x, pos.y + g.bearing.y,
+                               g.size.x, g.size.y};
+            draw_textured_quad(*font.atlas, dest, g.uv, tint);
+        }
+        pen_x += g.advance;
+    }
 }
 
 void Renderer::draw_textured_quad(const Texture& tex, Rect dest, Rect src_px, Color tint) {

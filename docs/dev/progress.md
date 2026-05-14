@@ -20,18 +20,16 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 12 | Aseprite JSON loader — `SpriteSheet::load()`, `AnimClip`, `AnimatorSystem` | `v0.12.0` |
 | ✅ 13 | Tiled TMJ loader + tilemap renderer — `TilemapRef`, `samples/04_tilemap` | `v0.13.0` |
 | ✅ 14 | CollisionSystem — spatial hash broad-phase, AABB narrow-phase, `on_collision` callback | `v0.14.0` |
+| ✅ 15 | Font + text rendering — `Font::load()`, stb_truetype atlas, `Renderer::draw_text()` | `v0.15.0` |
 
 ## Current phase
 
-**Phase 15: Font + text rendering** — stb_truetype atlas.
+**Phase 16: Lua + sol2 bindings** — core API exposed.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 13 | Tiled TMJ loader + tilemap renderer · `04_tilemap` | `v0.13.0` |
-| 14 | CollisionSystem (spatial hash + AABB) | `v0.14.0` |
-| 15 | Font + text rendering | `v0.15.0` |
 | 16 | Lua + sol2 bindings | `v0.16.0` |
 | 17 | Script component + ScriptSystem | `v0.17.0` |
 | 18 | Hot reload | `v0.18.0` |

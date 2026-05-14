@@ -5,6 +5,7 @@
 #include <glyph/audio.h>
 #include <glyph/camera.h>
 #include <glyph/components.h>
+#include <glyph/font.h>
 #include <glyph/entity.h>
 #include <glyph/input.h>
 #include <glyph/math.h>

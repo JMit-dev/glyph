@@ -12,16 +12,16 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 4 | Sprite batcher — 2000-quad buffer, 8-texture slots, auto-flush | `v0.4.0` |
 | ✅ 5 | Camera + math — glm aliases, `Camera::view_projection`, pan/zoom | `v0.5.0` |
 | ✅ 6 | Resources + Texture loading — stb_image, `Resources` cache, `02_sprite` | `v0.6.0` |
+| ✅ 7 | Input system + action mapping — `Key`/`MouseButton`, axes, `03_input` | `v0.7.0` |
 
 ## Current phase
 
-**Phase 7: Input system + action mapping** — keyboard, mouse, gamepad; named action bindings; `samples/03_input`.
+**Phase 8: Time + fixed timestep** — `Time` class, fixed-step accumulator, `Time::delta()`, `Time::fps()`.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 7 | Input system + action mapping · `03_input` | `v0.7.0` |
 | 8 | Time + fixed timestep | `v0.8.0` |
 | 9 | Audio (miniaudio) | `v0.9.0` |
 | 10 | EnTT + Entity façade | `v0.10.0` |

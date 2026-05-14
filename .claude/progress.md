@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 7: Input + action mapping**
+**Phase 8: Time + fixed timestep**
 
 Status: not started
 
@@ -18,7 +18,7 @@ Status: not started
 - [x] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
 - [x] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
 - [x] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
-- [ ] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
+- [x] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
 - [ ] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
 - [ ] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
 - [ ] **10. EnTT + Entity façade** — built-in components defined → tag `v0.10.0`
@@ -57,3 +57,6 @@ glm added as a submodule at 1.0.1. Must be linked to BOTH glyph (PUBLIC) AND gly
 
 ### Phase 6
 `core` in .gitignore was catching src/core/ — fixed to `/core` (root-anchored). stb_image IMPLEMENTATION defined in stb_impl.cpp (one TU only); all other files include stb_image.h without IMPLEMENTATION. Texture made move-only RAII (destructor calls glDeleteTextures; copy deleted). Resources uses weak_ptr cache — entries expire naturally when shared_ptrs are released. 02_sprite generates its own test PNG via stb_image_write at startup (no binary in repo); _CRT_SECURE_NO_WARNINGS suppresses MSVC sprintf warning from stb internals.
+
+### Phase 7
+Key enum values match SDL_Scancode for zero-overhead lookup. bind_axis() appends pairs (not replaces) so both WASD and arrow keys can share move_x/move_y — default bindings set both. begin_frame() placed at END of SDL_AppIterate (after swap) so events arriving before iterate are visible to on_update, then prev snapshot advances. Game::engine_set_input() is a public setter (friend struct across TUs doesn't work in C++ for locally-defined structs). Mouse pan in 03_input converts screen-pixel delta to world units by dividing by zoom.

@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 9: Audio**
+**Phase 10: EnTT + Entity façade**
 
 Status: not started
 
@@ -20,7 +20,7 @@ Status: not started
 - [x] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
 - [x] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
 - [x] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
-- [ ] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
+- [x] **9. Audio** — miniaudio; sound + music + volume → tag `v0.9.0`
 - [ ] **10. EnTT + Entity façade** — built-in components defined → tag `v0.10.0`
 - [ ] **11. Built-in systems** — movement, sprite render, animator → tag `v0.11.0`
 - [ ] **12. Aseprite JSON loader** — animated sprite plays → tag `v0.12.0`
@@ -63,3 +63,6 @@ Key enum values match SDL_Scancode for zero-overhead lookup. bind_axis() appends
 
 ### Phase 8
 Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale to prevent spiral-of-death even at scale > 1. step_fixed() sets fixed_alpha when returning false (end of loop) so the alpha is correct whether 0 or N steps ran. FPS uses EMA with 0.95/0.05 split (~20 frame window), initialized on first frame to avoid NaN. on_fixed_update added as a virtual with default no-op so existing game code needs no changes.
+
+### Phase 9
+Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.

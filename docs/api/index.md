@@ -12,6 +12,7 @@ Or include individual headers as needed:
 #include <glyph/app.h>       // Game, AppConfig, GLYPH_MAIN
 #include <glyph/math.h>      // vec2, mat4, Color, Rect, lerp
 #include <glyph/camera.h>    // Camera, FitMode
+#include <glyph/audio.h>     // Audio, Sound, Music, SoundHandle
 #include <glyph/input.h>     // Input, Key, MouseButton
 #include <glyph/time.h>      // Time, kFixedDt
 #include <glyph/renderer.h>  // Renderer
@@ -26,6 +27,7 @@ Or include individual headers as needed:
 | Header | Contents | Since |
 |---|---|---|
 | [`app.h`](game.md) | `Game`, `AppConfig`, `GLYPH_MAIN` | v0.1.0 |
+| [`audio.h`](audio.md) | `Audio`, `Sound`, `Music`, `SoundHandle` | v0.9.0 |
 | [`math.h`](math.md) | `vec2`, `vec3`, `mat4`, `ivec2`, `Color`, `Rect`, `lerp` | v0.2.0 / v0.5.0 |
 | [`camera.h`](camera.md) | `Camera`, `FitMode` | v0.5.0 |
 | [`input.h`](input.md) | `Input`, `Key`, `MouseButton` | v0.7.0 |
@@ -40,7 +42,7 @@ Or include individual headers as needed:
 
 | Header | Contents | Phase |
 |---|---|---|
-| `audio.h` | `Audio`, `Sound`, `Music` | 9 |
+| `entity.h` | `Entity` handle | 10 |
 | `entity.h` | `Entity` handle | 10 |
 | `scene.h` | `Scene`, ECS systems | 10 |
 | `components.h` | `Transform`, `Sprite`, `Animator`, etc. | 10 |

@@ -3,6 +3,7 @@
 // Call order each frame: begin_frame() → [draw calls] → end_frame().
 #pragma once
 
+#include <glyph/camera.h>
 #include <glyph/math.h>
 
 #include <memory>
@@ -21,23 +22,29 @@ public:
     bool init(int viewport_w, int viewport_h);
     void shutdown();
 
+    // begin_frame uses camera_.view_projection() as the VP matrix.
     void begin_frame();
     void end_frame();
 
     // Fill the framebuffer with a solid color.
     void clear(Color c);
 
-    // Update the GL viewport and recalculate the ortho projection.
-    // Call when the window is resized.
+    // Update the GL viewport and camera viewport_size. Call on window resize.
     void set_viewport(int w, int h);
 
-    // Draw a textured rectangle. dest is in screen pixels (y-down, origin top-left).
-    // UV covers the full texture; source-rect support arrives with the sprite sheet loader.
+    // Replace the active camera. Takes effect on the next begin_frame().
+    void set_camera(const Camera& c);
+
+    Camera&       camera()       { return camera_; }
+    const Camera& camera() const { return camera_; }
+
+    // Draw a textured rectangle. dest is in world-space pixel coordinates.
+    // UV covers the full texture; source-rect support comes with sprite sheets.
     void draw_textured_quad(const Texture& tex, Rect dest, Color tint = {1, 1, 1, 1});
 
 private:
+    Camera                       camera_;
     std::unique_ptr<SpriteBatch> batch_;
-    float ortho_[16] = {};
 };
 
 } // namespace glyph

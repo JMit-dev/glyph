@@ -172,6 +172,7 @@ add_library(glyph STATIC
     src/scene/tilemap.cpp
     src/lua/lua_state.cpp
     src/lua/lua_bindings.cpp
+    src/lua/script_system.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp

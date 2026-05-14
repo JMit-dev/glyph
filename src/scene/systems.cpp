@@ -24,9 +24,7 @@ void run_lifetime_system(entt::registry& reg, float dt) {
     reg.destroy(dead.begin(), dead.end());
 }
 
-void run_script_system(entt::registry& /*reg*/, float /*dt*/) {
-    // Lua scripting not available until phase 16.
-}
+// run_script_system is defined in src/lua/script_system.cpp (requires sol2).
 
 void run_animator_system(entt::registry& reg, float dt) {
     reg.view<Animator, Sprite>().each([dt](Animator& anim, Sprite& sp) {
@@ -78,8 +76,9 @@ void run_movement_system(entt::registry& reg, float dt) {
 }
 
 void run_collision_system(entt::registry& reg, Scene* scene, float /*dt*/,
-                          const CollisionCallback& cb) {
-    if (!cb) return;  // no subscriber — skip the entire pass
+                          const CollisionCallback& cb,
+                          const CollisionCallback& lua_cb) {
+    if (!cb && !lua_cb) return;  // no subscribers — skip the entire pass
 
     // --- Step 1: compute world-space AABBs for all BoxCollider+Transform entities ---
     // Rotation is ignored (TransformPropagation still stubbed); scale is applied.
@@ -150,7 +149,8 @@ void run_collision_system(entt::registry& reg, Scene* scene, float /*dt*/,
                 // AABB narrow phase.
                 if (!aabbs[ea].intersects(aabbs[eb])) continue;
 
-                cb({scene, ea}, {scene, eb});
+                if (cb)     cb({scene, ea}, {scene, eb});
+                if (lua_cb) lua_cb({scene, ea}, {scene, eb});
             }
         }
     }

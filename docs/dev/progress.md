@@ -22,10 +22,11 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 14 | CollisionSystem — spatial hash broad-phase, AABB narrow-phase, `on_collision` callback | `v0.14.0` |
 | ✅ 15 | Font + text rendering — `Font::load()`, stb_truetype atlas, `Renderer::draw_text()` | `v0.15.0` |
 | ✅ 16 | Lua 5.4 + sol2 bindings — `LuaState`, core API, `glyph.*` table in Lua | `v0.16.0` |
+| ✅ 17 | Script component + ScriptSystem — `on_start`, `on_update`, `on_collision` per entity | `v0.17.0` |
 
 ## Current phase
 
-**Phase 17: Script component + ScriptSystem** — entity scripts work.
+**Phase 18: Hot reload** — Lua files reload on change.
 
 ## Upcoming phases
 

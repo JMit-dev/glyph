@@ -1,6 +1,10 @@
 // lua_state.cpp — LuaState implementation.
 #include "lua_state_impl.h"
 
+#include <glyph/components.h>   // Script
+#include <glyph/scene.h>        // Scene, Entity
+
+#include <any>
 #include <cstdio>
 #include <string>
 
@@ -19,6 +23,30 @@ bool LuaState::init(Scene& scene, Resources& resources,
     impl_->time      = &time;
 
     register_lua_bindings(*impl_);
+
+    // Register a collision handler that fires each Script entity's on_collision.
+    scene.set_lua_collision_handler([this](Entity a, Entity b) {
+        LuaStateImpl* im = impl_.get();
+        if (!im) return;
+
+        auto call_collision = [&](Entity self_e, Entity other_e) {
+            Script* sc = self_e.try_get<Script>();
+            if (!sc || !sc->self.has_value()) return;
+            sol::table* self_tbl = std::any_cast<sol::table>(&sc->self);
+            if (!self_tbl) return;
+            sol::object fn_obj = (*self_tbl)["on_collision"];
+            if (fn_obj.get_type() != sol::type::function) return;
+            sol::protected_function fn = fn_obj;
+            auto r = fn(*self_tbl, other_e);
+            if (!r.valid()) {
+                sol::error err = r;
+                std::fprintf(stderr, "[glyph] Script on_collision: %s\n", err.what());
+            }
+        };
+
+        call_collision(a, b);
+        call_collision(b, a);
+    });
 
     return true;
 }

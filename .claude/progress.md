@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 17: Script component + ScriptSystem**
+**Phase 18: Hot reload**
 
 Status: not started
 
@@ -28,7 +28,7 @@ Status: not started
 - [x] **14. CollisionSystem** — spatial hash + AABB → tag `v0.14.0`
 - [x] **15. Font + text rendering** — stb_truetype atlas → tag `v0.15.0`
 - [x] **16. Lua + sol2 bindings** — core API exposed → tag `v0.16.0`
-- [ ] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
+- [x] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
 - [ ] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
 - [ ] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
 - [ ] **20. Android build** — `samples/02_sprite` on device → tag `v0.20.0`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 17
+ScriptSystem in src/lua/script_system.cpp (requires sol2 — split from systems.cpp). First-frame init: loads class table via load_script_module (cached in LuaStateImpl::module_cache after first load), creates self = setmetatable({}, {__index=class}), sets self.entity = Entity handle, calls class:on_start(self). Every frame: calls self:on_update(dt) via sol::protected_function. on_collision forwarded via LuaState::init() registering scene.set_lua_collision_handler — calls self:on_collision(other) on both entities in each collision pair. Scene::set_lua() stores LuaState*; run_script_system and run_collision_system receive it from scene.lua_. CollisionSystem now takes two callbacks (C++ + Lua); fires both. Script::self stores sol::table as std::any; any_cast<sol::table&> avoids copy. Module path convention: scripts/entities/<name>.lua.
 
 ### Phase 16
 Lua 5.4.7 and sol2 v3.3.0 added as submodules. Lua compiled as lua54 static library via file(GLOB) excluding lua.c, luac.c, and onelua.c (amalgamation that caused duplicate symbols). sol2 headers PRIVATE to glyph (sol.hpp not in any public header). LuaState uses PIMPL — LuaStateImpl is a namespace-level struct (not nested) to avoid MSVC's restriction on defining private nested classes externally. Script::self changed from (future sol::table) to std::any to keep components.h free of sol.hpp. Color binding uses sol::factories (Color is an aggregate; sol::constructors doesn't apply). Resources and LuaState added as engine services in AppState and Game. LuaState::on_update/on_render called in frame loop before C++ game callbacks. Bindings: vec2, Color, Transform, Velocity, Sprite, Entity, Scene, Input, Audio, Resources, Time, Key constants.

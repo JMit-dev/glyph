@@ -32,10 +32,10 @@ Entity Scene::find(const std::string& name) {
 
 void Scene::run_systems(float dt) {
     run_lifetime_system(registry_, dt);
-    run_script_system(registry_, dt);
+    run_script_system(registry_, this, lua_, dt);
     run_animator_system(registry_, dt);
     run_movement_system(registry_, dt);
-    run_collision_system(registry_, this, dt, collision_cb_);
+    run_collision_system(registry_, this, dt, collision_cb_, lua_collision_cb_);
     run_transform_propagation_system(registry_);
 }
 

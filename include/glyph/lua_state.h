@@ -55,6 +55,9 @@ public:
 
     bool initialized() const { return impl_ != nullptr; }
 
+    // Internal accessor for src/lua/ subsystem — requires lua_state_impl.h to use.
+    LuaStateImpl* impl() { return impl_.get(); }
+
 private:
     std::unique_ptr<LuaStateImpl> impl_;
 };

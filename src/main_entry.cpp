@@ -72,6 +72,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
     state->lua.init(state->scene, state->resources,
                     state->audio, state->input, state->time);
 
+    state->scene.set_lua(&state->lua);
+
     state->game->engine_set_audio    (&state->audio);
     state->game->engine_set_input    (&state->input);
     state->game->engine_set_lua      (&state->lua);

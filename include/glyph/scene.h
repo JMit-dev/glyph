@@ -18,6 +18,7 @@
 
 namespace glyph {
 
+class LuaState;   // forward — wired in by main_entry for ScriptSystem
 class Renderer;   // forward — scene.h doesn't pull in the full renderer chain
 class Scene;      // forward — needed by Entity declaration
 
@@ -81,6 +82,13 @@ public:
     // Replaces any previously registered callback. Pass nullptr to clear.
     void on_collision(CollisionCallback cb) { collision_cb_ = std::move(cb); }
 
+    // Wire the Lua scripting state so ScriptSystem can run entity scripts.
+    // Called by main_entry before on_start().
+    void set_lua(LuaState* l) { lua_ = l; }
+
+    // Engine-internal: called by LuaState::init() to forward collisions to scripts.
+    void set_lua_collision_handler(CollisionCallback cb) { lua_collision_cb_ = std::move(cb); }
+
     // Render all Sprite+Transform entities.
     void render(Renderer& r);
 
@@ -91,8 +99,10 @@ public:
     entt::registry& registry() { return registry_; }
 
 private:
-    entt::registry   registry_;
+    entt::registry    registry_;
     CollisionCallback collision_cb_;
+    CollisionCallback lua_collision_cb_;   // set by LuaState::init()
+    LuaState*         lua_ = nullptr;
 };
 
 // ---------------------------------------------------------------------------

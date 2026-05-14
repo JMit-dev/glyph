@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/math/">
+        <link rel="canonical" href="https://jmit-dev.github.io/glyph/api/scene/">
       
       
-        <link rel="prev" href="../resources/">
+        <link rel="prev" href="../game/">
       
       
-        <link rel="next" href="../../dev/progress/">
+        <link rel="next" href="../audio/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Math Types - Glyph Engine</title>
+        <title>Scene & Entity - Glyph Engine</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#math-types" class="md-skip">
+        <a href="#scene-entity" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Math Types
+              Scene & Entity
             
           </span>
         </div>
@@ -515,10 +515,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../scene/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scene & Entity
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -534,6 +561,115 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scene
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-components-componentsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in components (components.h)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transform-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transform hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entt-escape-hatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnTT escape hatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -739,37 +875,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Math Types
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../math/" class="md-nav__link">
         
   
   
@@ -785,109 +894,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#type-aliases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Type aliases
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#color" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Color
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Color">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#colorrgba8r-g-b-a" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Color::rgba8(r, g, b, a)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#direct-construction" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Direct construction
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rect
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ivec2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ivec2
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lerp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        lerp
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1035,96 +1041,204 @@
   
 
 
-<h1 id="math-types">Math Types<a class="headerlink" href="#math-types" title="Permanent link">&para;</a></h1>
-<p><strong>Header:</strong> <code>#include &lt;glyph/math.h&gt;</code></p>
-<p>Core math types and utilities. <code>vec2</code>, <code>vec3</code>, <code>mat4</code>, etc. are aliases over <a href="https://github.com/g-truc/glm">glm</a> so game code can use the full glm API while staying in the <code>glyph</code> namespace.</p>
+<h1 id="scene-entity">Scene &amp; Entity<a class="headerlink" href="#scene-entity" title="Permanent link">&para;</a></h1>
+<p><strong>Headers:</strong> <code>#include &lt;glyph/scene.h&gt;</code> · <code>#include &lt;glyph/components.h&gt;</code></p>
+<p>The ECS layer. <a href="https://github.com/skypjack/entt">EnTT</a> drives the registry internally; <code>Entity</code> and <code>Scene</code> provide a friendlier façade. Access the scene via <code>scene()</code> inside any <code>Game</code> lifecycle hook.</p>
 <hr />
-<h2 id="type-aliases">Type aliases<a class="headerlink" href="#type-aliases" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">using</span><span class="w"> </span><span class="n">vec2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">vec2</span><span class="p">;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">using</span><span class="w"> </span><span class="n">vec3</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">vec3</span><span class="p">;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">using</span><span class="w"> </span><span class="n">vec4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">vec4</span><span class="p">;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">using</span><span class="w"> </span><span class="n">mat3</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">mat3</span><span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">using</span><span class="w"> </span><span class="n">mat4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">using</span><span class="w"> </span><span class="n">ivec2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">ivec2</span><span class="p">;</span>
+<h2 id="entity">Entity<a class="headerlink" href="#entity" title="Permanent link">&para;</a></h2>
+<p>A value-typed handle: a <code>Scene*</code> plus an <code>entt::entity</code> id. Pass by value. Default-constructed entity is invalid.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Entity</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">().</span><span class="n">create_entity</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">);</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">e</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="p">{{</span><span class="mi">400</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">}});</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">e</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Sprite</span><span class="p">{</span><span class="n">res_</span><span class="p">.</span><span class="n">texture</span><span class="p">(</span><span class="s">&quot;player.png&quot;</span><span class="p">)});</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">// Retrieve</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">t</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">100.f</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// Query</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">has</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Velocity</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">// Optional (returns nullptr if missing)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">try_get</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Velocity</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="n">v</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50.f</span><span class="p">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1">// Remove</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">e</span><span class="p">.</span><span class="n">remove</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Velocity</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1">// Destroy</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">e</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span>
 </code></pre></div>
-<p>Because these are glm aliases, all glm operations work directly:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">a</span><span class="p">{</span><span class="mf">100.f</span><span class="p">,</span><span class="w"> </span><span class="mf">200.f</span><span class="p">};</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="mf">300.f</span><span class="p">,</span><span class="w"> </span><span class="mf">400.f</span><span class="p">};</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kt">float</span><span class="w">  </span><span class="n">dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">length</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">norm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">glyph</span><span class="o">::</span><span class="n">mat4</span><span class="w"> </span><span class="n">rot</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">rotate</span><span class="p">(</span><span class="n">glm</span><span class="o">::</span><span class="n">mat4</span><span class="p">(</span><span class="mf">1.f</span><span class="p">),</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
-</code></pre></div>
-<hr />
-<h2 id="color">Color<a class="headerlink" href="#color" title="Permanent link">&para;</a></h2>
-<p>Linear-space RGBA color. Components are <code>float</code> in <code>[0.0, 1.0]</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Color</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.f</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.f</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.f</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.f</span><span class="p">;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">Color</span><span class="w"> </span><span class="nf">rgba8</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">};</span>
-</code></pre></div>
-<h3 id="colorrgba8r-g-b-a"><code>Color::rgba8(r, g, b, a)</code><a class="headerlink" href="#colorrgba8r-g-b-a" title="Permanent link">&para;</a></h3>
-<p>Convert 8-bit values (0–255) to a <code>Color</code>. The <code>a</code> parameter defaults to 255 (fully opaque).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="w"> </span><span class="n">red</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">,</span><span class="w">   </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="w"> </span><span class="n">sky_blue</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">149</span><span class="p">,</span><span class="w"> </span><span class="mi">237</span><span class="p">);</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="w"> </span><span class="n">half_alpha</span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="p">);</span>
-</code></pre></div>
-<h3 id="direct-construction">Direct construction<a class="headerlink" href="#direct-construction" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="w"> </span><span class="n">white</span><span class="p">{};</span><span class="w">              </span><span class="c1">// {1, 1, 1, 1} — default</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="w"> </span><span class="n">black</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="w"> </span><span class="n">transparent</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-</code></pre></div>
-<hr />
-<h2 id="rect">Rect<a class="headerlink" href="#rect" title="Permanent link">&para;</a></h2>
-<p>Axis-aligned rectangle in float coordinates (y-down, pixel units).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Rect</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">contains</span><span class="p">(</span><span class="n">vec2</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">intersects</span><span class="p">(</span><span class="n">Rect</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">};</span>
-</code></pre></div>
+<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Field</th>
+<th>Method</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>x</code>, <code>y</code></td>
-<td>Top-left corner</td>
+<td><code>valid() → bool</code></td>
+<td>True if the entity exists in the scene</td>
 </tr>
 <tr>
-<td><code>w</code>, <code>h</code></td>
-<td>Width and height</td>
+<td><code>destroy()</code></td>
+<td>Remove the entity and all its components</td>
+</tr>
+<tr>
+<td><code>add&lt;T&gt;(args...)</code></td>
+<td>Attach component T (returns <code>T&amp;</code>)</td>
+</tr>
+<tr>
+<td><code>get&lt;T&gt;()</code></td>
+<td>Get component T (UB if missing — use <code>has</code> first)</td>
+</tr>
+<tr>
+<td><code>try_get&lt;T&gt;()</code></td>
+<td>Get component T or nullptr</td>
+</tr>
+<tr>
+<td><code>has&lt;T&gt;()</code></td>
+<td>True if the entity has component T</td>
+</tr>
+<tr>
+<td><code>remove&lt;T&gt;()</code></td>
+<td>Detach component T</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Rect</span><span class="w"> </span><span class="n">screen</span><span class="p">{</span><span class="mf">0.f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.f</span><span class="p">,</span><span class="w"> </span><span class="mf">1280.f</span><span class="p">,</span><span class="w"> </span><span class="mf">720.f</span><span class="p">};</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">Rect</span><span class="w"> </span><span class="n">tile</span><span class="w">  </span><span class="p">{</span><span class="mf">64.f</span><span class="p">,</span><span class="w"> </span><span class="mf">32.f</span><span class="p">,</span><span class="w"> </span><span class="mf">16.f</span><span class="p">,</span><span class="w"> </span><span class="mf">16.f</span><span class="p">};</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kt">bool</span><span class="w"> </span><span class="n">hit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile</span><span class="p">.</span><span class="n">contains</span><span class="p">({</span><span class="mf">70.f</span><span class="p">,</span><span class="w"> </span><span class="mf">40.f</span><span class="p">});</span><span class="w">   </span><span class="c1">// true</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kt">bool</span><span class="w"> </span><span class="n">overlap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">screen</span><span class="p">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">tile</span><span class="p">);</span><span class="w">    </span><span class="c1">// true</span>
-</code></pre></div>
 <hr />
-<h2 id="ivec2">ivec2<a class="headerlink" href="#ivec2" title="Permanent link">&para;</a></h2>
-<p>Integer 2D vector — an alias for <code>glm::ivec2</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">using</span><span class="w"> </span><span class="n">ivec2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glm</span><span class="o">::</span><span class="n">ivec2</span><span class="p">;</span>
+<h2 id="scene">Scene<a class="headerlink" href="#scene" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">().</span><span class="n">create_entity</span><span class="p">(</span><span class="s">&quot;camera&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">e</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Camera2D</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">().</span><span class="n">create_entity</span><span class="p">(</span><span class="s">&quot;player&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">player</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="p">{{</span><span class="mi">400</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">}});</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">player</span><span class="p">.</span><span class="n">add</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Velocity</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">}</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">on_update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="c1">// Iterate all entities with Velocity and Transform</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="n">scene</span><span class="p">().</span><span class="n">each</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Velocity</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="o">&gt;</span><span class="p">(</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="p">[](</span><span class="n">glyph</span><span class="o">::</span><span class="n">Entity</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Velocity</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vel</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="o">&amp;</span><span class="w"> </span><span class="n">xf</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">            </span><span class="n">xf</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vel</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">   </span><span class="c1">// manual movement for now</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">glyph</span><span class="o">::</span><span class="n">ivec2</span><span class="w"> </span><span class="n">drawable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">window</span><span class="p">.</span><span class="n">drawable_size</span><span class="p">();</span><span class="w">  </span><span class="c1">// {1920, 1080}</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">drawable</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">drawable</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
-</code></pre></div>
+<h3 id="methods_1">Methods<a class="headerlink" href="#methods_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create_entity()</code></td>
+<td>Create an anonymous entity</td>
+</tr>
+<tr>
+<td><code>create_entity(name)</code></td>
+<td>Create entity with a <code>Name</code> component</td>
+</tr>
+<tr>
+<td><code>find(name)</code></td>
+<td>First entity with matching <code>Name</code>; invalid if not found</td>
+</tr>
+<tr>
+<td><code>each&lt;Comps...&gt;(fn)</code></td>
+<td>Iterate entities with all listed components</td>
+</tr>
+<tr>
+<td><code>run_systems(dt)</code></td>
+<td>Run built-in systems <em>(phase 11)</em></td>
+</tr>
+<tr>
+<td><code>render(r)</code></td>
+<td>Render sprites <em>(phase 11)</em></td>
+</tr>
+<tr>
+<td><code>clear()</code></td>
+<td>Destroy all entities</td>
+</tr>
+<tr>
+<td><code>registry()</code></td>
+<td>Raw <code>entt::registry&amp;</code> escape hatch</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="lerp">lerp<a class="headerlink" href="#lerp" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">float</span><span class="w"> </span><span class="nf">lerp</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">vec2</span><span class="w">  </span><span class="nf">lerp</span><span class="p">(</span><span class="n">vec2</span><span class="w">  </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">vec2</span><span class="w">  </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
-</code></pre></div>
-<p>Linear interpolation. <code>t = 0</code> returns <code>a</code>, <code>t = 1</code> returns <code>b</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">float</span><span class="w"> </span><span class="n">mid</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">lerp</span><span class="p">(</span><span class="mf">0.f</span><span class="p">,</span><span class="w"> </span><span class="mf">100.f</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">);</span><span class="w">   </span><span class="c1">// 50.0</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">glyph</span><span class="o">::</span><span class="n">vec2</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">lerp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="mf">0.25f</span><span class="p">);</span>
+<h2 id="built-in-components-componentsh">Built-in components (<code>components.h</code>)<a class="headerlink" href="#built-in-components-componentsh" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Struct</th>
+<th>Fields</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td><code>value: string</code></td>
+<td>Used by <code>scene().find()</code></td>
+</tr>
+<tr>
+<td><code>Transform</code></td>
+<td><code>position</code>, <code>rotation</code>, <code>scale</code>, <code>parent</code></td>
+<td>Y-down, radians CW</td>
+</tr>
+<tr>
+<td><code>Sprite</code></td>
+<td><code>texture</code>, <code>src</code>, <code>tint</code>, <code>layer</code>, <code>origin</code>, <code>visible</code></td>
+<td>Rendered by <code>Scene::render()</code></td>
+</tr>
+<tr>
+<td><code>Velocity</code></td>
+<td><code>value: vec2</code></td>
+<td>World units per second; applied by MovementSystem (phase 11)</td>
+</tr>
+<tr>
+<td><code>Animator</code></td>
+<td><code>sheet</code>, <code>clip</code>, <code>time</code>, <code>playing</code>, <code>loop</code></td>
+<td>Driven by AnimatorSystem (phase 12)</td>
+</tr>
+<tr>
+<td><code>BoxCollider</code></td>
+<td><code>bounds</code>, <code>layer</code>, <code>mask</code>, <code>is_trigger</code></td>
+<td>Used by CollisionSystem (phase 14)</td>
+</tr>
+<tr>
+<td><code>Camera2D</code></td>
+<td><code>value: Camera</code>, <code>primary: bool</code></td>
+<td>First primary used for rendering</td>
+</tr>
+<tr>
+<td><code>TilemapRef</code></td>
+<td><code>map: shared_ptr&lt;Tilemap&gt;</code></td>
+<td>Rendered by Scene (phase 13)</td>
+</tr>
+<tr>
+<td><code>Script</code></td>
+<td><code>lua_module: string</code></td>
+<td>Lua entity script; expanded in phase 16</td>
+</tr>
+<tr>
+<td><code>Lifetime</code></td>
+<td><code>seconds: float</code></td>
+<td>Destroyed when ≤ 0 by LifetimeSystem (phase 11)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="transform-hierarchy">Transform hierarchy<a class="headerlink" href="#transform-hierarchy" title="Permanent link">&para;</a></h2>
+<p>Set <code>Transform::parent</code> to another entity to form a parent-child relationship. <code>TransformPropagationSystem</code> (phase 11) resolves world transforms. A null/invalid <code>parent</code> means no parent.</p>
+<hr />
+<h2 id="entt-escape-hatch">EnTT escape hatch<a class="headerlink" href="#entt-escape-hatch" title="Permanent link">&para;</a></h2>
+<p>For advanced use, the raw registry is accessible:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">().</span><span class="n">registry</span><span class="p">();</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reg</span><span class="p">.</span><span class="n">view</span><span class="o">&lt;</span><span class="n">glyph</span><span class="o">::</span><span class="n">Transform</span><span class="p">,</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Sprite</span><span class="o">&gt;</span><span class="p">();</span>
 </code></pre></div>
 
 

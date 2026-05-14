@@ -6,13 +6,15 @@ All public headers live under `include/glyph/`. Include the umbrella header to g
 #include <glyph/glyph.h>
 ```
 
-Or include individual headers:
+Or include individual headers as needed:
 
 ```cpp
 #include <glyph/app.h>       // Game, AppConfig, GLYPH_MAIN
+#include <glyph/math.h>      // vec2, mat4, Color, Rect, lerp
+#include <glyph/camera.h>    // Camera, FitMode
 #include <glyph/renderer.h>  // Renderer
 #include <glyph/texture.h>   // Texture
-#include <glyph/math.h>      // Color, Rect, ivec2
+#include <glyph/resources.h> // Resources
 ```
 
 ---
@@ -22,11 +24,11 @@ Or include individual headers:
 | Header | Contents | Since |
 |---|---|---|
 | [`app.h`](game.md) | `Game`, `AppConfig`, `GLYPH_MAIN` | v0.1.0 |
+| [`math.h`](math.md) | `vec2`, `vec3`, `mat4`, `ivec2`, `Color`, `Rect`, `lerp` | v0.2.0 / v0.5.0 |
+| [`camera.h`](camera.md) | `Camera`, `FitMode` | v0.5.0 |
 | [`renderer.h`](renderer.md) | `Renderer` | v0.2.0 |
 | [`texture.h`](texture.md) | `Texture` | v0.3.0 |
 | [`resources.h`](resources.md) | `Resources` | v0.6.0 |
-| [`math.h`](math.md) | `Color`, `Rect`, `vec2`, `mat4`, `ivec2`, `lerp` | v0.2.0 / v0.5.0 |
-| [`camera.h`](camera.md) | `Camera`, `FitMode` | v0.5.0 |
 
 ---
 
@@ -34,8 +36,6 @@ Or include individual headers:
 
 | Header | Contents | Phase |
 |---|---|---|
-| `math.h` (extended) | `vec2`, `vec3`, `mat4` via glm | 5 |
-| `resources.h` | `Resources` — ref-counted asset cache | 6 |
 | `input.h` | `Input`, action mappings | 7 |
 | `time.h` | `Time`, fixed timestep | 8 |
 | `audio.h` | `Audio`, `Sound`, `Music` | 9 |

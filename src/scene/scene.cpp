@@ -2,6 +2,7 @@
 #include <glyph/scene.h>
 #include <glyph/components.h>
 #include <glyph/renderer.h>
+#include <glyph/tilemap.h>
 
 #include "systems.h"
 
@@ -54,7 +55,42 @@ void Scene::render(Renderer& r) {
         }
     }
 
-    // 2. Collect visible Sprite+Transform pairs and sort by layer (stable = insertion
+    // 2. Render TilemapRef entities (background — drawn before sprites).
+    {
+        auto tv = registry_.view<TilemapRef, Transform>();
+        for (auto e : tv) {
+            const auto& tmref = tv.get<TilemapRef>(e);
+            const auto& xf    = tv.get<Transform>(e);
+            if (!tmref.map) continue;
+
+            Tilemap& map = *tmref.map;
+            for (const auto& layer : map.tile_layers) {
+                if (!layer.visible) continue;
+                for (int row = 0; row < layer.size.y; ++row) {
+                    for (int col = 0; col < layer.size.x; ++col) {
+                        const uint32_t raw = layer.gids[row * layer.size.x + col];
+                        const uint32_t gid = raw & 0x1FFFFFFFu;
+                        if (gid == 0) continue;
+
+                        const Tileset* ts = map.tileset_for(gid);
+                        if (!ts || !ts->texture) continue;
+
+                        const Rect src  = map.tile_uv(gid);
+                        const Rect dest = {
+                            xf.position.x + static_cast<float>(col * map.tile_w),
+                            xf.position.y + static_cast<float>(row * map.tile_h),
+                            static_cast<float>(map.tile_w),
+                            static_cast<float>(map.tile_h)
+                        };
+                        r.draw_textured_quad(*ts->texture, dest, src,
+                                             {1.f, 1.f, 1.f, layer.opacity});
+                    }
+                }
+            }
+        }
+    }
+
+    // 3. Collect visible Sprite+Transform pairs and sort by layer (stable = insertion
     //    order preserved within the same layer).
     struct DrawEntry {
         int              layer;

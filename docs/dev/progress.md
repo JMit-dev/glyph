@@ -18,10 +18,11 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 10 | EnTT + Entity façade — `Scene`, `Entity`, `components.h` | `v0.10.0` |
 | ✅ 11 | Built-in systems — `MovementSystem`, `LifetimeSystem`, `Scene::render()` with sprite sorting | `v0.11.0` |
 | ✅ 12 | Aseprite JSON loader — `SpriteSheet::load()`, `AnimClip`, `AnimatorSystem` | `v0.12.0` |
+| ✅ 13 | Tiled TMJ loader + tilemap renderer — `TilemapRef`, `samples/04_tilemap` | `v0.13.0` |
 
 ## Current phase
 
-**Phase 13: Tiled TMJ loader + tilemap renderer** — `samples/04_tilemap`.
+**Phase 14: CollisionSystem** — spatial hash + AABB.
 
 ## Upcoming phases
 

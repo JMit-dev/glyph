@@ -144,6 +144,7 @@ add_library(glyph STATIC
     src/scene/scene.cpp
     src/scene/systems.cpp
     src/scene/sprite_sheet.cpp
+    src/scene/tilemap.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
     src/renderer/texture.cpp
@@ -224,4 +225,5 @@ if(GLYPH_BUILD_SAMPLES)
     add_subdirectory(samples/01_hello_window)
     add_subdirectory(samples/02_sprite)
     add_subdirectory(samples/03_input)
+    add_subdirectory(samples/04_tilemap)
 endif()

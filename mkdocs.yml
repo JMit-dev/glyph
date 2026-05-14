@@ -37,6 +37,7 @@ nav:
       - Overview: api/index.md
       - Game & Lifecycle: api/game.md
       - Renderer: api/renderer.md
+      - Camera: api/camera.md
       - Texture: api/texture.md
       - Math Types: api/math.md
   - Development:

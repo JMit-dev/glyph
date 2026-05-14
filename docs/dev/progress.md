@@ -10,17 +10,18 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 2 | GL context + clear color — glad2 loaded, vsync swap | `v0.2.0` |
 | ✅ 3 | Shader + textured quad — sprite shader, `draw_textured_quad` | `v0.3.0` |
 | ✅ 4 | Sprite batcher — 2000-quad buffer, 8-texture slots, auto-flush | `v0.4.0` |
+| ✅ 5 | Camera + math — glm aliases, `Camera::view_projection`, pan/zoom | `v0.5.0` |
 
 ## Current phase
 
-**Phase 5: Camera + math** — glm integration, Camera with pan/zoom, `vec2`/`mat4` aliases.
+**Phase 6: Resources + Texture loading** — stb_image, `Resources` cache, `samples/02_sprite`.
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
 | ~~4~~ | ~~Sprite batcher~~ | ~~`v0.4.0`~~ |
-| 5 | Camera + math (glm) | `v0.5.0` |
+| ~~5~~ | ~~Camera + math (glm)~~ | ~~`v0.5.0`~~ |
 | 6 | Resources + Texture loading (stb_image) · `02_sprite` | `v0.6.0` |
 | 7 | Input system + action mapping · `03_input` | `v0.7.0` |
 | 8 | Time + fixed timestep | `v0.8.0` |

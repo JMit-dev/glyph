@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 5: Camera + math**
+**Phase 6: Resources + Texture loading**
 
 Status: not started
 
@@ -16,7 +16,7 @@ Status: not started
 - [x] **2. GL context + clear color** — verified on desktop → tag `v0.2.0`
 - [x] **3. Shader + textured quad** — hardcoded vertices, one texture → tag `v0.3.0`
 - [x] **4. Sprite batcher** — N sprites with M textures, batched flushes; stress-tested at 10k sprites → tag `v0.4.0`
-- [ ] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
+- [x] **5. Camera + math** — mouse pan, scroll-wheel zoom → tag `v0.5.0`
 - [ ] **6. Resources + Texture loading** — stb_image; `samples/02_sprite` → tag `v0.6.0`
 - [ ] **7. Input + action mapping** — `samples/03_input` → tag `v0.7.0`
 - [ ] **8. Time + fixed timestep** — verified on artificial slow frame → tag `v0.8.0`
@@ -51,3 +51,6 @@ GLSL source strings carry no #version — platform header injected at compile ti
 
 ### Phase 4
 SpriteBatch owns shader/VAO/VBO/IBO; Renderer delegates everything to it via unique_ptr<SpriteBatch> (forward-declared to keep internal type out of public header; ~Renderer() defined in renderer.cpp so unique_ptr can see the complete type). Fragment shader uses a switch on int(v_tex_index) rather than dynamic sampler array indexing — GLES 3.0 spec allows it but some drivers reject it. Static IBO (pre-built quad index pattern, GL_STATIC_DRAW). Index type uint16_t — safe up to kMaxQuads=2000 (max vertex index 7999 < 65535).
+
+### Phase 5
+glm added as a submodule at 1.0.1. Must be linked to BOTH glyph (PUBLIC) AND glyph_runtime (PRIVATE) — glyph_runtime compiles main_entry.cpp which includes renderer.h → camera.h → math.h → glm/glm.hpp. Camera stores VP in terms of position/zoom/rotation; view_projection() builds glm::ortho with bottom=pos.y+hh, top=pos.y-hh for y-down convention. Mouse pan/zoom deferred to phase 7 (Input system); phase 5 verifies math with time-based camera animation.

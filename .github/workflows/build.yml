@@ -50,7 +50,7 @@ jobs:
 
       - name: Install macOS dependencies
         if: runner.os == 'macOS'
-        run: pip3 install jinja2
+        run: pip3 install jinja2 --break-system-packages
 
       - name: Install Windows dependencies
         if: runner.os == 'Windows'
@@ -114,6 +114,8 @@ jobs:
 
       - name: Build all sample APKs
         working-directory: platform/android
-        run: ./gradlew assembleDebug --no-daemon
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
         env:
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}

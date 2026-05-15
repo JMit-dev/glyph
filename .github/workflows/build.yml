@@ -54,7 +54,7 @@ jobs:
 
       - name: Install Windows dependencies
         if: runner.os == 'Windows'
-        run: pip install jinja2
+        run: python -m pip install jinja2
 
       - name: Configure
         run: >

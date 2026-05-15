@@ -169,10 +169,48 @@ jobs:
           path: glyph-android-${{ github.ref_name }}.zip
           retention-days: 1
 
+  # ── iOS build ───────────────────────────────────────────────────────────────
+  ios:
+    name: iOS (simulator)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Configure
+        run: |
+          cmake -S platform/ios -B platform/ios/build_ios \
+            -G Xcode \
+            -DCMAKE_SYSTEM_NAME=iOS \
+            -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0
+
+      - name: Build (simulator)
+        run: |
+          cmake --build platform/ios/build_ios \
+            --config Release \
+            -- -sdk iphonesimulator -jobs $(sysctl -n hw.ncpu) ONLY_ACTIVE_ARCH=NO
+
+      - name: Collect .app bundles
+        run: |
+          mkdir -p ios_apps
+          find platform/ios/build_ios/build/Release-iphonesimulator \
+            -maxdepth 1 -name "*.app" -exec cp -r {} ios_apps/ \;
+
+      - name: Archive
+        run: zip -r "glyph-ios-simulator-${{ github.ref_name }}.zip" ios_apps/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: glyph-ios-simulator
+          path: glyph-ios-simulator-${{ github.ref_name }}.zip
+          retention-days: 1
+
   # ── Publish GitHub release ──────────────────────────────────────────────────
   publish:
     name: Publish release
-    needs: [desktop, web, android]
+    needs: [desktop, web, android, ios]
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts

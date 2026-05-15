@@ -49,8 +49,8 @@
         <string>opengles-2</string>
     </array>
 
-    <!-- SDL3 manages its own UIMainStoryboardFile replacement -->
-    <key>UILaunchStoryboardName</key>
-    <string>LaunchScreen</string>
+    <!-- No launch storyboard — SDL3 manages the window directly -->
+    <key>NSPrincipalClass</key>
+    <string>UIApplication</string>
 </dict>
 </plist>

@@ -129,4 +129,4 @@ jobs:
         run: |
           cmake --build platform/ios/build_ios \
             --config Release \
-            -- -sdk iphonesimulator -jobs $(sysctl -n hw.ncpu)
+            -- -sdk iphonesimulator -jobs $(sysctl -n hw.ncpu) ONLY_ACTIVE_ARCH=NO

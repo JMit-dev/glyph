@@ -277,6 +277,8 @@ function(glyph_add_executable target)
             "-sFORCE_FILESYSTEM=1"
             # C++ exceptions required for Lua/sol2
             "-fexceptions"
+            # Custom HTML shell — replaces the default Emscripten page
+            "--shell-file" "${CMAKE_SOURCE_DIR}/cmake/web/shell.html"
         )
     else()
         set_target_properties(${target} PROPERTIES

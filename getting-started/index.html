@@ -482,6 +482,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#building-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building (Android)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#running-the-samples" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1229,48 +1240,71 @@
 </code></pre></div>
 <p><strong>All engine modules work on web:</strong> rendering (WebGL2), audio (Web Audio via miniaudio), input (SDL3), ECS, Lua scripting. Hot reload is disabled on web (no filesystem watcher) — scripts are baked into the WASM bundle at build time.</p>
 <hr />
+<h2 id="building-android">Building (Android)<a class="headerlink" href="#building-android" title="Permanent link">&para;</a></h2>
+<p><strong>Prerequisites:</strong> Android Studio or the standalone SDK command-line tools with:
+- Android NDK r27+ (installed via SDK Manager)
+- CMake 3.22+ (installed via SDK Manager or system)
+- Java 17+</p>
+<p>Open <code>platform/android/</code> as an Android Studio project, or build from the command line:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>platform/android
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Debug APKs for all samples (arm64-v8a + armeabi-v7a + x86_64)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>./gradlew<span class="w"> </span>assembleDebug
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># Build a specific sample only</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>./gradlew<span class="w"> </span>assembleSpriteDebug<span class="w">        </span><span class="c1"># 02_sprite</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>./gradlew<span class="w"> </span>assembleHelloWindowDebug<span class="w">   </span><span class="c1"># 01_hello_window</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>./gradlew<span class="w"> </span>assembleInputDebug<span class="w">         </span><span class="c1"># 03_input</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>./gradlew<span class="w"> </span>assembleTilemapDebug<span class="w">       </span><span class="c1"># 04_tilemap</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="c1"># Install a specific sample directly to a connected device/emulator</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>./gradlew<span class="w"> </span>installSpriteDebug
+</code></pre></div>
+<p>APKs land in <code>platform/android/app/build/outputs/apk/&lt;flavor&gt;/debug/</code>.</p>
+<p><strong>How it works:</strong> Each Gradle product flavor compiles <code>samples/&lt;name&gt;/main.cpp</code> into <code>libmain.so</code> alongside the full engine. SDL's <code>SDLActivity</code> Java class (referenced from the <code>external/SDL</code> submodule, no copy needed) loads the library and calls the SDL3 callback entry points. File I/O at runtime writes to the app's internal storage (<code>/data/data/&lt;packageId&gt;/files/</code>).</p>
+<hr />
 <h2 id="running-the-samples">Running the samples<a class="headerlink" href="#running-the-samples" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Hello window — verifies GL context and textured quad</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>./build/samples/01_hello_window/01_hello_window<span class="w">      </span><span class="c1"># Linux/macOS</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>build<span class="se">\s</span>amples<span class="se">\0</span>1_hello_window<span class="se">\D</span>ebug<span class="se">\0</span>1_hello_window.exe<span class="w">  </span><span class="c1"># Windows</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Hello window — verifies GL context and textured quad</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>./build/samples/01_hello_window/01_hello_window<span class="w">      </span><span class="c1"># Linux/macOS</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>build<span class="se">\s</span>amples<span class="se">\0</span>1_hello_window<span class="se">\D</span>ebug<span class="se">\0</span>1_hello_window.exe<span class="w">  </span><span class="c1"># Windows</span>
 </code></pre></div>
 <p>You should see a cornflower-blue window with a black-and-white checkerboard in the center.</p>
 <hr />
 <h2 id="writing-your-first-game">Writing your first game<a class="headerlink" href="#writing-your-first-game" title="Permanent link">&para;</a></h2>
 <p><strong>1.</strong> Create a directory under <code>samples/</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>samples/my_game/
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>├── CMakeLists.txt
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>└── main.cpp
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>samples/my_game/
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>├── CMakeLists.txt
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>└── main.cpp
 </code></pre></div>
 <p><strong>2.</strong> <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">glyph_add_executable</span><span class="p">(</span><span class="s">my_game</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">glyph_add_executable</span><span class="p">(</span><span class="s">my_game</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>3.</strong> Register it in the root <code>CMakeLists.txt</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">if</span><span class="p">(</span><span class="s">GLYPH_BUILD_SAMPLES</span><span class="p">)</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/01_hello_window</span><span class="p">)</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/my_game</span><span class="p">)</span><span class="w">   </span><span class="c"># add this</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nb">endif</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">if</span><span class="p">(</span><span class="s">GLYPH_BUILD_SAMPLES</span><span class="p">)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/01_hello_window</span><span class="p">)</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">samples/my_game</span><span class="p">)</span><span class="w">   </span><span class="c"># add this</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">endif</span><span class="p">()</span>
 </code></pre></div>
 <p><strong>4.</strong> <code>main.cpp</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/glyph.h&gt;</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">configure</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Game&quot;</span><span class="p">;</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
-<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">));</span>
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="p">};</span>
-<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
-<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="n">GLYPH_MAIN</span><span class="p">(</span><span class="n">MyGame</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;glyph/glyph.h&gt;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGame</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">glyph</span><span class="o">::</span><span class="n">Game</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">configure</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">        </span><span class="n">glyph</span><span class="o">::</span><span class="n">AppConfig</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">        </span><span class="n">c</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;My Game&quot;</span><span class="p">;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">on_render</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Renderer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="n">clear</span><span class="p">(</span><span class="n">glyph</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">rgba8</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">));</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">};</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="n">GLYPH_MAIN</span><span class="p">(</span><span class="n">MyGame</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>5.</strong> Rebuild:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
 </code></pre></div>
 <hr />
 <h2 id="cmake-options">CMake options<a class="headerlink" href="#cmake-options" title="Permanent link">&para;</a></h2>

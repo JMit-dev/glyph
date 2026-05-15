@@ -31,10 +31,13 @@ void register_lua_bindings(LuaStateImpl& impl) {
     // Math types
     // -----------------------------------------------------------------------
 
+    // Member pointer bindings (e.g. &vec2::x) trigger a noexcept mismatch in
+    // sol2's upvalue_this_member_variable on Clang 18+ (NDK r30, Emscripten 5.x).
+    // sol::property lambdas avoid that template path entirely.
     g.new_usertype<vec2>("vec2",
         sol::constructors<vec2(), vec2(float, float)>(),
-        "x", &vec2::x,
-        "y", &vec2::y,
+        "x", sol::property([](const vec2& v){ return v.x; }, [](vec2& v, float x){ v.x = x; }),
+        "y", sol::property([](const vec2& v){ return v.y; }, [](vec2& v, float y){ v.y = y; }),
         sol::meta_function::addition,
             [](const vec2& a, const vec2& b) { return a + b; },
         sol::meta_function::subtraction,
@@ -52,7 +55,10 @@ void register_lua_bindings(LuaStateImpl& impl) {
         sol::factories(
             []()                                       { return Color{}; },
             [](float r, float gv, float b, float a)   { return Color{r, gv, b, a}; }),
-        "r", &Color::r, "g", &Color::g, "b", &Color::b, "a", &Color::a
+        "r", sol::property([](const Color& c){ return c.r; }, [](Color& c, float v){ c.r = v; }),
+        "g", sol::property([](const Color& c){ return c.g; }, [](Color& c, float v){ c.g = v; }),
+        "b", sol::property([](const Color& c){ return c.b; }, [](Color& c, float v){ c.b = v; }),
+        "a", sol::property([](const Color& c){ return c.a; }, [](Color& c, float v){ c.a = v; })
     );
 
     // -----------------------------------------------------------------------
@@ -60,19 +66,19 @@ void register_lua_bindings(LuaStateImpl& impl) {
     // -----------------------------------------------------------------------
 
     g.new_usertype<Transform>("Transform",
-        "position", &Transform::position,
-        "rotation", &Transform::rotation,
-        "scale",    &Transform::scale
+        "position", sol::property([](const Transform& t){ return t.position; }, [](Transform& t, vec2 v){ t.position = v; }),
+        "rotation", sol::property([](const Transform& t){ return t.rotation; }, [](Transform& t, float v){ t.rotation = v; }),
+        "scale",    sol::property([](const Transform& t){ return t.scale;    }, [](Transform& t, vec2 v){ t.scale    = v; })
     );
 
     g.new_usertype<Velocity>("Velocity",
-        "value", &Velocity::value
+        "value", sol::property([](const Velocity& v){ return v.value; }, [](Velocity& v, vec2 val){ v.value = val; })
     );
 
     g.new_usertype<Sprite>("Sprite",
-        "tint",    &Sprite::tint,
-        "layer",   &Sprite::layer,
-        "visible", &Sprite::visible
+        "tint",    sol::property([](const Sprite& s){ return s.tint;    }, [](Sprite& s, Color c)  { s.tint    = c; }),
+        "layer",   sol::property([](const Sprite& s){ return s.layer;   }, [](Sprite& s, int v)    { s.layer   = v; }),
+        "visible", sol::property([](const Sprite& s){ return s.visible; }, [](Sprite& s, bool v)   { s.visible = v; })
     );
 
     // -----------------------------------------------------------------------

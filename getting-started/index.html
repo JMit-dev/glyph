@@ -1202,20 +1202,26 @@
 <p>Binaries land in <code>build/samples/&lt;name&gt;/</code>.</p>
 <hr />
 <h2 id="building-web-emscripten">Building (Web — Emscripten)<a class="headerlink" href="#building-web-emscripten" title="Permanent link">&para;</a></h2>
-<p><strong>Prerequisites:</strong> install <a href="https://emscripten.org/docs/getting_started/downloads.html">emsdk</a> and activate it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/emscripten-core/emsdk.git
+<p><strong>Prerequisites:</strong></p>
+<ol>
+<li>Install <a href="https://emscripten.org/docs/getting_started/downloads.html">emsdk</a>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/emscripten-core/emsdk.git
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>emsdk<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./emsdk<span class="w"> </span>install<span class="w"> </span>latest<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./emsdk<span class="w"> </span>activate<span class="w"> </span>latest
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">source</span><span class="w"> </span>emsdk_env.sh<span class="w">   </span><span class="c1"># adds emcc to PATH</span>
-</code></pre></div>
+</code></pre></div></li>
+<li>Install <a href="https://ninja-build.org/">Ninja</a> — required on Windows; recommended on all platforms.
+   On Windows: download <code>ninja-win.zip</code> from the Ninja releases page and add it to your PATH.</li>
+</ol>
 <p>Then build from the repo root:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>/path/to/emsdk/emsdk_env.sh
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./build_web.sh<span class="w">        </span><span class="c1"># wraps cmake with the Emscripten toolchain</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./build_web.sh<span class="w">        </span><span class="c1"># wraps cmake with the Emscripten toolchain + Ninja</span>
 </code></pre></div>
 <p>Or manually:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build_web<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>em-config<span class="w"> </span>EMSCRIPTEN_ROOT<span class="k">)</span><span class="s2">/cmake/Modules/Platform/Emscripten.cmake&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build_web<span class="w"> </span>-j
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>-G<span class="w"> </span>Ninja
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build_web<span class="w"> </span>-j
 </code></pre></div>
 <p>HTML/JS/WASM output lands in <code>build_web/web/&lt;sample&gt;/</code>. Serve locally (browsers block local file:// WebGL):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span>--directory<span class="w"> </span>build_web/web

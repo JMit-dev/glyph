@@ -69,7 +69,9 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           mkdir -p dist
-          find build/samples -type f -perm /111 ! -name "*.so" -exec cp {} dist/ \;
+          find build/samples -type f ! -name "*.so" ! -name "*.dylib" ! -name "*.a" | while read f; do
+            [ -x "$f" ] && cp "$f" dist/
+          done
 
       - name: Archive (Windows)
         if: runner.os == 'Windows'

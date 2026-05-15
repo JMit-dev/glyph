@@ -52,6 +52,10 @@ jobs:
         if: runner.os == 'macOS'
         run: pip3 install jinja2
 
+      - name: Install Windows dependencies
+        if: runner.os == 'Windows'
+        run: pip install jinja2
+
       - name: Configure
         run: >
           cmake -B build

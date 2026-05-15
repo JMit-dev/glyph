@@ -74,16 +74,15 @@ set(SDL_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(external/SDL EXCLUDE_FROM_ALL)
 
 # glad2 — OpenGL 3.3 Core function loader (desktop only).
-# Requires Python at configure time to generate the loader source.
-# GLES3 is linked directly on mobile/web; no loader needed there.
+# Sources are pre-generated (external/glad_generated/) so no Python dependency
+# is needed at build time. GLES3 is linked directly on mobile/web.
 if(GLYPH_PLATFORM_DESKTOP)
-    if(NOT EXISTS "${CMAKE_SOURCE_DIR}/external/glad/cmake/CMakeLists.txt")
-        message(FATAL_ERROR
-            "glad submodule not found at external/glad. "
-            "Run: git submodule update --init --recursive")
-    endif()
-    add_subdirectory(external/glad/cmake EXCLUDE_FROM_ALL)
-    glad_add_library(glad_gl STATIC REPRODUCIBLE API gl:core=3.3)
+    add_library(glad_gl STATIC
+        "${CMAKE_SOURCE_DIR}/external/glad_generated/src/gl.c"
+    )
+    target_include_directories(glad_gl PUBLIC
+        "${CMAKE_SOURCE_DIR}/external/glad_generated/include"
+    )
 endif()
 
 # glm — header-only math library (vec2, mat4, etc.)

@@ -35,7 +35,19 @@ jobs:
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y python3 libgl1-mesa-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3 \
+            libgl1-mesa-dev \
+            libx11-dev \
+            libxext-dev \
+            libxrandr-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libxinerama-dev \
+            libxss-dev \
+            libxxf86vm-dev
 
       - name: Configure
         run: >

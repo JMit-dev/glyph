@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace "dev.glyph.samples"
+    compileSdk 35
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName "0.19.0"
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_static"
+                abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'jni/CMakeLists.txt'
+        }
+    }
+
+    // One product flavor per sample. Each sets ANDROID_SAMPLE so the CMake
+    // build compiles the right main.cpp into libmain.so.
+    flavorDimensions "sample"
+    productFlavors {
+        helloWindow {
+            dimension "sample"
+            applicationId "dev.glyph.samples.hello_window"
+            resValue "string", "app_name", "Glyph: Hello Window"
+            externalNativeBuild.cmake.arguments(
+                "-DANDROID_SAMPLE=01_hello_window", "-DANDROID_STL=c++_static"
+            )
+        }
+        sprite {
+            dimension "sample"
+            applicationId "dev.glyph.samples.sprite"
+            resValue "string", "app_name", "Glyph: Sprite"
+            externalNativeBuild.cmake.arguments(
+                "-DANDROID_SAMPLE=02_sprite", "-DANDROID_STL=c++_static"
+            )
+        }
+        input {
+            dimension "sample"
+            applicationId "dev.glyph.samples.input"
+            resValue "string", "app_name", "Glyph: Input"
+            externalNativeBuild.cmake.arguments(
+                "-DANDROID_SAMPLE=03_input", "-DANDROID_STL=c++_static"
+            )
+        }
+        tilemap {
+            dimension "sample"
+            applicationId "dev.glyph.samples.tilemap"
+            resValue "string", "app_name", "Glyph: Tilemap"
+            externalNativeBuild.cmake.arguments(
+                "-DANDROID_SAMPLE=04_tilemap", "-DANDROID_STL=c++_static"
+            )
+        }
+    }
+
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Use debug signing for development. Replace with a real keystore for distribution.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    // Reference SDL's Java source from the submodule — no copy needed.
+    sourceSets {
+        main {
+            java.srcDirs = [
+                'src/main/java',
+                '../../../../external/SDL/android-project/app/src/main/java'
+            ]
+        }
+    }
+
+    lint {
+        abortOnError false
+    }
+}

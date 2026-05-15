@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 20: Android build**
+**Phase 21: iOS build**
 
 Status: not started
 
@@ -31,7 +31,7 @@ Status: not started
 - [x] **17. Script component + ScriptSystem** — entity scripts work → tag `v0.17.0`
 - [x] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
 - [x] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
-- [ ] **20. Android build** — `samples/02_sprite` on device → tag `v0.20.0`
+- [x] **20. Android build** — all 4 samples as APKs via Gradle product flavors → tag `v0.20.0`
 - [ ] **21. iOS build** → tag `v0.21.0`
 - [ ] **22. Lua platformer sample** — full dogfood test → tag `v1.0.0`
 - [ ] **23. Documentation pass** — every public header → tag `v1.0.1`
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 20
+platform/android/ Gradle project with 4 product flavors (helloWindow, sprite, input, tilemap), each passing -DANDROID_SAMPLE=XX to the NDK CMake build. CMakeLists.txt at platform/android/app/jni/ is standalone (no add_subdirectory of root CMakeLists.txt — avoids CMAKE_SOURCE_DIR path issues). Gradle sources SDL Java from external/SDL/android-project/app/src/main/java via sourceSets so no copy is needed. On Android, main_entry.cpp calls SDL_GetPrefPath("glyph","game") then chdir() before on_start() so relative paths ("assets/...") land in internal writable storage. window.cpp GLES condition extended to include GLYPH_PLATFORM_ANDROID. miniaudio links OpenSLES for audio. project() LANGUAGES C CXX required (same reason as Emscripten). Gradle wrapper copied from external/SDL/android-project. Min SDK 24, target SDK 35, ANDROID_STL=c++_static.
 
 ### Phase 19
 window.cpp: SDL_GL_CONTEXT_PROFILE_ES + MAJOR=3 MINOR=0 on __EMSCRIPTEN__ (WebGL2 = GLES 3.0), GL 3.3 Core on desktop. Lua54: kept as C (NOT compiled as C++) — keeps C linkage for luaL_*/lua_* symbols; Emscripten emulates setjmp/longjmp via -enable-emscripten-sjlj so Lua's default error path works. sol2 updated from v3.3.0 → develop tip (c1f95a77) to fix sol::optional<T&> bug with Clang 18+ (Emscripten 5.x). project() LANGUAGES changed from CXX to "C CXX" — required so CMake initializes C compiler rules upfront; without it, Emscripten's toolchain fails to set CMAKE_C_COMPILE_OBJECT during the Generate step (silent bug, not a configure-time error). Generator must be Ninja on Windows — MinGW Makefiles cannot invoke emcc.bat as a compiler. build_web.sh updated to auto-detect Ninja and error on Windows without it. glyph target: -fexceptions on Emscripten. glyph_add_executable: outputs .html into build_web/web/<name>/; link flags: USE_WEBGL2, FULL_ES3, MIN/MAX_WEBGL_VERSION=2, ALLOW_MEMORY_GROWTH, STACK_SIZE=2mb, INITIAL_MEMORY=64mb, NO_EXIT_RUNTIME, FORCE_FILESYSTEM, -fexceptions. Audio: miniaudio detects __EMSCRIPTEN__ and uses webaudio backend. Hot reload: guarded by GLYPH_PLATFORM_DESKTOP, no-op on web. All 4 samples build to .html/.js/.wasm triplets.

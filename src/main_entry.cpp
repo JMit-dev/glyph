@@ -13,6 +13,10 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
+#ifdef GLYPH_PLATFORM_ANDROID
+#  include <unistd.h>  // chdir
+#endif
+
 #include "platform/window.h"
 
 #include <glyph/app.h>
@@ -80,6 +84,16 @@ SDL_AppResult SDL_AppInit(void** appstate, int /*argc*/, char* /*argv*/[]) {
     state->game->engine_set_resources(&state->resources);
     state->game->engine_set_scene    (&state->scene);
     state->game->engine_set_time     (&state->time);
+
+#ifdef GLYPH_PLATFORM_ANDROID
+    // Route relative file paths (asset writes/reads) to writable internal storage.
+    // std::filesystem and fopen use the process cwd; SDL_GetPrefPath returns the
+    // app's /data/data/<pkg>/files/glyph/game/ directory which is always writable.
+    {
+        char* pref = SDL_GetPrefPath("glyph", "game");
+        if (pref) { chdir(pref); SDL_free(pref); }
+    }
+#endif
 
     state->game->on_start();
     state->prev_ticks_ms = SDL_GetTicks();

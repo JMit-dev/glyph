@@ -85,6 +85,37 @@ python3 -m http.server --directory build_web/web
 
 ---
 
+## Building (Android)
+
+**Prerequisites:** Android Studio or the standalone SDK command-line tools with:
+- Android NDK r27+ (installed via SDK Manager)
+- CMake 3.22+ (installed via SDK Manager or system)
+- Java 17+
+
+Open `platform/android/` as an Android Studio project, or build from the command line:
+
+```bash
+cd platform/android
+
+# Debug APKs for all samples (arm64-v8a + armeabi-v7a + x86_64)
+./gradlew assembleDebug
+
+# Build a specific sample only
+./gradlew assembleSpriteDebug        # 02_sprite
+./gradlew assembleHelloWindowDebug   # 01_hello_window
+./gradlew assembleInputDebug         # 03_input
+./gradlew assembleTilemapDebug       # 04_tilemap
+
+# Install a specific sample directly to a connected device/emulator
+./gradlew installSpriteDebug
+```
+
+APKs land in `platform/android/app/build/outputs/apk/<flavor>/debug/`.
+
+**How it works:** Each Gradle product flavor compiles `samples/<name>/main.cpp` into `libmain.so` alongside the full engine. SDL's `SDLActivity` Java class (referenced from the `external/SDL` submodule, no copy needed) loads the library and calls the SDL3 callback entry points. File I/O at runtime writes to the app's internal storage (`/data/data/<packageId>/files/`).
+
+---
+
 ## Running the samples
 
 ```bash

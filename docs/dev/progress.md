@@ -34,10 +34,7 @@ Tracks position in the 23-step implementation order from the engine spec.
 
 | Phase | Description | Tag |
 |---|---|---|
-| 17 | Script component + ScriptSystem | `v0.17.0` |
-| 18 | Hot reload | `v0.18.0` |
-| 19 | Emscripten web build | `v0.19.0` |
-| 20 | Android build | `v0.20.0` |
+| 20 | Android build — `02_sprite` on device | `v0.20.0` |
 | 21 | iOS build | `v0.21.0` |
 | 22 | Lua platformer sample · `05_lua_platformer` | `v1.0.0` |
 | 23 | Documentation pass | `v1.0.1` |

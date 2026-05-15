@@ -6,7 +6,7 @@ Update this file when a phase begins and when it completes. Keep notes brief.
 
 ## Current phase
 
-**Phase 21: iOS build**
+**Phase 22: Lua platformer sample**
 
 Status: not started
 
@@ -32,7 +32,7 @@ Status: not started
 - [x] **18. Hot reload** — Lua files reload on change → tag `v0.18.0`
 - [x] **19. Emscripten web build** — `samples/02_sprite` in browser → tag `v0.19.0`
 - [x] **20. Android build** — all 4 samples as APKs via Gradle product flavors → tag `v0.20.0`
-- [ ] **21. iOS build** → tag `v0.21.0`
+- [x] **21. iOS build** — all 4 samples as .app bundles, Xcode via CMake -GXcode -DCMAKE_SYSTEM_NAME=iOS → tag `v0.21.0`
 - [ ] **22. Lua platformer sample** — full dogfood test → tag `v1.0.0`
 - [ ] **23. Documentation pass** — every public header → tag `v1.0.1`
 
@@ -66,6 +66,9 @@ Time::tick() caps raw_dt at kMaxAccum (0.25s) BEFORE multiplying by time_scale t
 
 ### Phase 9
 Audio::Impl uses PIMPL to keep miniaudio types out of the public header. MaSoundDeleter wraps unique_ptr to auto-stop+uninit on destruction. `play()` uses MA_SOUND_FLAG_DECODE for low-latency memory-backed playback; `play_music()` uses MA_SOUND_FLAG_STREAM for disk-streaming. Audio init failure is non-fatal (engine runs silently). `update()` called in main_entry after swap to recycle finished sound slots. Windows links miniaudio via #pragma comment(lib) in the IMPLEMENTATION block; Linux/macOS need explicit CMake libs. Sound/Music are path wrappers; actual decoding by miniaudio at play time.
+
+### Phase 21
+platform/ios/CMakeLists.txt: standalone Xcode build, -DCMAKE_SYSTEM_NAME=iOS -GXcode. Four targets via glyph_ios_app() helper: each MACOSX_BUNDLE exe with configure_file'd Info.plist per sample. Links UIKit, OpenGLES, CoreGraphics, CoreFoundation, Foundation, AudioToolbox, CoreAudio, AVFoundation, GameController, CoreMotion, CoreBluetooth, CoreHaptics. window.cpp GLES condition extended to GLYPH_PLATFORM_IOS. Simulator build added to CI (macos-latest, -sdk iphonesimulator). build_ios.sh convenience script. Plain Lua 5.4 (LuaJIT forbidden on App Store). Min deployment target 15.0, device family 1,2 (iPhone+iPad). No code signing configured — developer sets XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY locally.
 
 ### Phase 20
 platform/android/ Gradle project with 4 product flavors (helloWindow, sprite, input, tilemap), each passing -DANDROID_SAMPLE=XX to the NDK CMake build. CMakeLists.txt at platform/android/app/jni/ is standalone (no add_subdirectory of root CMakeLists.txt — avoids CMAKE_SOURCE_DIR path issues). Gradle sources SDL Java from external/SDL/android-project/app/src/main/java via sourceSets so no copy is needed. On Android, main_entry.cpp calls SDL_GetPrefPath("glyph","game") then chdir() before on_start() so relative paths ("assets/...") land in internal writable storage. window.cpp GLES condition extended to include GLYPH_PLATFORM_ANDROID. miniaudio links OpenSLES for audio. project() LANGUAGES C CXX required (same reason as Emscripten). Gradle wrapper copied from external/SDL/android-project. Min SDK 24, target SDK 35, ANDROID_STL=c++_static.

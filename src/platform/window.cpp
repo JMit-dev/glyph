@@ -24,7 +24,7 @@ namespace glyph {
 bool Window::create(const AppConfig& config) {
     // Request the appropriate GL profile for the target platform.
     // Desktop: OpenGL 3.3 Core (GLSL 330). Web/mobile: GLES 3.0 (GLSL 300 es).
-#if defined(__EMSCRIPTEN__) || defined(GLYPH_PLATFORM_ANDROID)
+#if defined(__EMSCRIPTEN__) || defined(GLYPH_PLATFORM_ANDROID) || defined(GLYPH_PLATFORM_IOS)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);

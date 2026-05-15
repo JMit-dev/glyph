@@ -116,6 +116,35 @@ APKs land in `platform/android/app/build/outputs/apk/<flavor>/debug/`.
 
 ---
 
+## Building (iOS)
+
+**Prerequisites:** macOS with Xcode 14+ and the iOS 15+ SDK. A free Apple Developer account is sufficient for simulator builds; a paid account is required for device deployment.
+
+```bash
+# Build for simulator (no signing required)
+./platform/ios/build_ios.sh --simulator
+
+# Build for device (requires code signing set up in Xcode)
+./platform/ios/build_ios.sh --device
+```
+
+Or open the generated Xcode project directly:
+
+```bash
+cmake -S platform/ios -B platform/ios/build_ios \
+    -G Xcode \
+    -DCMAKE_SYSTEM_NAME=iOS \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0
+
+open platform/ios/build_ios/glyph_ios.xcodeproj
+```
+
+All four samples build as separate `.app` bundles. Select the desired scheme in Xcode and run on the simulator or a connected device.
+
+**Note:** LuaJIT is not used — plain Lua 5.4 is required because the App Store prohibits JIT memory mapping on iOS.
+
+---
+
 ## Running the samples
 
 ```bash

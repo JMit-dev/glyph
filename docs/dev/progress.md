@@ -26,15 +26,17 @@ Tracks position in the 23-step implementation order from the engine spec.
 | ✅ 18 | Hot reload — mtime polling, metatable patching, global script re-execution (desktop only) | `v0.18.0` |
 | ✅ 19 | Emscripten web build — WebGL2, Web Audio, Lua/WASM; all modules on all platforms | `v0.19.0` |
 | ✅ 20 | Android build — all 4 samples as APKs, Gradle product flavors, NDK CMake | `v0.20.0` |
+| ✅ 21 | iOS build — all 4 samples as .app bundles, CMake Xcode generator | `v0.21.0` |
 
 ## Current phase
 
-**Phase 21: iOS build**
+**Phase 22: Lua platformer sample**
 
 ## Upcoming phases
 
 | Phase | Description | Tag |
 |---|---|---|
-| 21 | iOS build | `v0.21.0` |
+| 22 | Lua platformer sample · `05_lua_platformer` | `v1.0.0` |
+| 23 | Documentation pass | `v1.0.1` |
 | 22 | Lua platformer sample · `05_lua_platformer` | `v1.0.0` |
 | 23 | Documentation pass | `v1.0.1` |

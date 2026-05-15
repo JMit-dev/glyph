@@ -108,3 +108,25 @@ jobs:
           ./gradlew assembleDebug --no-daemon
         env:
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+
+  # ── iOS ─────────────────────────────────────────────────────────────────────
+  ios:
+    name: iOS (simulator)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Configure
+        run: |
+          cmake -S platform/ios -B platform/ios/build_ios \
+            -G Xcode \
+            -DCMAKE_SYSTEM_NAME=iOS \
+            -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0
+
+      - name: Build (simulator)
+        run: |
+          cmake --build platform/ios/build_ios \
+            --config Release \
+            -- -sdk iphonesimulator -jobs $(sysctl -n hw.ncpu)

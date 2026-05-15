@@ -54,18 +54,16 @@ jobs:
 
       - name: Install Windows dependencies
         if: runner.os == 'Windows'
-        run: python -m pip install jinja2
+        shell: pwsh
+        run: |
+          # Install jinja2 for every Python version present so CMake finds it
+          # regardless of which interpreter glad2's find_package(Python3) picks.
+          Get-Command python* -ErrorAction SilentlyContinue |
+            Select-Object -ExpandProperty Source -Unique |
+            Where-Object { $_ -notlike '*WindowsApps*' } |
+            ForEach-Object { & $_ -m pip install jinja2 --quiet }
 
-      - name: Configure (Windows)
-        if: runner.os == 'Windows'
-        run: >
-          cmake -B build
-          -DCMAKE_BUILD_TYPE=Release
-          -DGLYPH_BUILD_SAMPLES=ON
-          "-DPython3_EXECUTABLE=$(python -c 'import sys; print(sys.executable)')"
-
-      - name: Configure (non-Windows)
-        if: runner.os != 'Windows'
+      - name: Configure
         run: >
           cmake -B build
           -DCMAKE_BUILD_TYPE=Release

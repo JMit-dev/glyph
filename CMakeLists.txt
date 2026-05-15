@@ -1,7 +1,7 @@
 # Glyph 2D game engine
 cmake_minimum_required(VERSION 3.20)
 project(glyph
-    LANGUAGES CXX
+    LANGUAGES C CXX
     VERSION 0.1.0
     DESCRIPTION "Code-first 2D game engine"
 )
@@ -144,10 +144,11 @@ if(MSVC)
     target_compile_options(lua54 PRIVATE /wd4324)
 endif()
 if(EMSCRIPTEN)
-    # Compile Lua as C++ so it uses C++ exceptions instead of longjmp.
-    # Required when sol2 propagates errors across Lua frames inside WASM.
-    set_source_files_properties(${_LUA_SOURCES} PROPERTIES LANGUAGE CXX)
-    target_compile_options(lua54 PRIVATE -fexceptions)
+    # Lua stays compiled as C (preserves C linkage of luaL_* / lua_* symbols).
+    # Emscripten emulates setjmp/longjmp via -enable-emscripten-sjlj so Lua's
+    # default error path works correctly. No LANGUAGE CXX override needed.
+    # sol2 always wraps Lua calls with lua_pcall, so errors never longjmp
+    # across C++ destructors in our code.
 endif()
 
 # sol2 — header-only C++ Lua binding layer.

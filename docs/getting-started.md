@@ -46,19 +46,22 @@ Binaries land in `build/samples/<name>/`.
 
 ## Building (Web — Emscripten)
 
-**Prerequisites:** install [emsdk](https://emscripten.org/docs/getting_started/downloads.html) and activate it:
+**Prerequisites:**
 
-```bash
-git clone https://github.com/emscripten-core/emsdk.git
-cd emsdk && ./emsdk install latest && ./emsdk activate latest
-source emsdk_env.sh   # adds emcc to PATH
-```
+1. Install [emsdk](https://emscripten.org/docs/getting_started/downloads.html):
+   ```bash
+   git clone https://github.com/emscripten-core/emsdk.git
+   cd emsdk && ./emsdk install latest && ./emsdk activate latest
+   source emsdk_env.sh   # adds emcc to PATH
+   ```
+2. Install [Ninja](https://ninja-build.org/) — required on Windows; recommended on all platforms.
+   On Windows: download `ninja-win.zip` from the Ninja releases page and add it to your PATH.
 
 Then build from the repo root:
 
 ```bash
 source /path/to/emsdk/emsdk_env.sh
-./build_web.sh        # wraps cmake with the Emscripten toolchain
+./build_web.sh        # wraps cmake with the Emscripten toolchain + Ninja
 ```
 
 Or manually:
@@ -66,7 +69,8 @@ Or manually:
 ```bash
 cmake -B build_web \
     -DCMAKE_TOOLCHAIN_FILE="$(em-config EMSCRIPTEN_ROOT)/cmake/Modules/Platform/Emscripten.cmake" \
-    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_BUILD_TYPE=Release \
+    -G Ninja
 cmake --build build_web -j
 ```
 

@@ -1,0 +1,96 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+    tags-ignore: ['v*']      # tag pushes are handled by release.yml
+  pull_request:
+    branches: [master]
+
+jobs:
+  # ── Desktop (Windows / Linux / macOS) ─────────────────────────────────────
+  desktop:
+    name: Desktop (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            cmake_extra: ""
+          - name: Linux
+            os: ubuntu-latest
+            cmake_extra: ""
+          - name: macOS
+            os: macos-latest
+            cmake_extra: ""
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y python3 libgl1-mesa-dev
+
+      - name: Configure
+        run: >
+          cmake -B build
+          -DCMAKE_BUILD_TYPE=Release
+          -DGLYPH_BUILD_SAMPLES=ON
+          ${{ matrix.cmake_extra }}
+
+      - name: Build
+        run: cmake --build build --config Release -j
+
+  # ── Web (Emscripten) ────────────────────────────────────────────────────────
+  web:
+    name: Web (Emscripten)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: mymindstorm/setup-emsdk@v14
+
+      - name: Install Ninja
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+
+      - name: Configure
+        run: >
+          cmake -B build_web
+          -DCMAKE_TOOLCHAIN_FILE="$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+          -DCMAKE_BUILD_TYPE=Release
+          -DGLYPH_BUILD_SAMPLES=ON
+          -G Ninja
+
+      - name: Build
+        run: cmake --build build_web -j
+
+  # ── Android ─────────────────────────────────────────────────────────────────
+  android:
+    name: Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install NDK and CMake
+        run: |
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
+            "ndk;30.0.14904198" \
+            "cmake;3.22.1"
+
+      - name: Build all sample APKs
+        working-directory: platform/android
+        run: ./gradlew assembleDebug --no-daemon
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}

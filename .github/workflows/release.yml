@@ -1,0 +1,176 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # needed to create GitHub releases and upload assets
+
+jobs:
+  # ── Desktop builds ──────────────────────────────────────────────────────────
+  desktop:
+    name: Desktop (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            archive_name: glyph-windows
+            samples_dir: build/samples
+          - name: Linux
+            os: ubuntu-latest
+            archive_name: glyph-linux
+            samples_dir: build/samples
+          - name: macOS
+            os: macos-latest
+            archive_name: glyph-macos
+            samples_dir: build/samples
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y python3 libgl1-mesa-dev
+
+      - name: Configure
+        run: >
+          cmake -B build
+          -DCMAKE_BUILD_TYPE=Release
+          -DGLYPH_BUILD_SAMPLES=ON
+
+      - name: Build
+        run: cmake --build build --config Release -j
+
+      # Collect all sample executables into a single flat directory
+      - name: Collect binaries (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist
+          Get-ChildItem -Recurse build/samples -Include *.exe | Copy-Item -Destination dist
+
+      - name: Collect binaries (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          mkdir -p dist
+          find build/samples -type f -perm /111 ! -name "*.so" -exec cp {} dist/ \;
+
+      - name: Archive (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path dist\* -DestinationPath "${{ matrix.archive_name }}-${{ github.ref_name }}.zip"
+
+      - name: Archive (Unix)
+        if: runner.os != 'Windows'
+        run: tar -czf "${{ matrix.archive_name }}-${{ github.ref_name }}.tar.gz" -C dist .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.archive_name }}
+          path: ${{ matrix.archive_name }}-${{ github.ref_name }}.*
+          retention-days: 1
+
+  # ── Web build ───────────────────────────────────────────────────────────────
+  web:
+    name: Web (Emscripten)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: mymindstorm/setup-emsdk@v14
+
+      - name: Install Ninja
+        run: sudo apt-get update && sudo apt-get install -y ninja-build
+
+      - name: Configure
+        run: >
+          cmake -B build_web
+          -DCMAKE_TOOLCHAIN_FILE="$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+          -DCMAKE_BUILD_TYPE=Release
+          -DGLYPH_BUILD_SAMPLES=ON
+          -G Ninja
+
+      - name: Build
+        run: cmake --build build_web -j
+
+      - name: Archive
+        run: |
+          zip -r "glyph-web-${{ github.ref_name }}.zip" build_web/web/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: glyph-web
+          path: glyph-web-${{ github.ref_name }}.zip
+          retention-days: 1
+
+  # ── Android build ───────────────────────────────────────────────────────────
+  android:
+    name: Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install NDK and CMake
+        run: |
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
+            "ndk;30.0.14904198" \
+            "cmake;3.22.1"
+
+      - name: Build all sample APKs
+        working-directory: platform/android
+        run: ./gradlew assembleDebug --no-daemon
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+
+      - name: Collect APKs
+        run: |
+          mkdir -p apks
+          find platform/android/app/build/outputs/apk -name "*.apk" -exec cp {} apks/ \;
+
+      - name: Archive
+        run: zip -j "glyph-android-${{ github.ref_name }}.zip" apks/*.apk
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: glyph-android
+          path: glyph-android-${{ github.ref_name }}.zip
+          retention-days: 1
+
+  # ── Publish GitHub release ──────────────────────────────────────────────────
+  publish:
+    name: Publish release
+    needs: [desktop, web, android]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Glyph ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          generate_release_notes: true
+          files: artifacts/**/*
